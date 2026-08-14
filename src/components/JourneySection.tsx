@@ -1,67 +1,68 @@
-"use client";
+'use client';
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import Image from "next/image";
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Typography } from './ui/Typography';
+import { ClipReveal } from './motion/ClipReveal';
 
-const journeyStages = [
-  {
-    year: "U12",
-    title: "Foundation & Fun",
-    description: "Focusing on technical fundamentals, ball mastery, and fostering a love for the game in a pressure-free environment.",
-  },
-  {
-    year: "U14",
-    title: "Tactical Awareness",
-    description: "Introducing team tactics, positional play, and decision-making while continuing to refine technical abilities.",
-  },
-  {
-    year: "U16",
-    title: "Competitive Edge",
-    description: "High-intensity training, advanced tactical concepts, and physical conditioning to prepare for senior football.",
-  },
-  {
-    year: "U18+",
-    title: "Elite Transition",
-    description: "Bridging the gap to professional football with international exposure, trials, and advanced sports science support.",
-  }
+const journeySteps = [
+  { id: '01', title: 'DISCOVER', desc: 'Finding the passion.' },
+  { id: '02', title: 'PLAY', desc: 'Learning through joy.' },
+  { id: '03', title: 'DEVELOP', desc: 'Building the foundation.' },
+  { id: '04', title: 'COMPETE', desc: 'Testing the limits.' },
+  { id: '05', title: 'REPRESENT', desc: 'Playing for more.' },
+  { id: '06', title: 'LEAD', desc: 'Guiding the next.' },
 ];
 
-export function JourneySection() {
-  const targetRef = useRef<HTMLDivElement>(null);
+export const JourneySection = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: targetRef,
+    target: containerRef,
+    offset: ["start end", "end start"]
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
+  const xPos = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
 
   return (
-    <section ref={targetRef} className="h-[200vh] bg-[#0a0a0a] relative border-t border-white/5">
-      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mb-12">
-          <h2 className="text-aurium-gold font-bold tracking-[0.2em] uppercase text-sm mb-4">The Pathway</h2>
-          <h3 className="text-5xl md:text-6xl font-heading font-black text-white tracking-tighter">
-            The Aurium Journey
-          </h3>
-        </div>
+    <section ref={containerRef} className="py-24 md:py-32 bg-surface-secondary overflow-hidden">
+      <div className="container mx-auto px-6 lg:px-12 mb-16">
+        <ClipReveal>
+          <Typography variant="heading-l" className="text-white mb-4">THE AURIUM JOURNEY</Typography>
+        </ClipReveal>
+        <Typography variant="body-l" className="text-neutral-400 max-w-2xl">
+          Progression is not a straight line, but a continuous cycle of growth. This is how we build.
+        </Typography>
+      </div>
 
-        <motion.div style={{ x }} className="flex gap-8 px-4 sm:px-6 lg:px-8 w-[200vw] lg:w-[150vw]">
-          {journeyStages.map((stage, index) => (
-            <div 
-              key={stage.year} 
-              className="w-[85vw] sm:w-[40vw] lg:w-[30vw] flex-shrink-0 bg-[#050505] p-10 md:p-12 rounded-[2.5rem] border border-white/10 flex flex-col justify-between relative overflow-hidden group hover:border-aurium-gold/40 transition-colors duration-500"
-            >
-              <div className="absolute top-0 right-0 w-64 h-64 bg-aurium-gold/5 rounded-full blur-[60px] group-hover:bg-aurium-gold/10 transition-colors duration-500 pointer-events-none" />
-              <div className="relative z-10">
-                <div className="text-5xl md:text-7xl font-black text-white/5 mb-8 group-hover:text-aurium-gold/10 transition-colors duration-500 tracking-tighter">{stage.year}</div>
-                <h4 className="text-3xl font-heading font-bold text-white mb-6">{stage.title}</h4>
-                <p className="text-gray-400 text-lg leading-relaxed">{stage.description}</p>
+      <div className="relative h-64 md:h-80 w-full">
+        {/* Horizontal Moving Track */}
+        <motion.div 
+          style={{ x: xPos }}
+          className="absolute top-0 left-6 lg:left-12 flex items-center h-full gap-8 md:gap-16 w-max pr-32"
+        >
+          {journeySteps.map((step, index) => (
+            <div key={step.id} className="flex flex-col relative min-w-[280px] md:min-w-[350px]">
+              
+              {/* Top number */}
+              <Typography variant="label" className="text-brand-primary mb-6">
+                {step.id}
+              </Typography>
+
+              {/* Connecting Line (except last) */}
+              {index !== journeySteps.length - 1 && (
+                <div className="absolute top-2 left-8 w-[calc(100%+2rem)] md:w-[calc(100%+4rem)] h-[1px] bg-neutral-800" />
+              )}
+              
+              {/* Step Content */}
+              <div className="bg-surface-primary border border-neutral-800 p-8 rounded-soft shadow-xl transition-all duration-300 hover:border-brand-primary/50 hover:shadow-brand-primary/10">
+                <Typography variant="display-m" className="text-white mb-2">{step.title}</Typography>
+                <Typography variant="body-m" className="text-neutral-400">{step.desc}</Typography>
               </div>
-              <div className="mt-12 w-16 h-1.5 bg-white/10 rounded-full group-hover:bg-aurium-gold transition-colors duration-500 relative z-10" />
+
             </div>
           ))}
         </motion.div>
       </div>
     </section>
   );
-}
+};

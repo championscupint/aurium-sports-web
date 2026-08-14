@@ -1,103 +1,85 @@
-"use client";
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Button } from './ui/Button';
+import { Typography } from './ui/Typography';
+import { FadeUp } from './motion/FadeUp';
+import { ClipReveal } from './motion/ClipReveal';
 
-import Link from "next/link";
-import Image from "next/image";
-import { Mail, MapPin, Phone } from "lucide-react";
-
-export function Footer() {
+export const Footer = () => {
   return (
-    <footer className="bg-[#050505] text-aurium-light border-t border-white/5 relative overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-aurium-gold/50 to-transparent" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Brand */}
-          <div className="space-y-6">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative">
-                <div className="absolute inset-0 bg-aurium-gold/30 blur-xl rounded-full group-hover:bg-aurium-gold/50 transition-colors duration-500" />
-                <Image
-                  src="/logo_transparent.png"
-                  alt="Aurium Sports Logo"
-                  width={48}
-                  height={48}
-                  className="relative drop-shadow-[0_0_10px_rgba(251,193,8,0.5)] transition-transform duration-500 group-hover:scale-110"
+    <footer className="bg-surface-dark border-t border-neutral-900 pt-32 pb-12 overflow-hidden relative">
+      <div className="container mx-auto px-6 lg:px-12 relative z-10">
+        
+        {/* Top Section: The Big Question */}
+        <div className="mb-24 md:w-3/4">
+          <ClipReveal>
+            <Typography variant="display-m" className="text-white mb-8">
+              WHERE COULD<br />
+              <span className="text-brand-primary">FOOTBALL TAKE YOU?</span>
+            </Typography>
+          </ClipReveal>
+          <FadeUp delay={0.2} className="flex flex-wrap gap-4">
+            <Button variant="primary" withArrow>JOIN AURIUM</Button>
+            <Button variant="secondary" withArrow>PARTNER WITH US</Button>
+          </FadeUp>
+        </div>
+
+        {/* Middle Section: Links Grid */}
+        <FadeUp delay={0.3} className="grid grid-cols-1 md:grid-cols-4 gap-12 border-t border-neutral-800 pt-16 mb-16">
+          <div className="col-span-1 md:col-span-2">
+            <Link href="/" className="flex items-center gap-3 mb-6 group inline-flex">
+              <div className="relative w-12 h-12 drop-shadow-[0_0_15px_rgba(251,193,8,0.4)] group-hover:scale-105 transition-transform duration-300">
+                <Image 
+                  src="/logo_transparent.png" 
+                  alt="Aurium Logo" 
+                  fill 
+                  className="object-contain"
                 />
               </div>
-              <div className="flex flex-col">
-                <span className="font-heading font-black text-2xl tracking-tighter leading-none text-white">AURIUM</span>
-                <span className="font-heading font-bold text-sm tracking-[0.2em] text-aurium-gold uppercase">Sports</span>
+              <div className="flex flex-col tracking-tight text-white group-hover:text-brand-primary transition-colors duration-300">
+                <span className="font-display font-bold text-2xl leading-none">AURIUM</span>
+                <span className="font-sans font-bold text-xs text-brand-primary tracking-[0.2em] leading-none mt-1">SPORTS</span>
               </div>
             </Link>
-            <p className="text-sm text-gray-400 leading-relaxed">
-              Building more than footballers. We are a long-term ecosystem around grassroots football, youth development, and sports for mental wellbeing in Nepal.
-            </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-aurium-gold transition-colors font-medium">FB</a>
-              <a href="#" className="text-gray-400 hover:text-aurium-gold transition-colors font-medium">IG</a>
-              <a href="#" className="text-gray-400 hover:text-aurium-gold transition-colors font-medium">TW</a>
-              <a href="#" className="text-gray-400 hover:text-aurium-gold transition-colors font-medium">YT</a>
-            </div>
+            <Typography variant="body-m" className="max-w-xs">
+              Building more than footballers. A long-term ecosystem around grassroots football and youth development in Nepal.
+            </Typography>
           </div>
 
-          {/* Quick Links */}
           <div>
-            <h3 className="font-heading font-bold text-lg mb-6">Quick Links</h3>
-            <ul className="space-y-4 text-sm text-gray-400">
-              <li><Link href="/about" className="hover:text-aurium-gold transition-colors">About Us</Link></li>
-              <li><Link href="/development" className="hover:text-aurium-gold transition-colors">Player Development</Link></li>
-              <li><Link href="/tournaments" className="hover:text-aurium-gold transition-colors">Tournaments</Link></li>
-              <li><Link href="/impact" className="hover:text-aurium-gold transition-colors">Community Impact</Link></li>
-              <li><Link href="/technology" className="hover:text-aurium-gold transition-colors">Sports Technology</Link></li>
+            <Typography variant="label" className="text-white mb-6 block">Ecosystem</Typography>
+            <ul className="space-y-4">
+              <li><Link href="/academy" className="text-text-secondary hover:text-brand-primary transition-colors text-sm font-bold uppercase tracking-wider">Academy</Link></li>
+              <li><Link href="/tournaments" className="text-text-secondary hover:text-brand-primary transition-colors text-sm font-bold uppercase tracking-wider">Tournaments</Link></li>
+              <li><Link href="/international" className="text-text-secondary hover:text-brand-primary transition-colors text-sm font-bold uppercase tracking-wider">International</Link></li>
+              <li><Link href="/nextsportz" className="text-brand-accent-blue hover:text-white transition-colors text-sm font-bold uppercase tracking-wider">NextSportz</Link></li>
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
-            <h3 className="font-heading font-bold text-lg mb-6">Contact Us</h3>
-            <ul className="space-y-4 text-sm text-gray-400">
-              <li className="flex items-start gap-3">
-                <MapPin size={20} className="text-aurium-gold shrink-0" />
-                <span>Kathmandu, Nepal</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone size={20} className="text-aurium-gold shrink-0" />
-                <span>+977 (0) 123 456 789</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail size={20} className="text-aurium-gold shrink-0" />
-                <span>info@auriumsports.com</span>
-              </li>
+            <Typography variant="label" className="text-white mb-6 block">Follow the Journey</Typography>
+            <ul className="space-y-4">
+              <li><a href="#" className="text-text-secondary hover:text-brand-primary transition-colors text-sm font-bold uppercase tracking-wider">Instagram</a></li>
+              <li><a href="#" className="text-text-secondary hover:text-brand-primary transition-colors text-sm font-bold uppercase tracking-wider">Facebook</a></li>
+              <li><a href="#" className="text-text-secondary hover:text-brand-primary transition-colors text-sm font-bold uppercase tracking-wider">LinkedIn</a></li>
             </ul>
           </div>
+        </FadeUp>
 
-          {/* Newsletter */}
-          <div>
-            <h3 className="font-heading font-bold text-lg mb-6">Stay Updated</h3>
-            <p className="text-sm text-gray-400 mb-4">Subscribe to our newsletter for the latest updates on tournaments, programs, and news.</p>
-            <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
-                className="w-full bg-white/5 border border-white/10 rounded px-4 py-2 text-sm focus:outline-none focus:border-aurium-gold transition-colors text-white"
-              />
-              <button 
-                type="submit"
-                className="w-full bg-aurium-gold text-aurium-dark font-bold py-2 rounded hover:bg-white transition-colors"
-              >
-                Subscribe
-              </button>
-            </form>
+        {/* Bottom Section: Legal */}
+        <FadeUp delay={0.4} className="flex flex-col md:flex-row justify-between items-center border-t border-neutral-900 pt-8 text-sm text-neutral-600">
+          <p>© {new Date().getFullYear()} Aurium Sports Pvt. Ltd. All rights reserved.</p>
+          <div className="flex space-x-6 mt-4 md:mt-0">
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
           </div>
-        </div>
-
-        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 gap-4">
-          <p>&copy; {new Date().getFullYear()} Aurium Academy Pvt. Ltd. All rights reserved.</p>
-          <div className="flex space-x-6">
-            <Link href="/privacy" className="hover:text-aurium-gold transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-aurium-gold transition-colors">Terms of Service</Link>
-          </div>
-        </div>
+        </FadeUp>
       </div>
+
+      {/* Background Graphic Element */}
+      <div className="absolute -bottom-[20%] -right-[10%] w-[50vw] h-[50vw] rounded-full border-[1px] border-neutral-800 opacity-20 pointer-events-none" />
+      <div className="absolute -bottom-[10%] -right-[5%] w-[30vw] h-[30vw] rounded-full border-[1px] border-brand-primary opacity-10 pointer-events-none" />
     </footer>
   );
-}
+};

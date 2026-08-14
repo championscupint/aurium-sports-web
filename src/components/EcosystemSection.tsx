@@ -1,86 +1,98 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { Activity, Brain, Globe, Trophy, Users, Shield } from "lucide-react";
+import React, { useState } from 'react';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Typography } from './ui/Typography';
+import { ClipReveal } from './motion/ClipReveal';
 
-const ecosystemPillars = [
-  {
-    title: "Grassroots Development",
-    description: "Building strong foundational skills for youth players through structured, age-appropriate coaching methodologies.",
-    icon: Users,
-    colSpan: "md:col-span-2",
-  },
-  {
-    title: "Mental Wellbeing",
-    description: "Integrating sports psychology to build resilience, emotional intelligence, and mental toughness.",
-    icon: Brain,
-    colSpan: "md:col-span-1",
-  },
-  {
-    title: "Competitive Tournaments",
-    description: "Organizing high-level competitions to test skills, build character, and showcase talent on a larger stage.",
-    icon: Trophy,
-    colSpan: "md:col-span-1",
-  },
-  {
-    title: "Sports Technology",
-    description: "Utilizing modern data analytics and performance tracking to optimize player development and injury prevention.",
-    icon: Activity,
-    colSpan: "md:col-span-1",
-  },
-  {
-    title: "International Exposure",
-    description: "Connecting local talent with global opportunities through international camps.",
-    icon: Globe,
-    colSpan: "md:col-span-1",
-  }
+const pillars = [
+  { id: 'academy', name: 'ACADEMY', title: 'Grassroots Foundation', desc: 'Developing the complete player through structured methodology.' },
+  { id: 'tournaments', name: 'TOURNAMENTS', title: 'Competitive Platform', desc: 'Creating high-level environments for talent to shine.' },
+  { id: 'nextsportz', name: 'NEXTSPORTZ', title: 'Data & Technology', desc: 'Tracking performance, scouting, and digital infrastructure.' },
+  { id: 'international', name: 'INTERNATIONAL', title: 'Global Pathways', desc: 'Connecting Nepali talent to global opportunities.' }
 ];
 
-export function EcosystemSection() {
-  return (
-    <section className="py-32 relative bg-aurium-dark overflow-hidden">
-      {/* Background glow effects */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-aurium-gold/5 rounded-full blur-[120px] pointer-events-none" />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-aurium-gold font-bold tracking-[0.2em] uppercase text-sm mb-4">Our Ecosystem</h2>
-            <h3 className="text-5xl md:text-6xl font-heading font-black text-white tracking-tighter mb-6">
-              A Holistic Approach
-            </h3>
-            <p className="text-gray-400 text-lg leading-relaxed">
-              We go beyond tactical and technical training. Our comprehensive ecosystem is designed to develop well-rounded individuals who excel both on and off the pitch.
-            </p>
-          </motion.div>
-        </div>
+export const EcosystemSection = () => {
+  const [activeId, setActiveId] = useState('academy');
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {ecosystemPillars.map((pillar, index) => (
-            <motion.div
-              key={pillar.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`bg-white/[0.03] backdrop-blur-xl border border-white/10 p-8 md:p-10 rounded-3xl hover:bg-white/[0.05] hover:border-aurium-gold/30 transition-all duration-500 group relative overflow-hidden ${pillar.colSpan}`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-aurium-gold/0 via-aurium-gold/0 to-aurium-gold/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+  return (
+    <section className="py-24 md:py-32 bg-background border-t border-neutral-900 overflow-hidden relative">
+      <div className="container mx-auto px-6 lg:px-12 relative z-10">
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          
+          {/* Left: Interactive Diagram / Graphic */}
+          <div className="relative aspect-square md:aspect-[4/3] w-full rounded-sharp overflow-hidden border border-neutral-800 group">
+            <Image 
+              src="/tech_data_placeholder.png" 
+              alt="Ecosystem Tech" 
+              fill 
+              className="object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" 
+            />
+            {/* Interactive Nodes Overlay */}
+            <div className="absolute inset-0 z-20 flex flex-col justify-center items-start p-8 md:p-12">
+              <Typography variant="heading-m" className="text-white mb-2">INTEGRATED</Typography>
+              <Typography variant="heading-m" className="text-brand-primary mb-8">ECOSYSTEM</Typography>
               
-              <div className="w-16 h-16 bg-black/40 rounded-2xl flex items-center justify-center mb-8 border border-white/5 group-hover:border-aurium-gold/50 group-hover:scale-110 transition-all duration-500">
-                <pillar.icon className="w-8 h-8 text-aurium-gold" />
-              </div>
-              <h4 className="text-2xl font-heading font-bold text-white mb-4">{pillar.title}</h4>
-              <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors">{pillar.description}</p>
-            </motion.div>
-          ))}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeId}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-black/80 backdrop-blur-md p-6 border-l-2 border-brand-primary max-w-sm mt-auto"
+                >
+                  <Typography variant="label" className="text-brand-primary mb-2">
+                    {pillars.find(p => p.id === activeId)?.name}
+                  </Typography>
+                  <Typography variant="body-m" className="text-white">
+                    {pillars.find(p => p.id === activeId)?.desc}
+                  </Typography>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+            {/* Gradient Mask */}
+            <div className="absolute inset-0 bg-gradient-to-r from-background via-black/40 to-transparent pointer-events-none z-10" />
+          </div>
+
+          {/* Right: Selectors */}
+          <div className="flex flex-col justify-center">
+            <ClipReveal>
+              <Typography variant="label" className="text-neutral-500 mb-4 block">THE 4 PILLARS</Typography>
+            </ClipReveal>
+            <ClipReveal delay={0.1}>
+              <Typography variant="display-m" className="text-white mb-12">
+                MORE THAN<br />JUST A PITCH.
+              </Typography>
+            </ClipReveal>
+
+            <div className="flex flex-col gap-6">
+              {pillars.map((pillar) => (
+                <button
+                  key={pillar.id}
+                  onClick={() => setActiveId(pillar.id)}
+                  className={`text-left group relative pl-8 py-4 transition-all duration-300 ${activeId === pillar.id ? 'opacity-100' : 'opacity-40 hover:opacity-80'}`}
+                >
+                  {/* Indicator Line */}
+                  <motion.div 
+                    className={`absolute left-0 top-0 bottom-0 w-[2px] ${activeId === pillar.id ? 'bg-brand-primary' : 'bg-neutral-800'}`}
+                    layoutId="activeIndicatorEcosystem"
+                  />
+                  <Typography variant="heading-s" className={`mb-1 transition-colors duration-300 ${activeId === pillar.id ? 'text-white' : 'text-neutral-400 group-hover:text-white'}`}>
+                    {pillar.title}
+                  </Typography>
+                  <Typography variant="label" className="text-neutral-500">{pillar.name}</Typography>
+                </button>
+              ))}
+            </div>
+          </div>
+          
         </div>
       </div>
+      
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-primary/5 blur-[150px] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none" />
     </section>
   );
-}
+};

@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { Outfit, Inter } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const outfit = Outfit({
+  variable: "--font-display",
+  subsets: ["latin"],
+});
+
+const inter = Inter({
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 
@@ -21,10 +26,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${manrope.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans">
+    <html lang="en" className={`${outfit.variable} ${inter.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
         <Navigation />
-        <main className="flex-grow pt-20">
+        <main className="flex-grow pt-20 overflow-x-hidden">
           {children}
         </main>
         <Footer />

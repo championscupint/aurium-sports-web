@@ -1,26 +1,84 @@
 @import "tailwindcss";
 
 :root {
-  /* Premium Dark Theme by default */
-  --background: #0a0a0a;
-  --foreground: #f5f6ec;
+  /* =========================================
+     AURIUM DESIGN TOKENS
+     ========================================= */
+
+  /* COLOR SYSTEM */
+  --brand-primary: #fbc108; /* Aurium Gold */
+  --brand-secondary: #0a0a0a;
+  --brand-accent-blue: #0084ff; /* NextSportz Data */
+  --brand-accent-orange: #ff5a00; /* NextSportz Action */
+
+  /* NEUTRALS */
+  --neutral-100: #ffffff;
+  --neutral-200: #f5f6ec; /* Off White */
+  --neutral-300: #e2e8f0;
+  --neutral-400: #94a3b8;
+  --neutral-500: #64748b;
+  --neutral-600: #475569;
+  --neutral-700: #334155;
+  --neutral-800: #1e293b;
+  --neutral-900: #111111; /* Slate */
+  --neutral-950: #0a0a0a; /* Deep Black */
+
+  /* SURFACES (Dark Mode Default) */
+  --background: var(--neutral-950);
+  --foreground: var(--neutral-100);
   
-  --aurium-gold: #fbc108;
-  --aurium-dark: #0a0a0a;
-  --aurium-light: #fdfdfd;
-  --aurium-slate: #111111;
+  --surface-primary: var(--neutral-950);
+  --surface-secondary: var(--neutral-900);
+  --surface-light: var(--neutral-200);
+  --surface-dark: #000000;
+  
+  --text-primary: var(--neutral-100);
+  --text-secondary: var(--neutral-400);
+  --text-inverse: var(--neutral-950);
+
+  /* BORDER RADIUS */
+  --radius-sharp: 0px;
+  --radius-soft: 8px;
+  --radius-pill: 9999px;
+
+  /* MOTION TOKENS */
+  --duration-fast: 200ms;
+  --duration-normal: 400ms;
+  --duration-slow: 700ms;
+  --stagger-small: 60ms;
+  --stagger-medium: 120ms;
+  
+  /* EASING TOKENS */
+  --ease-standard: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-emphasized: cubic-bezier(0.83, 0, 0.17, 1);
+  --ease-enter: cubic-bezier(0.0, 0, 0.2, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-aurium-gold: var(--aurium-gold);
-  --color-aurium-dark: var(--aurium-dark);
-  --color-aurium-light: var(--aurium-light);
-  --color-aurium-slate: var(--aurium-slate);
   
-  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  --font-heading: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-accent-blue: var(--brand-accent-blue);
+  --color-brand-accent-orange: var(--brand-accent-orange);
+
+  --color-surface-primary: var(--surface-primary);
+  --color-surface-secondary: var(--surface-secondary);
+  --color-surface-light: var(--surface-light);
+  --color-surface-dark: var(--surface-dark);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-inverse: var(--text-inverse);
+  
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sharp: var(--radius-sharp);
+  --radius-soft: var(--radius-soft);
+  --radius-pill: var(--radius-pill);
 }
 
 body {
@@ -33,7 +91,18 @@ body {
 
 /* Base headings */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-weight: 700;
   color: inherit;
+  letter-spacing: -0.02em;
+}
+
+/* Reduced Motion Handling */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
