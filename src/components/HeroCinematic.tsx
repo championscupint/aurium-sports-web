@@ -70,7 +70,7 @@ export const HeroCinematic = () => {
           </motion.div>
           
           <KineticText 
-            text="BUILDING\nMORE THAN\nFOOTBALLERS." 
+            text="BUILDING MORE THAN FOOTBALLERS."
             variant="display-xl"
             className="text-white mb-8"
             delay={0.4}

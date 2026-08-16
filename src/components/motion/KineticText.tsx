@@ -21,7 +21,7 @@ export const KineticText: React.FC<KineticTextProps> = ({
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
 
   // Split by words, but could split by lines if passed with \n
-  const lines = text.split('\n');
+  const lines = text.split(/\\n|\n/);
 
   const container: Variants = {
     hidden: { opacity: 0 },

@@ -73,8 +73,8 @@
   --color-text-secondary: var(--text-secondary);
   --color-text-inverse: var(--text-inverse);
   
-  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
 
   --radius-sharp: var(--radius-sharp);
   --radius-soft: var(--radius-soft);

@@ -5,12 +5,12 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 
 const outfit = Outfit({
-  variable: "--font-display",
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
 const inter = Inter({
-  variable: "--font-sans",
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
