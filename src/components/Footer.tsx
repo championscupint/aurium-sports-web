@@ -1,85 +1,193 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Button } from './ui/Button';
-import { Typography } from './ui/Typography';
-import { FadeUp } from './motion/FadeUp';
-import { ClipReveal } from './motion/ClipReveal';
+import { site } from '@/data/site';
+import { services } from '@/data/services';
+import { useEnquiry } from './EnquiryContext';
+import { Mail, MapPin, Phone, ArrowUpRight } from 'lucide-react';
 
-export const Footer = () => {
+export function Footer() {
+  const { openEnquiry } = useEnquiry();
+
   return (
-    <footer className="bg-surface-dark border-t border-neutral-900 pt-32 pb-12 overflow-hidden relative">
-      <div className="container mx-auto px-6 lg:px-12 relative z-10">
+    <footer className="bg-ink text-chalk border-t border-white/10 pt-16 pb-12 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Top Section: The Big Question */}
-        <div className="mb-24 md:w-3/4">
-          <ClipReveal>
-            <Typography variant="display-m" className="text-white mb-8">
-              WHERE COULD<br />
-              <span className="text-brand-primary">FOOTBALL TAKE YOU?</span>
-            </Typography>
-          </ClipReveal>
-          <FadeUp delay={0.2} className="flex flex-wrap gap-4">
-            <Button variant="primary" withArrow>JOIN AURIUM</Button>
-            <Button variant="secondary" withArrow>PARTNER WITH US</Button>
-          </FadeUp>
+        {/* Top Banner / Callout */}
+        <div className="bg-gradient-to-r from-ink-2 to-ink-3 border border-white/10 rounded-3xl p-8 md:p-12 mb-16 relative overflow-hidden">
+          <div className="absolute right-0 bottom-0 translate-x-12 translate-y-12 w-64 h-64 bg-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+          
+          <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+            <div className="max-w-2xl">
+              <span className="eyebrow text-gold mb-3">Begin The Journey</span>
+              <h3 className="display text-3xl md:text-5xl uppercase tracking-tight text-white mb-3">
+                Ready to develop the complete player?
+              </h3>
+              <p className="text-chalk/70 font-sans text-sm md:text-base leading-relaxed">
+                Whether you are a parent enrolling a 7-year-old, a school principal seeking a proven sports curriculum, or an aspiring coach, Aurium provides the complete pathway.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-4 shrink-0">
+              <button
+                onClick={() => openEnquiry('register')}
+                className="px-8 py-4 bg-gold text-ink font-bold text-xs uppercase tracking-widest rounded-full hover:bg-chalk transition-all shadow-lg active:scale-95"
+              >
+                Register Player
+              </button>
+              <button
+                onClick={() => openEnquiry('inquiry')}
+                className="px-8 py-4 border-2 border-chalk/30 text-chalk font-bold text-xs uppercase tracking-widest rounded-full hover:border-gold hover:text-gold transition-all"
+              >
+                General Inquiry
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* Middle Section: Links Grid */}
-        <FadeUp delay={0.3} className="grid grid-cols-1 md:grid-cols-4 gap-12 border-t border-neutral-800 pt-16 mb-16">
-          <div className="col-span-1 md:col-span-2">
-            <Link href="/" className="flex items-center gap-3 mb-6 group inline-flex">
-              <div className="relative w-12 h-12 drop-shadow-[0_0_15px_rgba(251,193,8,0.4)] group-hover:scale-105 transition-transform duration-300">
-                <Image 
-                  src="/logo_transparent.png" 
-                  alt="Aurium Logo" 
-                  fill 
+        {/* Multi-column Directory */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-white/10 text-sm">
+          
+          {/* Col 1: Brand Info & Legal */}
+          <div className="lg:col-span-2 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="relative w-10 h-10 shrink-0">
+                <Image
+                  src="/images/logo-512.png"
+                  alt="Aurium Sports"
+                  fill
                   className="object-contain"
                 />
               </div>
-              <div className="flex flex-col tracking-tight text-white group-hover:text-brand-primary transition-colors duration-300">
-                <span className="font-display font-bold text-2xl leading-none">AURIUM</span>
-                <span className="font-sans font-bold text-xs text-brand-primary tracking-[0.2em] leading-none mt-1">SPORTS</span>
-              </div>
-            </Link>
-            <Typography variant="body-m" className="max-w-xs">
-              Building more than footballers. A long-term ecosystem around grassroots football and youth development in Nepal.
-            </Typography>
+              <span className="font-display text-2xl text-white tracking-tight">
+                AURIUM SPORTS
+              </span>
+            </div>
+
+            <p className="text-chalk/70 font-sans leading-relaxed text-xs max-w-sm">
+              Building Nepal’s most complete youth sports ecosystem. Focused on athletic excellence, emotional resilience, and lifelong character through football, basketball, and cricket.
+            </p>
+
+            <div className="p-3 bg-white/5 rounded-xl border border-white/5 text-[11px] text-chalk/60 max-w-sm">
+              <span className="font-semibold text-chalk/80">Entity:</span> <strong className="text-gold font-medium">{site.legalName}</strong> • Kathmandu, Nepal.
+            </div>
+
+            <div className="flex items-center gap-3 pt-2">
+              <a
+                href={site.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-bold text-gold hover:text-white flex items-center gap-1 transition-colors"
+              >
+                Instagram <ArrowUpRight size={13} />
+              </a>
+              <span className="text-white/20">•</span>
+              <a
+                href={`https://wa.me/${site.whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-bold text-[#25D366] hover:underline flex items-center gap-1"
+              >
+                WhatsApp Chat <ArrowUpRight size={13} />
+              </a>
+            </div>
           </div>
 
+          {/* Col 2: Services & Programs */}
           <div>
-            <Typography variant="label" className="text-white mb-6 block">Ecosystem</Typography>
-            <ul className="space-y-4">
-              <li><Link href="/academy" className="text-text-secondary hover:text-brand-primary transition-colors text-sm font-bold uppercase tracking-wider">Academy</Link></li>
-              <li><Link href="/tournaments" className="text-text-secondary hover:text-brand-primary transition-colors text-sm font-bold uppercase tracking-wider">Tournaments</Link></li>
-              <li><Link href="/international" className="text-text-secondary hover:text-brand-primary transition-colors text-sm font-bold uppercase tracking-wider">International</Link></li>
-              <li><Link href="/nextsportz" className="text-brand-accent-blue hover:text-white transition-colors text-sm font-bold uppercase tracking-wider">NextSportz</Link></li>
+            <h4 className="font-display uppercase tracking-wider text-chalk text-base mb-4">
+              Programs
+            </h4>
+            <ul className="space-y-2 text-xs text-chalk/70">
+              {services.slice(0, 5).map((s) => (
+                <li key={s.slug}>
+                  <Link href={`/services/${s.slug}`} className="hover:text-gold transition-colors">
+                    {s.name}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link href="/programs" className="text-gold font-semibold hover:underline">
+                  View All Programs →
+                </Link>
+              </li>
             </ul>
           </div>
 
+          {/* Col 3: Competitions & Infrastructure */}
           <div>
-            <Typography variant="label" className="text-white mb-6 block">Follow the Journey</Typography>
-            <ul className="space-y-4">
-              <li><a href="#" className="text-text-secondary hover:text-brand-primary transition-colors text-sm font-bold uppercase tracking-wider">Instagram</a></li>
-              <li><a href="#" className="text-text-secondary hover:text-brand-primary transition-colors text-sm font-bold uppercase tracking-wider">Facebook</a></li>
-              <li><a href="#" className="text-text-secondary hover:text-brand-primary transition-colors text-sm font-bold uppercase tracking-wider">LinkedIn</a></li>
+            <h4 className="font-display uppercase tracking-wider text-chalk text-base mb-4">
+              Infrastructure
+            </h4>
+            <ul className="space-y-2 text-xs text-chalk/70">
+              {services.slice(5).map((s) => (
+                <li key={s.slug}>
+                  <Link href={`/services/${s.slug}`} className="hover:text-gold transition-colors">
+                    {s.name}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link href="/camps" className="hover:text-gold transition-colors">
+                  Holiday Training Camps
+                </Link>
+              </li>
+              <li>
+                <Link href="/tournaments" className="hover:text-gold transition-colors">
+                  Aurium Mini League
+                </Link>
+              </li>
             </ul>
           </div>
-        </FadeUp>
 
-        {/* Bottom Section: Legal */}
-        <FadeUp delay={0.4} className="flex flex-col md:flex-row justify-between items-center border-t border-neutral-900 pt-8 text-sm text-neutral-600">
-          <p>© {new Date().getFullYear()} Aurium Sports Pvt. Ltd. All rights reserved.</p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+          {/* Col 4: Contact & Academy Office */}
+          <div>
+            <h4 className="font-display uppercase tracking-wider text-chalk text-base mb-4">
+              Kathmandu HQ
+            </h4>
+            <ul className="space-y-3 text-xs text-chalk/70">
+              <li className="flex items-start gap-2">
+                <MapPin size={15} className="text-gold shrink-0 mt-0.5" />
+                <span>{site.address}</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <Phone size={15} className="text-gold shrink-0" />
+                <span>{site.phones.join(' / ')}</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail size={15} className="text-gold shrink-0" />
+                <span>{site.emails.inquiry}</span>
+              </li>
+              <li className="pt-2">
+                <div className="flex flex-col gap-1.5 font-sans">
+                  <Link href="/about" className="hover:text-gold transition-colors">About Us</Link>
+                  <Link href="/become-a-trainer" className="hover:text-gold transition-colors">Become a Trainer</Link>
+                  <Link href="/partners" className="hover:text-gold transition-colors">Our Partners</Link>
+                  <Link href="/announcements" className="hover:text-gold transition-colors">Announcements & Notices</Link>
+                </div>
+              </li>
+            </ul>
           </div>
-        </FadeUp>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-chalk/50 gap-4">
+          <p>© {new Date().getFullYear()} {site.legalName}. All rights reserved.</p>
+          <div className="flex items-center gap-6">
+            <Link href="/about" className="hover:text-chalk transition-colors">About</Link>
+            <Link href="/contact" className="hover:text-chalk transition-colors">Contact</Link>
+            <button
+              onClick={() => openEnquiry('inquiry')}
+              className="text-gold hover:underline font-medium"
+            >
+              Direct Message
+            </button>
+          </div>
+        </div>
+
       </div>
-
-      {/* Background Graphic Element */}
-      <div className="absolute -bottom-[20%] -right-[10%] w-[50vw] h-[50vw] rounded-full border-[1px] border-neutral-800 opacity-20 pointer-events-none" />
-      <div className="absolute -bottom-[10%] -right-[5%] w-[30vw] h-[30vw] rounded-full border-[1px] border-brand-primary opacity-10 pointer-events-none" />
     </footer>
   );
-};
+}
