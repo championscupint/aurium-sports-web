@@ -15,6 +15,7 @@ export const metadata: Metadata = {
     'Diwas Agasti',
     'Sports Director Diwas Agasti',
     'Sujal Poudel GK Coach',
+    'Siddhartha Koirala Strength & Conditioning Coach',
     'Football Coaches Kathmandu',
     'Youth Sports Coaches Nepal',
     'Dana Cup Nepal',
@@ -249,6 +250,7 @@ export default function AboutPage() {
             {team.map((member) => {
               const isDirector = member.role.includes('Director');
               const isGK = member.role.includes('GK');
+              const isSC = member.role.includes('Strength');
 
               return (
                 <div
@@ -256,7 +258,7 @@ export default function AboutPage() {
                   className={`p-8 rounded-3xl border shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between ${
                     isDirector
                       ? 'bg-gradient-to-b from-white to-amber-50/40 border-gold/50 shadow-md ring-1 ring-gold/20'
-                      : isGK
+                      : isGK || isSC
                       ? 'bg-white border-gold/30 hover:border-gold'
                       : 'bg-white border-ink/10 hover:border-ink/30'
                   }`}
@@ -264,7 +266,7 @@ export default function AboutPage() {
                   <div>
                     <div className="flex items-center justify-between mb-4">
                       <div className={`w-14 h-14 rounded-2xl flex items-center justify-center display text-xl font-mono ${
-                        isDirector ? 'bg-ink text-gold' : isGK ? 'bg-gold-deep text-white' : 'bg-ink/5 text-ink'
+                        isDirector ? 'bg-ink text-gold' : isGK || isSC ? 'bg-gold-deep text-white' : 'bg-ink/5 text-ink'
                       }`}>
                         {member.initials}
                       </div>
@@ -276,6 +278,11 @@ export default function AboutPage() {
                       {isGK && (
                         <span className="px-2.5 py-1 bg-ink text-gold font-mono text-[10px] font-bold uppercase rounded-full tracking-wider">
                           GK Specialist
+                        </span>
+                      )}
+                      {isSC && (
+                        <span className="px-2.5 py-1 bg-ink text-gold font-mono text-[10px] font-bold uppercase rounded-full tracking-wider">
+                          S&C Specialist
                         </span>
                       )}
                     </div>

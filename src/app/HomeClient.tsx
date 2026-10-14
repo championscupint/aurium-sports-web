@@ -504,7 +504,7 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
               Sports Director & Owner
             </span>
             <span className="text-xs text-muted font-sans">
-              Leading a certified coaching roster of 12+ Goalkeeper and Assistant Coaches across Kathmandu
+              Leading a certified roster of 12 coaches including GK and Strength & Conditioning specialists across Kathmandu
             </span>
           </div>
 

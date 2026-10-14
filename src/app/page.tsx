@@ -56,7 +56,7 @@ const homeFaqs: FAQItem[] = [
   {
     question: 'Who leads and coaches at Aurium Sports?',
     answer:
-      'Aurium Sports was founded and is directed by Sports Director & Owner Diwas Agasti. The coaching staff comprises a certified team of 12 specialists including GK Coach Sujal Poudel and 11 dedicated Assistant Coaches (Koshish Ghale, Samipya Subedi, Abishekh Singh, Jeevan Rokaya, Misayal Yonjan, Sujan Karki, Sandesh Poudel, Utpal Moktan, Siddhartha Koirala, Rajendra Sunuwar, and Barun Budathoki).',
+      'Aurium Sports was founded and is directed by Sports Director & Owner Diwas Agasti. The coaching staff comprises a certified team of 12 coaches including GK Coach Sujal Poudel, Strength & Conditioning Coach Siddhartha Koirala, and Coaches Koshish Ghale, Samipya Subedi, Abishekh Singh, Jeevan Rokaya, Misayal Yonjan, Sujan Karki, Sandesh Poudel, Utpal Moktan, Rajendra Sunuwar, and Barun Budathoki.',
   },
   {
     question: 'How did Aurium Sports perform at the Dana Cup in Denmark?',
