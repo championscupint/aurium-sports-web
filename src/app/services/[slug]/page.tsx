@@ -23,8 +23,32 @@ export async function generateMetadata({
   if (!svc) return { title: 'Service Not Found | Aurium Sports' };
 
   return {
-    title: `${svc.name} | Aurium Sports Kathmandu`,
+    title: `${svc.name} (${svc.brand || 'Aurium Sports'}) | Kathmandu, Nepal`,
     description: svc.summary,
+    alternates: {
+      canonical: `/services/${svc.slug}`,
+    },
+    keywords: [
+      svc.name,
+      svc.brand || 'Aurium Sports',
+      `${svc.name} Kathmandu`,
+      `${svc.name} Nepal`,
+      'Aurium Sports',
+      ...svc.audience,
+    ],
+    openGraph: {
+      title: `${svc.name} | Aurium Sports Nepal`,
+      description: svc.summary,
+      url: `https://auriumsports.com/services/${svc.slug}`,
+      images: [
+        {
+          url: svc.image || '/images/hero-himalaya.jpg',
+          width: 1200,
+          height: 630,
+          alt: `${svc.name} - Aurium Sports`,
+        },
+      ],
+    },
   };
 }
 
@@ -40,8 +64,64 @@ export default async function ServicePage({
     notFound();
   }
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://auriumsports.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Programs',
+        item: 'https://auriumsports.com/programs',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: svc.name,
+        item: `https://auriumsports.com/services/${svc.slug}`,
+      },
+    ],
+  };
+
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: svc.name,
+    serviceType: `${svc.group} - Sports Development`,
+    provider: {
+      '@type': 'SportsOrganization',
+      name: 'Aurium Sports',
+      url: 'https://auriumsports.com',
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'Nepal',
+    },
+    description: svc.summary,
+    offers: svc.offerings.map((o) => ({
+      '@type': 'Offer',
+      name: o.name,
+      description: o.description,
+      availability: 'https://schema.org/InStock',
+    })),
+  };
+
   return (
     <div className="flex flex-col w-full pb-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
       {/* Back button & Breadcrumb */}
       <div className="bg-ink text-chalk border-b border-white/10 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-xs">

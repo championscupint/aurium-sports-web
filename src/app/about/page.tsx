@@ -1,13 +1,77 @@
-'use client';
-
 import React from 'react';
+import type { Metadata } from 'next';
 import { site, team, milestones, sdgs } from '@/data/site';
 import { HeartPulse, Target } from 'lucide-react';
 
+export const metadata: Metadata = {
+  title: 'About Us & Coaching Staff | Sports Director Diwas Agasti | Kathmandu, Nepal',
+  description:
+    'Learn about Aurium Sports Pvt. Ltd.: founded by Sports Director & Owner Diwas Agasti, guided by 12+ certified coaches, UN SDG alignment, and international youth football achievements including Dana Cup Denmark.',
+  alternates: {
+    canonical: '/about',
+  },
+  keywords: [
+    'About Aurium Sports',
+    'Diwas Agasti',
+    'Sports Director Diwas Agasti',
+    'Sujal Poudel GK Coach',
+    'Football Coaches Kathmandu',
+    'Youth Sports Coaches Nepal',
+    'Dana Cup Nepal',
+    'Aurium Sports Vision',
+  ],
+  openGraph: {
+    title: 'About Aurium Sports | Leadership, Team & Grassroots Vision | Kathmandu',
+    description:
+      'Building Nepal’s most complete youth sports ecosystem with 12+ certified coaches and sports science frameworks.',
+    url: 'https://auriumsports.com/about',
+    images: ['/images/hero-himalaya.jpg'],
+  },
+};
+
 export default function AboutPage() {
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://auriumsports.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'About Us',
+        item: 'https://auriumsports.com/about',
+      },
+    ],
+  };
+
+  const directorSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Diwas Agasti',
+    jobTitle: 'Sports Director & Owner',
+    worksFor: {
+      '@type': 'SportsOrganization',
+      name: 'Aurium Sports',
+    },
+    description:
+      'Founder, Owner and Sports Director of Aurium Sports. Sets Aurium’s technical methodology, academy syllabus, sports science framework, and international pathway development in Nepal.',
+  };
 
   return (
     <div className="flex flex-col w-full pb-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(directorSchema) }}
+      />
       {/* Header */}
       <section className="bg-ink text-chalk py-20 border-b border-white/10 grain relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
