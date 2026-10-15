@@ -154,7 +154,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Phone size={15} className="text-gold shrink-0" />
-                <span>{site.phones.join(' / ')}</span>
+                <span>{site.phones[0]}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Mail size={15} className="text-gold shrink-0" />

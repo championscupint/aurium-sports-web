@@ -83,8 +83,7 @@ export function ContactClient() {
                   <div>
                     <h4 className="font-bold text-sm text-ink mb-1">Phone & WhatsApp</h4>
                     <div className="space-y-1 text-xs text-muted font-sans">
-                      <div>Primary: <strong className="text-ink">{site.phones[0]}</strong></div>
-                      <div>Secondary: <strong className="text-ink">{site.phones[1]}</strong></div>
+                      <div>Direct Line: <strong className="text-ink">{site.phones[0]}</strong></div>
                     </div>
                     <a
                       href={`https://wa.me/${site.whatsapp}`}

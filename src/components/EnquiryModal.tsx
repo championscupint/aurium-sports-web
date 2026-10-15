@@ -201,7 +201,7 @@ export function EnquiryModal() {
             </div>
 
             <div className="flex items-center justify-between pt-2 text-[11px] text-muted">
-              <span>Direct lines: {site.phones.join(' / ')}</span>
+              <span>Direct line: {site.phones[0]}</span>
               <button
                 type="button"
                 onClick={handleCopy}
