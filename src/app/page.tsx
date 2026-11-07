@@ -66,7 +66,7 @@ const homeFaqs: FAQItem[] = [
   {
     question: 'How do I register my child or inquire about school partnerships?',
     answer:
-      'Admissions are processed directly with our coaching coordinators via WhatsApp at +977 9828978044 or email at register@theauriumacademy.com. Schools interested in adopting the Aurium SportsEd ECA curriculum can contact inquiry@theauriumacademy.com.',
+      'Admissions and partnership inquiries are processed directly with our coaching coordinators via WhatsApp at +977 9828978044 or email at auriumsports@gmail.com.',
   },
 ];
 

@@ -11,11 +11,13 @@ export const site = {
   address: "House No. 41/11 Ka, Matakumari Marg, Baneshwor Height, Kathmandu, Nepal",
   mapQuery: "Matakumari Marg, Baneshwor Height, Kathmandu, Nepal",
   phones: ["9828978044"],
+  phone: "9828978044",
   // WhatsApp needs the full international number without "+" or spaces.
   whatsapp: "9779828978044",
+  email: "auriumsports@gmail.com",
   emails: {
-    register: "register@theauriumacademy.com",
-    inquiry: "inquiry@theauriumacademy.com",
+    register: "auriumsports@gmail.com",
+    inquiry: "auriumsports@gmail.com",
   },
   instagram: "https://www.instagram.com/auriumsports",
 } as const;

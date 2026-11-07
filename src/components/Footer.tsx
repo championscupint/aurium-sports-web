@@ -158,7 +158,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Mail size={15} className="text-gold shrink-0" />
-                <span>{site.emails.inquiry}</span>
+                <span>{site.email}</span>
               </li>
               <li className="pt-2">
                 <div className="flex flex-col gap-1.5 font-sans">

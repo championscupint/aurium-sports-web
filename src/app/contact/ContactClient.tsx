@@ -101,10 +101,9 @@ export function ContactClient() {
                     <Mail className="text-gold-deep" size={20} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-sm text-ink mb-1">Official Emails</h4>
+                    <h4 className="font-bold text-sm text-ink mb-1">Official Email</h4>
                     <div className="space-y-1 text-xs text-muted font-sans">
-                      <div>Inquiries: <strong className="text-ink">{site.emails.inquiry}</strong></div>
-                      <div>Registration: <strong className="text-ink">{site.emails.register}</strong></div>
+                      <div><strong className="text-ink">{site.email}</strong></div>
                     </div>
                   </div>
                 </div>
