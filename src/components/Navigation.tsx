@@ -107,12 +107,24 @@ export function Navigation() {
                       <ArrowRight size={12} className="text-gold opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                     </Link>
                   ))}
-                  <div className="pt-2 border-t border-white/10 mt-1">
+                  <div className="pt-2 border-t border-white/10 mt-1 flex flex-col gap-1.5 px-3">
                     <Link
                       href="/programs"
-                      className="text-[11px] font-bold text-gold hover:underline flex items-center justify-between px-3"
+                      className="text-[11px] font-bold text-gold hover:underline flex items-center justify-between"
                     >
                       View All Programs Overview →
+                    </Link>
+                    <Link
+                      href="/schedule"
+                      className="text-[11px] font-bold text-chalk/80 hover:text-gold hover:underline flex items-center justify-between"
+                    >
+                      Training Schedule & Grounds →
+                    </Link>
+                    <Link
+                      href="/safeguarding"
+                      className="text-[11px] font-bold text-chalk/80 hover:text-gold hover:underline flex items-center justify-between"
+                    >
+                      Child Safeguarding Policy →
                     </Link>
                   </div>
                 </div>
@@ -229,6 +241,12 @@ export function Navigation() {
                 All Programs
               </Link>
               <Link
+                href="/schedule"
+                className="display text-3xl uppercase text-chalk hover:text-gold transition-colors"
+              >
+                Schedule & Grounds
+              </Link>
+              <Link
                 href="/camps"
                 className="display text-3xl uppercase text-chalk hover:text-gold transition-colors"
               >
@@ -239,6 +257,12 @@ export function Navigation() {
                 className="display text-3xl uppercase text-chalk hover:text-gold transition-colors"
               >
                 Tournaments & Leagues
+              </Link>
+              <Link
+                href="/safeguarding"
+                className="display text-3xl uppercase text-chalk hover:text-gold transition-colors"
+              >
+                Child Safeguarding
               </Link>
               <Link
                 href="/mental-health"

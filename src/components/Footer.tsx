@@ -163,6 +163,8 @@ export function Footer() {
               <li className="pt-2">
                 <div className="flex flex-col gap-1.5 font-sans">
                   <Link href="/about" className="hover:text-gold transition-colors">About Us</Link>
+                  <Link href="/schedule" className="hover:text-gold transition-colors">Training Schedule & Grounds</Link>
+                  <Link href="/safeguarding" className="hover:text-gold transition-colors">Child Safeguarding Policy</Link>
                   <Link href="/become-a-trainer" className="hover:text-gold transition-colors">Become a Trainer</Link>
                   <Link href="/partners" className="hover:text-gold transition-colors">Our Partners</Link>
                   <Link href="/announcements" className="hover:text-gold transition-colors">Announcements & Notices</Link>

@@ -107,6 +107,53 @@ export function CampsClient() {
         </div>
       </section>
 
+      {/* Dana Cup Denmark 2027 Official Trial Registration Banner */}
+      <section className="py-10 bg-ink text-chalk grain relative border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-white/[0.08] via-white/[0.04] to-transparent border border-gold/30 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div className="space-y-3 max-w-2xl">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="px-3 py-1 rounded-full bg-gold text-ink font-mono text-[10px] font-bold uppercase tracking-wider">
+                  🇩🇰 International Pathway
+                </span>
+                <span className="text-xs font-mono text-gold font-bold">
+                  Hjørring, Denmark • July 2027
+                </span>
+              </div>
+              <h3 className="display text-3xl sm:text-4xl uppercase tracking-tight text-white">
+                Dana Cup Denmark 2027 Selection Trials.
+              </h3>
+              <p className="text-xs sm:text-sm text-chalk/80 font-sans leading-relaxed">
+                Building on our historic 2025 European Quarter-Final milestone with the Aurium x Rato Bangala U14 Girls squad, registration is now open for the **2027 Denmark Tour Selection Trials** across Boys (U12, U14, U16) and Girls (U14, U16) cohorts.
+              </p>
+              <div className="flex flex-wrap gap-4 text-xs font-mono text-chalk/70 pt-1">
+                <span>✓ Technical & Physical Evaluation</span>
+                <span>✓ Sports Science Assessment</span>
+                <span>✓ Visa & Travel Management Handled</span>
+              </div>
+            </div>
+
+            <div className="shrink-0 flex flex-col sm:flex-row items-center gap-3">
+              <button
+                onClick={() =>
+                  openEnquiry(
+                    'register',
+                    'international',
+                    'Dana Cup Denmark 2027 Selection Trials'
+                  )
+                }
+                className={buttonClass(
+                  'gold',
+                  '!py-3.5 !px-8 text-xs font-bold uppercase tracking-wider shadow-lg shadow-gold/25'
+                )}
+              >
+                Register For 2027 Trials →
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Camp Lineup Grid */}
       <section className="py-20 bg-white text-ink border-b border-ink/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

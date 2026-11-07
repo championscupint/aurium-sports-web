@@ -343,7 +343,12 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             <div className="lg:col-span-7 space-y-6">
-              <span className="eyebrow text-gold">Historic Milestone • Hjørring, Denmark</span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="eyebrow text-gold">Historic European Milestone</span>
+                <span className="px-3 py-1 rounded-full bg-gold text-ink font-mono text-[10px] font-bold uppercase tracking-wider animate-pulse">
+                  🇩🇰 Dana Cup Denmark 2027 Trials Open
+                </span>
+              </div>
               <h2 className="display text-4xl sm:text-6xl uppercase tracking-tight text-white leading-tight">
                 Putting Nepal On The <br />
                 <span className="accent font-serif italic text-gold normal-case">World Football Map.</span>
@@ -355,25 +360,29 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
 
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-2">
                 <div className="text-gold font-display text-xl uppercase tracking-wide">
-                  Dana Cup 2025 Quarter-Finalists
+                  Dana Cup 2025 European Quarter-Finalists
                 </div>
                 <p className="text-xs text-chalk/70 font-sans leading-relaxed">
                   The **Aurium x Rato Bangala U14 Girls** squad delivered historic performances, advancing through the group stages and knockout rounds into the **Quarter-Finals**—the first time a Nepali youth girls team reached that stage in a European youth tournament.
                 </p>
+                <div className="pt-2 text-[11px] font-mono text-gold flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  <span>Selection Trials Now Active: U12 Boys • U14 Boys • U14 Girls • U16 Girls</span>
+                </div>
               </div>
 
               <div className="flex flex-wrap items-center gap-4 pt-2">
                 <button
-                  onClick={() => openEnquiry('inquiry', 'training-camps', 'Dana Cup 2026 Tour')}
-                  className={buttonClass('gold', '!py-3.5 !px-8 text-xs')}
+                  onClick={() => openEnquiry('register', 'international', 'Dana Cup Denmark 2027 Selection Trials')}
+                  className={buttonClass('gold', '!py-3.5 !px-8 text-xs font-bold uppercase tracking-wider shadow-lg shadow-gold/20')}
                 >
-                  Join 2026 Denmark Squad Trials
+                  Register For Dana Cup 2027 Trials
                 </button>
                 <Link
-                  href="/tournaments"
-                  className={buttonClass('outline-chalk', '!py-3.5 !px-6 text-xs')}
+                  href="/camps"
+                  className={buttonClass('outline-chalk', '!py-3.5 !px-6 text-xs font-bold uppercase tracking-wider')}
                 >
-                  View Tournaments & Leagues →
+                  View Preparation Camps →
                 </Link>
               </div>
             </div>

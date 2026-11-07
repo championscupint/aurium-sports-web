@@ -370,3 +370,4 @@ export const nextSportzTournaments: TournamentStatSummary[] = [
     ],
   },
 ];
+
