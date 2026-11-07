@@ -4,7 +4,9 @@ import React from 'react';
 import Image from 'next/image';
 import { useEnquiry } from '@/components/EnquiryContext';
 import { buttonClass } from '@/lib/ui';
-import { Activity, Shield, BarChart3, CheckCircle2 } from 'lucide-react';
+import { Activity, Shield, BarChart3, CheckCircle2, Sparkles, Trophy, Users } from 'lucide-react';
+import { NextSportzCardShowcase } from '@/components/NextSportzCard';
+import { TournamentStatsCenter } from '@/components/TournamentStatsCenter';
 
 export function TournamentsClient() {
   const { openEnquiry } = useEnquiry();
@@ -163,48 +165,97 @@ export function TournamentsClient() {
         </div>
       </section>
 
-      {/* NextSportz Digital Analytics Spotlight */}
-      <section className="py-20 bg-ink text-chalk grain relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
-            <div className="lg:col-span-6 space-y-6">
-              <span className="eyebrow text-gold">Digital Sports Integration</span>
-              <h2 className="display text-3xl sm:text-5xl uppercase tracking-tight text-white leading-tight">
-                Live Data & Player Stats with NextSportz.
-              </h2>
-              <p className="text-chalk/80 font-sans text-sm leading-relaxed">
-                Gone are the days of paper match sheets and lost records. Through our technology partnership with **NextSportz**, every match in Aurium competitions is tracked in real-time.
+      {/* Live Tournament Records & Stats Center */}
+      <section className="py-20 bg-chalk text-ink border-b border-ink/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <TournamentStatsCenter />
+        </div>
+      </section>
+
+      {/* NextSportz Digital Player Card Showcase */}
+      <section className="py-24 bg-ink text-chalk grain relative overflow-hidden border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
+          
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/15 text-gold border border-gold/30 text-xs font-mono font-bold uppercase tracking-wider">
+              <Sparkles size={14} /> Official Tech & Sports Science Affiliation
+            </div>
+            <h2 className="display text-4xl sm:text-6xl uppercase tracking-tight text-white leading-tight">
+              Every Player Gets A <br />
+              <span className="accent font-serif italic text-gold normal-case">NextSportz Digital Card.</span>
+            </h2>
+            <p className="text-base text-chalk/80 font-sans leading-relaxed">
+              Aurium Sports integrates directly with **NextSportz** to track every drill, match, and milestone. Below is a live interactive preview of how our academy players build their verified athletic passport.
+            </p>
+          </div>
+
+          <NextSportzCardShowcase />
+
+          {/* Technology Highlights */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-white/10">
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-gold/20 flex items-center justify-center text-gold">
+                <BarChart3 size={20} />
+              </div>
+              <h4 className="display text-xl uppercase tracking-wide text-white">
+                Training Potential Rating (TPR)
+              </h4>
+              <p className="text-xs text-chalk/70 font-sans leading-relaxed">
+                Rather than arbitrary opinions, player development is scored across 6 technical and physical dimensions using weighted session completion, coach ratings, and matchday performances.
               </p>
-              
-              <div className="space-y-3 pt-2">
-                <div className="flex items-center gap-3 text-xs text-chalk/90 font-sans">
-                  <BarChart3 className="text-gold shrink-0" size={18} />
-                  <span>Individual player profiles tracking goals, assists, minutes played, and clean sheets.</span>
-                </div>
-                <div className="flex items-center gap-3 text-xs text-chalk/90 font-sans">
-                  <Activity className="text-gold shrink-0" size={18} />
-                  <span>Real-time digital league tables, live score tickers, and automated tiebreak calculations.</span>
-                </div>
-                <div className="flex items-center gap-3 text-xs text-chalk/90 font-sans">
-                  <Shield className="text-gold shrink-0" size={18} />
-                  <span>Scouting databases for national and international youth scouts.</span>
-                </div>
-              </div>
             </div>
 
-            <div className="lg:col-span-6">
-              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-                <Image
-                  src="/images/data-pitch.jpg"
-                  alt="Digital sports tablet tracking tactical stats on football pitch"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                  className="object-cover"
-                />
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-gold/20 flex items-center justify-center text-gold">
+                <Shield size={20} />
               </div>
+              <h4 className="display text-xl uppercase tracking-wide text-white">
+                Dispute-Free League Operations
+              </h4>
+              <p className="text-xs text-chalk/70 font-sans leading-relaxed">
+                Paper scorecards are eliminated. Team rosters, ANFA referee verifications, cautions, substitutions, and tiebreak math are recorded digitally in real time.
+              </p>
             </div>
 
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-gold/20 flex items-center justify-center text-gold">
+                <Users size={20} />
+              </div>
+              <h4 className="display text-xl uppercase tracking-wide text-white">
+                International Scout Visibility
+              </h4>
+              <p className="text-xs text-chalk/70 font-sans leading-relaxed">
+                Whether applying for the Dana Cup in Denmark, regional AFC trials, or school sports scholarships, players carry a permanent, credible digital record of their achievements.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Bottom Tournament Registration Call to Action */}
+      <section className="py-20 bg-white text-ink">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+          <span className="eyebrow text-gold-deep justify-center">Host or Join A League</span>
+          <h2 className="display text-3xl sm:text-5xl uppercase tracking-tight text-ink">
+            Ready To Enter Your Team?
+          </h2>
+          <p className="text-muted text-sm font-sans max-w-xl mx-auto leading-relaxed">
+            Registrations for the upcoming season of the **Aurium Mini League** and **Aurium International Cup** are now open for school squads, youth clubs, and corporate teams.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+            <button
+              onClick={() => openEnquiry('register', 'tournaments-leagues', 'Upcoming Tournament Entry')}
+              className={buttonClass('gold', '!py-3.5 !px-8 text-xs font-bold uppercase tracking-wider')}
+            >
+              Register Team Online
+            </button>
+            <button
+              onClick={() => openEnquiry('inquiry', 'tournaments-leagues', 'Tournament Management Inquiry')}
+              className={buttonClass('outline-ink', '!py-3.5 !px-8 text-xs font-bold uppercase tracking-wider')}
+            >
+              Organize A Corporate Cup
+            </button>
           </div>
         </div>
       </section>

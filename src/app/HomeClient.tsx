@@ -7,7 +7,7 @@ import { site, stats, journey, bust, weeklyPlan } from '@/data/site';
 import { services } from '@/data/services';
 import { useEnquiry } from '@/components/EnquiryContext';
 import { buttonClass } from '@/lib/ui';
-import { ArrowRight, MessageCircle, ChevronDown, HelpCircle } from 'lucide-react';
+import { ArrowRight, MessageCircle, ChevronDown, HelpCircle, Sparkles, BarChart3, ShieldCheck } from 'lucide-react';
 import type { FAQItem } from '@/lib/schema';
 
 export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
@@ -433,6 +433,48 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
             ))}
           </div>
 
+        </div>
+      </section>
+
+      {/* =========================================================================
+          5b. NEXTSPORTZ DIGITAL PLAYER PASSPORT SPOTLIGHT
+          ========================================================================= */}
+      <section className="py-20 bg-ink text-chalk grain relative border-b border-white/10 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="rounded-3xl bg-gradient-to-r from-white/[0.07] via-white/[0.04] to-transparent p-8 sm:p-12 border border-white/15 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-10">
+            
+            <div className="space-y-4 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/15 text-gold border border-gold/30 text-xs font-mono font-bold uppercase tracking-wider">
+                <Sparkles size={14} /> Technology & Analytics Partner
+              </div>
+              <h2 className="display text-3xl sm:text-5xl uppercase tracking-tight text-white leading-tight">
+                Every Player Has A <br />
+                <span className="accent font-serif italic text-gold normal-case">Digital NextSportz Card.</span>
+              </h2>
+              <p className="text-sm text-chalk/80 font-sans leading-relaxed">
+                Aurium Sports connects youth training to the **NextSportz** analytics engine. Every session builds verifiable Training Potential Rating (TPR) points across pace, shooting, passing, dribbling, defense, and physical conditioning—giving players a permanent, scouting-ready digital football card.
+              </p>
+              <div className="flex flex-wrap items-center gap-6 pt-2 text-xs font-mono text-chalk/70">
+                <span className="flex items-center gap-1.5 text-gold">
+                  <BarChart3 size={16} /> 6-Pillar Skill Vector
+                </span>
+                <span className="flex items-center gap-1.5 text-emerald-400">
+                  <ShieldCheck size={16} /> 100% Verified Records
+                </span>
+                <span>🇳🇵 Official Nepal Grassroots Engine</span>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0">
+              <Link
+                href="/tournaments"
+                className={buttonClass('gold', '!py-3.5 !px-8 text-xs font-bold uppercase tracking-wider shadow-lg shadow-gold/20')}
+              >
+                View Player Cards & Stats →
+              </Link>
+            </div>
+
+          </div>
         </div>
       </section>
 
