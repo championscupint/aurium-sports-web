@@ -225,3 +225,4 @@ export const trainingSchedule: TrainingSlot[] = [
     openSpots: 6,
   },
 ];
+
