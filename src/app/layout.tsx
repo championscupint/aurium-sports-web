@@ -56,6 +56,14 @@ export const metadata: Metadata = {
   authors: [{ name: "Aurium Academy Pvt. Ltd.", url: site.url }],
   creator: "Aurium Academy Pvt. Ltd.",
   publisher: "Aurium Academy Pvt. Ltd.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   alternates: {
     canonical: "/",
   },
