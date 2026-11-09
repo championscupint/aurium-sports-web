@@ -29,7 +29,7 @@ export const site = {
       name: "Instagram",
       handle: "@auriumsports",
       url: "https://www.instagram.com/auriumsports/",
-      badge: "Reels, Camp Stories & Match Highlights",
+      badge: "280+ Posts & Reels • The Aurium Academy 🇳🇵",
     },
     {
       name: "TikTok",
@@ -39,9 +39,9 @@ export const site = {
     },
     {
       name: "Facebook",
-      handle: "Aurium Sports",
+      handle: "Aurium Sports | Kathmandu",
       url: "https://www.facebook.com/auriumsports/",
-      badge: "Photo Albums, Notices & Parent Community",
+      badge: "Matchday Albums, Notices & Parent Community",
     },
   ],
 } as const;
