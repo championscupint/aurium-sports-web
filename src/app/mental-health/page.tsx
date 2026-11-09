@@ -1,28 +1,37 @@
 import type { Metadata } from 'next';
 import { MentalHealthClient } from './MentalHealthClient';
-import { getFAQSchema, FAQItem } from '@/lib/schema';
+import { getFAQSchema, getBreadcrumbSchema, getWebPageSchema, FAQItem } from '@/lib/schema';
+import { site } from '@/data/site';
 
 export const metadata: Metadata = {
-  title: 'Sports For Mental Health & B.U.S.T. Training Framework | Aurium Sports Nepal',
+  title: 'Sports for Mental Wellbeing Nepal | B.U.S.T. Youth Training Methodology',
   description:
-    'Discover Nepal’s pioneering Sports for Mental Health framework by Aurium Sports: evidence-backed clinical protocols, B.U.S.T. (Breathing, Warm-Up, Stretching, Training) drills, and school wellbeing workshops.',
+    'Discover Nepal’s pioneering Sports for Mental Wellbeing framework by Aurium Sports: clinical sports science, the B.U.S.T. youth football training methodology, and school wellbeing workshops in Kathmandu.',
   alternates: {
     canonical: '/mental-health',
   },
   keywords: [
+    'Youth Sports Development Nepal',
+    'Sports for Mental Wellbeing Nepal',
+    'Youth Football Training Methodology',
+    'Grassroots Football Development',
     'Sports for Mental Health Nepal',
     'B.U.S.T. Model',
-    'Youth Mental Health Sports',
-    'Mental Wellbeing Football Coaching',
-    'Kathmandu Youth Sports Science',
     'School Mental Health Workshops Nepal',
     'Aurium Sports Mental Health',
   ],
   openGraph: {
-    title: 'Sports For Mental Health | The B.U.S.T. Framework | Aurium Sports',
+    title: 'Sports for Mental Wellbeing Nepal | The B.U.S.T. Methodology | Aurium Sports',
     description:
-      'Grounded in clinical sports science. Helping Nepali youth conquer anxiety and build emotional resilience through sport.',
-    url: 'https://auriumsports.com/mental-health',
+      'Grounded in clinical sports science. Helping Nepali youth conquer anxiety and build emotional resilience through structured football and sports.',
+    url: `${site.url}/mental-health`,
+    images: ['/images/wellbeing.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sports for Mental Wellbeing Nepal | Aurium Sports',
+    description:
+      'Helping Nepali youth build emotional resilience and mental wellbeing through the B.U.S.T. sports science framework.',
     images: ['/images/wellbeing.jpg'],
   },
 };
@@ -46,25 +55,16 @@ const mentalHealthFaqs: FAQItem[] = [
 ];
 
 export default function MentalHealthPage() {
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: 'https://auriumsports.com',
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Sports for Mental Health',
-        item: 'https://auriumsports.com/mental-health',
-      },
-    ],
-  };
-
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Sports for Mental Health', path: '/mental-health' },
+  ]);
+  const webPageSchema = getWebPageSchema({
+    title: 'Sports for Mental Wellbeing Nepal | B.U.S.T. Youth Training Methodology',
+    description:
+      'Discover Nepal’s pioneering Sports for Mental Wellbeing framework by Aurium Sports in Kathmandu.',
+    path: '/mental-health',
+  });
   const faqSchema = getFAQSchema(mentalHealthFaqs);
 
   return (
@@ -75,9 +75,13 @@ export default function MentalHealthPage() {
       />
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <MentalHealthClient />
+      <MentalHealthClient faqs={mentalHealthFaqs} />
     </>
   );
 }

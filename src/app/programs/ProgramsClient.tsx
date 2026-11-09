@@ -55,7 +55,7 @@ export function ProgramsClient() {
                         {svc.image ? (
                           <Image
                             src={svc.image}
-                            alt={svc.name}
+                            alt={svc.imageAlt || `${svc.name} - Aurium Sports in Kathmandu, Nepal`}
                             fill
                             sizes="(max-width: 768px) 100vw, 33vw"
                             className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-85 group-hover:opacity-100"

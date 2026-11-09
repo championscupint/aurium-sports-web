@@ -1,28 +1,12 @@
-import { MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next';
+import { site } from '@/data/site';
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [
-      {
-        userAgent: '*',
-        allow: '/',
-      },
-      // Explicitly allow and prioritize AI search / generative engine crawlers
-      {
-        userAgent: [
-          'GPTBot',
-          'ChatGPT-User',
-          'PerplexityBot',
-          'Claude-Web',
-          'anthropic-ai',
-          'Google-Extended',
-          'Applebot',
-          'Bingbot',
-        ],
-        allow: '/',
-      },
-    ],
-    sitemap: 'https://auriumsports.com/sitemap.xml',
-    host: 'https://auriumsports.com',
+    rules: {
+      userAgent: '*',
+      allow: '/',
+    },
+    sitemap: `${site.url}/sitemap.xml`,
   };
 }

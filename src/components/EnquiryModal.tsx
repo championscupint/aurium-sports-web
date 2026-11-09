@@ -4,6 +4,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useEnquiry } from './EnquiryContext';
 import { kindCopy, fieldsByKind, buildMessage, whatsappUrl, mailtoUrl, serviceName } from '@/lib/enquiry';
 import { site } from '@/data/site';
+import {
+  trackWhatsAppClick,
+  trackContactClick,
+  trackFormSubmission,
+  trackEnrollmentClick,
+  trackPartnershipInquiry,
+  trackTournamentRegistration,
+} from '@/lib/analytics';
 import { MessageCircle, Mail, X, Check, Copy } from 'lucide-react';
 
 export function EnquiryModal() {
@@ -185,6 +193,17 @@ export function EnquiryModal() {
                 href={waLink}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => {
+                  trackWhatsAppClick(context.service || context.kind);
+                  trackFormSubmission(`${context.kind}_whatsapp`);
+                  if (context.service === 'tournaments') {
+                    trackTournamentRegistration(context.option);
+                  } else if (context.service === 'school-programs') {
+                    trackPartnershipInquiry(context.option);
+                  } else if (context.kind === 'register') {
+                    trackEnrollmentClick(context.service);
+                  }
+                }}
                 className="flex items-center justify-center gap-2.5 bg-[#25D366] hover:bg-[#1EBE5D] text-white font-bold text-xs uppercase tracking-wider py-3.5 px-5 rounded-full shadow-md hover:shadow-lg transition-all"
               >
                 <MessageCircle size={18} />
@@ -193,6 +212,17 @@ export function EnquiryModal() {
 
               <a
                 href={emailLink}
+                onClick={() => {
+                  trackContactClick('email');
+                  trackFormSubmission(`${context.kind}_email`);
+                  if (context.service === 'tournaments') {
+                    trackTournamentRegistration(context.option);
+                  } else if (context.service === 'school-programs') {
+                    trackPartnershipInquiry(context.option);
+                  } else if (context.kind === 'register') {
+                    trackEnrollmentClick(context.service);
+                  }
+                }}
                 className="flex items-center justify-center gap-2.5 bg-ink hover:bg-gold hover:text-ink text-chalk font-bold text-xs uppercase tracking-wider py-3.5 px-5 rounded-full shadow-md hover:shadow-lg transition-all"
               >
                 <Mail size={18} />

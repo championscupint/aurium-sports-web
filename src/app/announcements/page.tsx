@@ -1,54 +1,60 @@
 import type { Metadata } from 'next';
 import { AnnouncementsClient } from './AnnouncementsClient';
+import { getBreadcrumbSchema, getWebPageSchema } from '@/lib/schema';
+import { site } from '@/data/site';
 
 export const metadata: Metadata = {
-  title: 'Official Bulletins & Trial Announcements | Aurium Sports Kathmandu',
+  title: 'Official Bulletins, Trials & Tournament Notices | Aurium Sports',
   description:
-    'Latest bulletins, camp registration deadlines, Aurium Mini League fixtures, and international tournament trial notices from the Aurium Sports Directorate in Kathmandu.',
+    'Latest bulletins, Dana Cup 2027 trial notices, holiday camp registration deadlines, and Aurium Mini League fixtures from the Aurium Sports Directorate in Kathmandu, Nepal.',
   alternates: {
     canonical: '/announcements',
   },
   keywords: [
     'Aurium Sports Notices',
     'Football Trials Kathmandu',
+    'Dana Cup Trials Nepal',
     'Winter Camp Registration Nepal',
-    'Mini League Fixtures',
+    'Aurium Mini League Fixtures',
     'Youth Sports Announcements Nepal',
   ],
   openGraph: {
-    title: 'Official Bulletins & Notices | Aurium Sports Nepal',
+    title: 'Official Bulletins & Trial Notices | Aurium Sports Nepal',
     description:
-      'Stay updated with upcoming trials, camp deadlines, and league notices from Kathmandu.',
-    url: 'https://auriumsports.com/announcements',
+      'Stay updated with upcoming international football trials, camp deadlines, and league notices from Kathmandu.',
+    url: `${site.url}/announcements`,
+    images: ['/images/hero-himalaya.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Official Bulletins & Trial Notices | Aurium Sports Nepal',
+    description:
+      'Stay updated with upcoming international football trials, camp deadlines, and league notices from Kathmandu.',
     images: ['/images/hero-himalaya.jpg'],
   },
 };
 
 export default function AnnouncementsPage() {
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: 'https://auriumsports.com',
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Announcements',
-        item: 'https://auriumsports.com/announcements',
-      },
-    ],
-  };
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Announcements', path: '/announcements' },
+  ]);
+  const webPageSchema = getWebPageSchema({
+    title: 'Official Bulletins, Trials & Tournament Notices | Aurium Sports',
+    description:
+      'Latest bulletins, Dana Cup 2027 trial notices, holiday camp registration deadlines, and Aurium Mini League fixtures.',
+    path: '/announcements',
+  });
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
       <AnnouncementsClient />
     </>

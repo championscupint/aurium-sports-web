@@ -1,49 +1,51 @@
 import type { Metadata } from 'next';
 import { ScheduleClient } from './ScheduleClient';
+import { getBreadcrumbSchema, getWebPageSchema } from '@/lib/schema';
+import { site } from '@/data/site';
 
 export const metadata: Metadata = {
-  title: 'Academy Training Schedule & Grounds | Aurium Sports Kathmandu',
+  title: 'Football Training Schedule & Grounds in Kathmandu Valley | Aurium Sports',
   description:
-    'Find weekly football, basketball, and goalkeeping training slots across Kathmandu, Patan Dhoka Lalitpur, and Bhaktapur. Filter by age group (U8 to U16) and morning or evening cohorts.',
+    'Find weekly youth football, girls football, basketball, and goalkeeping training schedules across Kathmandu, Lalitpur (Patan Dhoka), and Bhaktapur (Sirutar). Filter by age group U8 to U16.',
   alternates: {
     canonical: '/schedule',
   },
   keywords: [
-    'Aurium Football Training Schedule',
-    'Kathmandu Youth Football Timings',
+    'Kathmandu Youth Football Schedule',
+    'Girls Football Nepal Training',
+    'Girls Football Development Kathmandu',
     'Football Academy Baneshwor Height',
-    'Patan Dhoka Football Training',
+    'Patan Dhoka Football Training Lalitpur',
+    'Bhaktapur Youth Football Training',
     'Goalkeeper Coaching Schedule Kathmandu',
-    'After School Football Kathmandu',
   ],
   openGraph: {
+    title: 'Training Schedule & Ground Locations in Kathmandu Valley | Aurium Sports',
+    description:
+      'Filter weekly youth football and sports sessions by age group (U8 to U16) across Kathmandu, Lalitpur, and Bhaktapur.',
+    url: `${site.url}/schedule`,
+    images: ['/images/academy.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
     title: 'Training Schedule & Ground Locations | Aurium Sports',
     description:
-      'Filter weekly sessions by age group (U8 to U16) and location across Baneshwor Height, Patan Dhoka, Ace, Ullens, and Sirutar.',
-    url: 'https://auriumsports.com/schedule',
+      'Filter weekly youth football and sports sessions across Kathmandu, Lalitpur, and Bhaktapur.',
     images: ['/images/academy.jpg'],
   },
 };
 
 export default function SchedulePage() {
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: 'https://auriumsports.com',
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Training Schedule & Locations',
-        item: 'https://auriumsports.com/schedule',
-      },
-    ],
-  };
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Training Schedule & Locations', path: '/schedule' },
+  ]);
+  const webPageSchema = getWebPageSchema({
+    title: 'Football Training Schedule & Grounds in Kathmandu Valley | Aurium Sports',
+    description:
+      'Find weekly youth football, girls football, basketball, and goalkeeping training schedules across Kathmandu, Lalitpur, and Bhaktapur.',
+    path: '/schedule',
+  });
 
   return (
     <>
@@ -51,8 +53,11 @@ export default function SchedulePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
       <ScheduleClient />
     </>
   );
 }
-

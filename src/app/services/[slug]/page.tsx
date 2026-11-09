@@ -3,6 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { services, getService } from '@/data/services';
+import { site } from '@/data/site';
+import { getBreadcrumbSchema, getWebPageSchema } from '@/lib/schema';
 import { ServiceOfferingClient } from './ServiceOfferingClient';
 import { ArrowLeft } from 'lucide-react';
 import type { Metadata } from 'next';
@@ -22,13 +24,18 @@ export async function generateMetadata({
   const svc = getService(slug);
   if (!svc) return { title: 'Service Not Found | Aurium Sports' };
 
+  const title = svc.seoTitle || `${svc.name} (${svc.brand || 'Aurium Sports'}) | Kathmandu, Nepal`;
+  const description = svc.seoDescription || svc.summary;
+
   return {
-    title: `${svc.name} (${svc.brand || 'Aurium Sports'}) | Kathmandu, Nepal`,
-    description: svc.summary,
+    title,
+    description,
     alternates: {
       canonical: `/services/${svc.slug}`,
     },
     keywords: [
+      ...(svc.primaryKeyword ? [svc.primaryKeyword] : []),
+      ...(svc.secondaryKeywords || []),
       svc.name,
       svc.brand || 'Aurium Sports',
       `${svc.name} Kathmandu`,
@@ -37,17 +44,23 @@ export async function generateMetadata({
       ...svc.audience,
     ],
     openGraph: {
-      title: `${svc.name} | Aurium Sports Nepal`,
-      description: svc.summary,
-      url: `https://auriumsports.com/services/${svc.slug}`,
+      title,
+      description,
+      url: `${site.url}/services/${svc.slug}`,
       images: [
         {
           url: svc.image || '/images/hero-himalaya.jpg',
           width: 1200,
           height: 630,
-          alt: `${svc.name} - Aurium Sports`,
+          alt: svc.imageAlt || `${svc.name} - Aurium Sports in Kathmandu, Nepal`,
         },
       ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [svc.image || '/images/hero-himalaya.jpg'],
     },
   };
 }
@@ -64,30 +77,17 @@ export default async function ServicePage({
     notFound();
   }
 
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: 'https://auriumsports.com',
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Programs',
-        item: 'https://auriumsports.com/programs',
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: svc.name,
-        item: `https://auriumsports.com/services/${svc.slug}`,
-      },
-    ],
-  };
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Programs', path: '/programs' },
+    { name: svc.name, path: `/services/${svc.slug}` },
+  ]);
+
+  const webPageSchema = getWebPageSchema({
+    title: svc.seoTitle || `${svc.name} | Aurium Sports Nepal`,
+    description: svc.seoDescription || svc.summary,
+    path: `/services/${svc.slug}`,
+  });
 
   const serviceSchema = {
     '@context': 'https://schema.org',
@@ -97,12 +97,27 @@ export default async function ServicePage({
     provider: {
       '@type': 'SportsOrganization',
       name: 'Aurium Sports',
-      url: 'https://auriumsports.com',
+      legalName: 'Aurium Academy Pvt. Ltd.',
+      url: site.url,
     },
-    areaServed: {
-      '@type': 'Country',
-      name: 'Nepal',
-    },
+    areaServed: [
+      {
+        '@type': 'City',
+        name: 'Kathmandu',
+      },
+      {
+        '@type': 'City',
+        name: 'Lalitpur',
+      },
+      {
+        '@type': 'City',
+        name: 'Bhaktapur',
+      },
+      {
+        '@type': 'Country',
+        name: 'Nepal',
+      },
+    ],
     description: svc.summary,
     offers: svc.offerings.map((o) => ({
       '@type': 'Offer',
@@ -117,6 +132,10 @@ export default async function ServicePage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
       <script
         type="application/ld+json"
@@ -179,7 +198,7 @@ export default async function ServicePage({
                 {svc.image ? (
                   <Image
                     src={svc.image}
-                    alt={svc.name}
+                    alt={svc.imageAlt || `${svc.name} - Aurium Sports in Kathmandu, Nepal`}
                     fill
                     sizes="(max-width: 1024px) 100vw, 500px"
                     className="object-cover"

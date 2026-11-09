@@ -19,6 +19,11 @@ export type Service = {
   tagline: string;
   summary: string;
   image?: string;
+  imageAlt?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  primaryKeyword?: string;
+  secondaryKeywords?: string[];
   // Words rendered large on services that have no photograph.
   motif: string;
   audience: string[];
@@ -38,6 +43,20 @@ export const services: Service[] = [
     summary:
       "Structured, year-round training for boys and girls aged 7–16 in football, basketball and cricket. Three sessions a week built on our BUST model, with regular skill assessments and a coach who knows every child by name.",
     image: "/images/academy.jpg",
+    imageAlt:
+      "Youth football players training with certified coaches at The Aurium Academy in Kathmandu, Nepal",
+    seoTitle:
+      "Football Academy Kathmandu | Kids Football Training | The Aurium Academy",
+    seoDescription:
+      "Enroll in The Aurium Academy in Kathmandu Valley: year-round kids football training (ages 7–16), dedicated girls football squads, basketball, cricket, and the B.U.S.T. sports science model.",
+    primaryKeyword: "Football Academy Kathmandu",
+    secondaryKeywords: [
+      "Kids Football Training Kathmandu",
+      "The Aurium Academy",
+      "Girls Football Nepal",
+      "Girls Football Development Kathmandu",
+      "Youth Football Coaching Kathmandu",
+    ],
     motif: "PLAY",
     audience: ["Ages 7–16", "Boys & girls", "All levels"],
     highlights: [
@@ -63,6 +82,19 @@ export const services: Service[] = [
     summary:
       "We plug a complete sports department into your school: certified trainers, a structured curriculum, equipment, report cards for every student and pathways into competitive sport. Choose ECA, after-school or the full Grassroots School Program.",
     image: "/images/school.jpg",
+    imageAlt:
+      "School students participating in Aurium SportsEd grassroots football and physical education program in Kathmandu",
+    seoTitle:
+      "School Football Program Nepal | School Sports Development Kathmandu",
+    seoDescription:
+      "Partner with Aurium SportsEd to bring structured school football programs, certified ECA coaches, termly student report cards, and grassroots sports curricula to schools in Kathmandu Valley, Nepal.",
+    primaryKeyword: "School Football Program Nepal",
+    secondaryKeywords: [
+      "School Football Development Kathmandu",
+      "Aurium SportsEd",
+      "School ECA Sports Nepal",
+      "Grassroots School Football Nepal",
+    ],
     motif: "LEARN",
     audience: ["Grades 1–12", "Private & community schools", "Colleges"],
     highlights: [
@@ -87,6 +119,18 @@ export const services: Service[] = [
     summary:
       "Short, high-energy camps timed around Nepal's school holidays. Daily coaching, games, a Mental Health Day, and a certificate at the end. Open to Aurium players and newcomers alike.",
     image: "/images/camp.jpg",
+    imageAlt:
+      "Children practicing football ball-control drills during an Aurium Sports holiday training camp in Kathmandu",
+    seoTitle:
+      "Youth Football Training Camps Kathmandu | Grassroots Football Development",
+    seoDescription:
+      "Join Aurium Sports holiday training camps in Kathmandu: intensive daily youth football coaching, B.U.S.T. training methodology, Mental Health Day, and tournament festivals.",
+    primaryKeyword: "Youth Football Training Methodology",
+    secondaryKeywords: [
+      "Grassroots Football Development",
+      "Holiday Football Camps Kathmandu",
+      "Youth Sports Camps Nepal",
+    ],
     motif: "CAMP",
     audience: ["Ages 6–16", "Beginners welcome", "Certificate on completion"],
     highlights: [
@@ -113,6 +157,19 @@ export const services: Service[] = [
     summary:
       "We take Nepali players to the world's biggest youth tournaments and bring the experience home. Aurium squads have competed at the Dana Cup in Hjørring, Denmark, where the Aurium x Rato Bangala U14 girls reached the quarter-finals.",
     image: "/images/stadium-night.jpg",
+    imageAlt:
+      "Nepali youth football squad competing under stadium floodlights at an international youth tournament",
+    seoTitle:
+      "International Youth Football Nepal | Dana Cup & Global Football Tours",
+    seoDescription:
+      "Aurium Sports takes Nepali youth footballers and girls football squads to global tournaments including the Dana Cup in Denmark, where the Aurium x Rato Bangala U14 girls reached the quarter-finals.",
+    primaryKeyword: "International Youth Football Nepal",
+    secondaryKeywords: [
+      "Nepali Youth Football International Tournaments",
+      "Dana Cup Nepal",
+      "Girls Football Nepal",
+      "Girls Football Development Kathmandu",
+    ],
     motif: "WORLD",
     audience: ["Ages 10–18", "Schools & academies", "Selected players"],
     highlights: [
@@ -137,6 +194,19 @@ export const services: Service[] = [
     summary:
       "We organise and manage competitions for schools, colleges and companies: fixtures, referees, live stats, awards and media. Home of the Aurium Mini League (three editions and counting) and the Aurium International Cup.",
     image: "/images/tournament.jpg",
+    imageAlt:
+      "Youth football teams competing in the Aurium Mini League tournament in Kathmandu Valley, Nepal",
+    seoTitle:
+      "Youth Football Tournaments & Leagues Nepal | Aurium Mini League",
+    seoDescription:
+      "Professional tournament management in Kathmandu, Nepal: home of the Aurium Mini League, Aurium International Cup, school football tournaments, and live NextSportz digital statistics.",
+    primaryKeyword: "Youth Football Tournaments Nepal",
+    secondaryKeywords: [
+      "School Football Tournaments Kathmandu",
+      "Aurium Mini League",
+      "Aurium International Cup",
+      "NextSportz Tournament Analytics",
+    ],
     motif: "CUP",
     audience: ["Schools", "Colleges", "Corporates", "Clubs"],
     highlights: [
@@ -161,6 +231,18 @@ export const services: Service[] = [
     summary:
       "Our signature model uses sport as a tool for emotional wellbeing in children, youth and adults. It is woven into every Aurium program and offered as standalone workshops for schools, parents and organisations. 500+ students and their parents influenced so far.",
     image: "/images/wellbeing.jpg",
+    imageAlt:
+      "Aurium Sports coach leading a mindfulness and mental wellbeing circle with youth footballers in Kathmandu",
+    seoTitle:
+      "Sports for Mental Health Programs & School Workshops | Aurium Sports Nepal",
+    seoDescription:
+      "Book Aurium Sports for Mental Health school workshops, parent wellbeing sessions, and community sport-for-good programs in Kathmandu Valley, Nepal.",
+    primaryKeyword: "Sports for Mental Wellbeing Nepal",
+    secondaryKeywords: [
+      "Youth Sports Development Nepal",
+      "School Mental Health Workshops Kathmandu",
+      "B.U.S.T. Model Nepal",
+    ],
     motif: "MIND",
     audience: ["Players", "Parents", "Schools", "Organisations"],
     highlights: [
@@ -185,6 +267,18 @@ export const services: Service[] = [
     summary:
       "Open trials and scouting days to identify players with elite potential, followed by data-backed player portfolios, scholarship opportunities for underprivileged athletes, and introductions to clubs, academies and international programs.",
     image: "/images/player-portrait.jpg",
+    imageAlt:
+      "Young Nepali footballer evaluated during an Aurium Sports talent scouting and NextSportz performance assessment",
+    seoTitle:
+      "Sports Technology & Football Talent Scouting Nepal | NextSportz Data",
+    seoDescription:
+      "Open football talent scouting trials and verified NextSportz performance data portfolios in Kathmandu, Nepal—connecting promising youth athletes to scholarships and international pathways.",
+    primaryKeyword: "Sports Technology Nepal",
+    secondaryKeywords: [
+      "Football Performance Data Nepal",
+      "Football Talent Scouting Nepal",
+      "NextSportz Player Portfolio",
+    ],
     motif: "SCOUT",
     audience: ["Ages 10–24", "All backgrounds", "Scholarships available"],
     highlights: [
@@ -208,6 +302,16 @@ export const services: Service[] = [
     tagline: "Better pitches. More players.",
     summary:
       "From venue partnerships to turf supply and installation, we help schools, clubs and investors build sports facilities that last. Our long-term plan: a flagship Aurium Sports Center and 10 regional hubs across Nepal.",
+    seoTitle:
+      "Football Turf Installation & Sports Infrastructure Nepal | Aurium Arena",
+    seoDescription:
+      "Aurium Arena supplies and installs FIFA-standard artificial football turf, manages futsal and training venues, and develops sports infrastructure across Kathmandu and Nepal.",
+    primaryKeyword: "Sports Infrastructure Nepal",
+    secondaryKeywords: [
+      "Football Turf Installation Kathmandu",
+      "Futsal Ground Construction Nepal",
+      "Aurium Arena",
+    ],
     motif: "ARENA",
     audience: ["Schools", "Futsal owners", "Investors", "Municipalities"],
     highlights: [
@@ -231,6 +335,16 @@ export const services: Service[] = [
     tagline: "Kits designed to be worn with pride.",
     summary:
       "Custom jerseys, training wear and team kits for schools, clubs, companies and tournaments. Designed in-house, with your crest, names and numbers.",
+    seoTitle:
+      "Custom Football Kits & School Sportswear in Kathmandu | Aurium Apparel",
+    seoDescription:
+      "Order custom football jerseys, school PE uniforms, tracksuits, and tournament team kits designed in-house by Aurium Apparel in Kathmandu, Nepal.",
+    primaryKeyword: "Custom Football Kits Nepal",
+    secondaryKeywords: [
+      "School Sportswear Kathmandu",
+      "Custom Team Jerseys Nepal",
+      "Aurium Apparel",
+    ],
     motif: "KIT",
     audience: ["Schools", "Clubs", "Corporates", "Events"],
     highlights: [

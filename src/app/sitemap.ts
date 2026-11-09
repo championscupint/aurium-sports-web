@@ -1,91 +1,40 @@
 import { MetadataRoute } from 'next';
 import { services } from '@/data/services';
+import { site } from '@/data/site';
+
+// Verified git modification dates (YYYY-MM-DD) for public routes.
+// Avoids assigning dynamic new Date() on every request.
+const ROUTE_LAST_MODIFIED: Record<string, string> = {
+  '/': '2026-11-09',
+  '/programs': '2026-11-09',
+  '/about': '2026-11-09',
+  '/mental-health': '2026-11-09',
+  '/camps': '2026-11-09',
+  '/schedule': '2026-11-09',
+  '/safeguarding': '2026-11-09',
+  '/tournaments': '2026-11-09',
+  '/partners': '2026-11-09',
+  '/announcements': '2026-11-09',
+  '/become-a-trainer': '2026-11-09',
+  '/contact': '2026-11-09',
+};
+
+const SERVICE_LAST_MODIFIED = '2026-11-09';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://auriumsports.com';
-  const currentDate = new Date();
+  const baseUrl = site.url; // https://www.auriumsports.com
 
-  const coreRoutes: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}`,
-      lastModified: currentDate,
-      changeFrequency: 'daily',
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/programs`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/mental-health`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/camps`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/schedule`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/safeguarding`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/tournaments`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/partners`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/announcements`,
-      lastModified: currentDate,
-      changeFrequency: 'daily',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/become-a-trainer`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-  ];
-
-  const serviceRoutes: MetadataRoute.Sitemap = services.map((s) => ({
-    url: `${baseUrl}/services/${s.slug}`,
-    lastModified: currentDate,
-    changeFrequency: 'weekly',
-    priority: 0.9,
+  const staticRoutes: MetadataRoute.Sitemap = Object.entries(
+    ROUTE_LAST_MODIFIED
+  ).map(([route, lastModified]) => ({
+    url: route === '/' ? baseUrl : `${baseUrl}${route}`,
+    lastModified,
   }));
 
-  return [...coreRoutes, ...serviceRoutes];
+  const serviceRoutes: MetadataRoute.Sitemap = services.map((service) => ({
+    url: `${baseUrl}/services/${service.slug}`,
+    lastModified: SERVICE_LAST_MODIFIED,
+  }));
+
+  return [...staticRoutes, ...serviceRoutes];
 }

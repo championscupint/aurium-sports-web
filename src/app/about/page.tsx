@@ -1,54 +1,56 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { site, team, milestones, sdgs } from '@/data/site';
+import { getBreadcrumbSchema, getWebPageSchema } from '@/lib/schema';
 import { HeartPulse, Target } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'About Us & Coaching Staff | Sports Director Diwas Agasti | Kathmandu, Nepal',
+  title: 'About Aurium Sports Nepal | The Aurium Academy & Coaching Staff',
   description:
-    'Learn about Aurium Sports Pvt. Ltd.: founded by Sports Director & Owner Diwas Agasti, guided by 12+ certified coaches, UN SDG alignment, and international youth football achievements including Dana Cup Denmark.',
+    'Learn about Aurium Sports (Aurium Academy Pvt. Ltd.) and The Aurium Academy in Kathmandu, Nepal: founded by Sports Director Diwas Agasti with 12+ certified coaches and international youth football pathways.',
   alternates: {
     canonical: '/about',
   },
   keywords: [
-    'About Aurium Sports',
+    'Aurium Sports Nepal',
+    'Aurium Academy Nepal',
+    'The Aurium Academy',
+    'Aurium Academy Pvt. Ltd.',
     'Diwas Agasti',
     'Sports Director Diwas Agasti',
     'Sujal Poudel GK Coach',
     'Siddhartha Koirala Strength & Conditioning Coach',
     'Football Coaches Kathmandu',
     'Youth Sports Coaches Nepal',
-    'Dana Cup Nepal',
-    'Aurium Sports Vision',
   ],
   openGraph: {
-    title: 'About Aurium Sports | Leadership, Team & Grassroots Vision | Kathmandu',
+    title: 'About Aurium Sports Nepal | The Aurium Academy & Coaching Staff',
     description:
-      'Building Nepal’s most complete youth sports ecosystem with 12+ certified coaches and sports science frameworks.',
-    url: 'https://auriumsports.com/about',
+      'Building Nepal’s most complete youth football and sports ecosystem with 12+ certified coaches and sports science frameworks in Kathmandu Valley.',
+    url: `${site.url}/about`,
+    images: ['/images/hero-himalaya.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About Aurium Sports Nepal | The Aurium Academy & Coaching Staff',
+    description:
+      'Learn about Aurium Sports (Aurium Academy Pvt. Ltd.) and The Aurium Academy in Kathmandu, Nepal.',
     images: ['/images/hero-himalaya.jpg'],
   },
 };
 
 export default function AboutPage() {
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: 'https://auriumsports.com',
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'About Us',
-        item: 'https://auriumsports.com/about',
-      },
-    ],
-  };
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'About Us', path: '/about' },
+  ]);
+
+  const webPageSchema = getWebPageSchema({
+    title: 'About Aurium Sports Nepal | The Aurium Academy & Coaching Staff',
+    description:
+      'Learn about Aurium Sports (Aurium Academy Pvt. Ltd.) and The Aurium Academy in Kathmandu, Nepal.',
+    path: '/about',
+  });
 
   const directorSchema = {
     '@context': 'https://schema.org',
@@ -58,9 +60,11 @@ export default function AboutPage() {
     worksFor: {
       '@type': 'SportsOrganization',
       name: 'Aurium Sports',
+      legalName: 'Aurium Academy Pvt. Ltd.',
+      url: site.url,
     },
     description:
-      'Founder, Owner and Sports Director of Aurium Sports. Sets Aurium’s technical methodology, academy syllabus, sports science framework, and international pathway development in Nepal.',
+      'Founder, Owner and Sports Director of Aurium Sports and The Aurium Academy. Sets Aurium’s technical methodology, academy syllabus, sports science framework, and international pathway development in Nepal.',
   };
 
   return (
@@ -68,6 +72,10 @@ export default function AboutPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
       <script
         type="application/ld+json"

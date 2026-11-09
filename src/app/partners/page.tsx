@@ -1,54 +1,60 @@
 import type { Metadata } from 'next';
 import { PartnersClient } from './PartnersClient';
+import { getBreadcrumbSchema, getWebPageSchema } from '@/lib/schema';
+import { site } from '@/data/site';
 
 export const metadata: Metadata = {
-  title: 'Our School Partners & Global Affiliations | Aurium Sports Nepal',
+  title: 'Sports Partnerships Nepal | School & Football Development Partners',
   description:
-    'Explore Aurium Sports institutional partners: Rato Bangala School, Sanskriti, Galaxy Public, Orchid College, Dana Cup Denmark, ISCA, and training venues across Kathmandu.',
+    'Explore Aurium Sports institutional and school partnerships in Nepal: Rato Bangala School, Sanskriti International School, Galaxy Public School, Dana Cup Denmark, ISCA, and NextSportz.',
   alternates: {
     canonical: '/partners',
   },
   keywords: [
+    'Sports Partnerships Nepal',
+    'Football Development Partnerships Nepal',
+    'School Sports Partnerships Kathmandu',
     'Aurium Sports Partners',
     'Rato Bangala School Football',
-    'Sanskriti School Sports',
     'Dana Cup Nepal Partner',
-    'School Sports Partnerships Kathmandu',
   ],
   openGraph: {
-    title: 'School Partners & International Affiliations | Aurium Sports',
+    title: 'Sports Partnerships Nepal | School & Football Development Partners',
+    description:
+      'Collaborating with leading schools, European tournament organizations, and sports technology platforms across Nepal.',
+    url: `${site.url}/partners`,
+    images: ['/images/school.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sports Partnerships Nepal | Aurium Sports',
     description:
       'Collaborating with leading schools, European tournament organizations, and venues across Nepal.',
-    url: 'https://auriumsports.com/partners',
     images: ['/images/school.jpg'],
   },
 };
 
 export default function PartnersPage() {
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: 'https://auriumsports.com',
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Partners',
-        item: 'https://auriumsports.com/partners',
-      },
-    ],
-  };
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Partners', path: '/partners' },
+  ]);
+  const webPageSchema = getWebPageSchema({
+    title: 'Sports Partnerships Nepal | School & Football Development Partners',
+    description:
+      'Explore Aurium Sports institutional and school partnerships in Nepal.',
+    path: '/partners',
+  });
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
       <PartnersClient />
     </>

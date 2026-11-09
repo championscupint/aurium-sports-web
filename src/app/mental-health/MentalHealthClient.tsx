@@ -5,8 +5,9 @@ import Image from 'next/image';
 import { useEnquiry } from '@/components/EnquiryContext';
 import { buttonClass } from '@/lib/ui';
 import { bust } from '@/data/site';
+import type { FAQItem } from '@/lib/schema';
 
-export function MentalHealthClient() {
+export function MentalHealthClient({ faqs = [] }: { faqs?: FAQItem[] }) {
   const { openEnquiry } = useEnquiry();
 
   return (
@@ -244,6 +245,34 @@ export function MentalHealthClient() {
               </div>
             </div>
           </div>
+
+          {faqs.length > 0 && (
+            <div className="pt-12 border-t border-ink/10">
+              <div className="max-w-3xl mx-auto space-y-6">
+                <div className="text-center space-y-2">
+                  <span className="eyebrow text-gold-deep justify-center">Questions & Evidence</span>
+                  <h2 className="display text-3xl sm:text-4xl uppercase tracking-tight text-ink">
+                    Frequently Asked Questions
+                  </h2>
+                </div>
+                <div className="space-y-4">
+                  {faqs.map((faq) => (
+                    <div
+                      key={faq.question}
+                      className="p-6 rounded-2xl bg-chalk border border-ink/10 space-y-2"
+                    >
+                      <h3 className="font-bold text-sm sm:text-base text-ink">
+                        {faq.question}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-muted leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
 
         </div>
       </section>

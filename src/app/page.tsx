@@ -1,39 +1,50 @@
 import type { Metadata } from 'next';
 import { HomeClient } from './HomeClient';
-import { getFAQSchema, FAQItem } from '@/lib/schema';
+import { getFAQSchema, getWebPageSchema, FAQItem } from '@/lib/schema';
+import { site } from '@/data/site';
 
 export const metadata: Metadata = {
-  title: 'Aurium Sports | Youth Football & Sports Academy Kathmandu, Nepal',
+  title: {
+    absolute: 'Aurium Sports | Football Academy & Youth Development in Nepal',
+  },
   description:
-    "Join Aurium Sports in Kathmandu: elite youth academy training (ages 7–16) in football, basketball, cricket, school ECA programs, holiday camps, and Nepal's pioneering Sports for Mental Health model.",
+    'Discover Aurium Sports, a Nepal-based football and youth development organization offering grassroots football training, tournaments, international exposure and community programs.',
   alternates: {
     canonical: '/',
   },
   keywords: [
+    'Football Academy Nepal',
+    'Youth Football Development Nepal',
+    'Football Academy Kathmandu',
+    'Youth Football Nepal',
+    'Grassroots Football Nepal',
+    'Kids Football Training Kathmandu',
+    'Sports for Mental Wellbeing Nepal',
+    'School Football Nepal',
+    'Girls Football Nepal',
     'Aurium Sports',
-    'Best Football Academy Kathmandu',
-    'Youth Sports Academy Nepal',
-    'Kids Football Coaching Kathmandu',
-    'Goalkeeper Coaching Kathmandu',
-    'Dana Cup Nepal',
-    'Sports for Mental Health Nepal',
-    'B.U.S.T. Model Football',
-    'School ECA Sports Kathmandu',
-    'Diwas Agasti',
+    'The Aurium Academy',
   ],
   openGraph: {
-    title: 'Aurium Sports | Building More Than Footballers | Kathmandu, Nepal',
+    title: 'Aurium Sports | Football Academy & Youth Development in Nepal',
     description:
-      "Nepal's premier grassroots youth sports academy: football, basketball, cricket, sports mental health, and international pathways.",
-    url: 'https://auriumsports.com',
+      'Discover Aurium Sports, a Nepal-based football and youth development organization offering grassroots football training, tournaments, international exposure and community programs.',
+    url: site.url,
     images: [
       {
         url: '/images/hero-himalaya.jpg',
         width: 1200,
         height: 630,
-        alt: 'Aurium Sports Youth Football Training in Kathmandu, Nepal',
+        alt: 'Aurium Sports Youth Football Training in Kathmandu Valley, Nepal',
       },
     ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Aurium Sports | Football Academy & Youth Development in Nepal',
+    description:
+      'Discover Aurium Sports, a Nepal-based football and youth development organization offering grassroots football training, tournaments, international exposure and community programs.',
+    images: ['/images/hero-himalaya.jpg'],
   },
 };
 
@@ -41,12 +52,12 @@ const homeFaqs: FAQItem[] = [
   {
     question: 'What is Aurium Sports and where is it located in Kathmandu?',
     answer:
-      'Aurium Sports (Aurium Sports Pvt. Ltd.) is Nepal’s premier grassroots youth sports organization headquartered at House No. 41/11 Ka, Matakumari Marg, Baneshwor Height, Kathmandu. We conduct training sessions across 4 premier locations in the Kathmandu Valley, including Baneshwor, Jorpati, and Bhaktapur.',
+      'Aurium Sports (operated by Aurium Academy Pvt. Ltd.) is a Nepal-based football and youth development organization headquartered at House No. 41/11 Ka, Matakumari Marg, Baneshwor Height, Kathmandu. Its football development arm, The Aurium Academy, conducts training sessions across 4 premier locations in the Kathmandu Valley, including Baneshwor, Jorpati, Lalitpur, and Bhaktapur.',
   },
   {
     question: 'What age groups and sports are offered at Aurium Sports?',
     answer:
-      'Aurium Sports coaches boys and girls aged 7 to 16 years across football, basketball, and cricket. We also run a dedicated Goalkeeper Coaching Academy led by GK Coach Sujal Poudel, as well as seasonal holiday camps and grassroots school curricula.',
+      'Aurium Sports coaches boys and girls aged 7 to 16 years across football, basketball, and cricket. We also run a dedicated Goalkeeper Coaching Academy led by GK Coach Sujal Poudel, girls football pathways, seasonal holiday camps, and grassroots school curricula.',
   },
   {
     question: 'What is the Aurium Sports B.U.S.T. training model?',
@@ -72,9 +83,18 @@ const homeFaqs: FAQItem[] = [
 
 export default function HomePage() {
   const faqSchema = getFAQSchema(homeFaqs);
+  const webPageSchema = getWebPageSchema({
+    title: 'Aurium Sports | Football Academy & Youth Development in Nepal',
+    description: site.description,
+    path: '/',
+  });
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

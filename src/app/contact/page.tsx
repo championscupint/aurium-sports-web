@@ -1,50 +1,49 @@
 import type { Metadata } from 'next';
 import { ContactClient } from './ContactClient';
-import { getLocalBusinessSchema } from '@/lib/schema';
+import { getLocalBusinessSchema, getBreadcrumbSchema, getWebPageSchema } from '@/lib/schema';
+import { site } from '@/data/site';
 
 export const metadata: Metadata = {
   title: 'Contact Aurium Sports | Baneshwor Height, Kathmandu, Nepal',
   description:
-    'Contact Aurium Sports headquarters in Baneshwor Height, Kathmandu. Direct phone and WhatsApp (+977 9828978044), email inquiries for player enrollment, school partnerships, and tournament registration.',
+    'Contact Aurium Sports (Aurium Academy Pvt. Ltd.) headquarters in Baneshwor Height, Kathmandu, Nepal. Call or WhatsApp +977 9828978044 or email auriumsports@gmail.com for academy enrollment and partnerships.',
   alternates: {
     canonical: '/contact',
   },
   keywords: [
     'Contact Aurium Sports',
     'Aurium Sports Kathmandu Address',
-    'Aurium WhatsApp Number',
+    'The Aurium Academy Contact',
     'Football Academy Kathmandu Contact',
-    'Diwas Agasti Contact',
+    'Aurium Academy Pvt. Ltd.',
   ],
   openGraph: {
     title: 'Contact Aurium Sports | Kathmandu Headquarters',
     description:
-      'Direct WhatsApp and email dispatch for academy enrollment, school partnerships, and tournament registration.',
-    url: 'https://auriumsports.com/contact',
+      'Direct phone/WhatsApp (+977 9828978044) and email (auriumsports@gmail.com) for academy enrollment, school partnerships, and tournament registration in Nepal.',
+    url: `${site.url}/contact`,
+    images: ['/images/hero-himalaya.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contact Aurium Sports | Kathmandu Headquarters',
+    description:
+      'Direct phone/WhatsApp (+977 9828978044) and email (auriumsports@gmail.com) for academy enrollment and partnerships.',
     images: ['/images/hero-himalaya.jpg'],
   },
 };
 
 export default function ContactPage() {
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: 'https://auriumsports.com',
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Contact',
-        item: 'https://auriumsports.com/contact',
-      },
-    ],
-  };
-
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Contact', path: '/contact' },
+  ]);
+  const webPageSchema = getWebPageSchema({
+    title: 'Contact Aurium Sports | Baneshwor Height, Kathmandu, Nepal',
+    description:
+      'Contact Aurium Sports (Aurium Academy Pvt. Ltd.) headquarters in Baneshwor Height, Kathmandu, Nepal.',
+    path: '/contact',
+  });
   const localSchema = getLocalBusinessSchema();
 
   return (
@@ -52,6 +51,10 @@ export default function ContactPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
       <script
         type="application/ld+json"

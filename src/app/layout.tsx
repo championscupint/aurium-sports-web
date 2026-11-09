@@ -5,6 +5,13 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { EnquiryProvider } from "@/components/EnquiryContext";
 import { EnquiryModal } from "@/components/EnquiryModal";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { site } from "@/data/site";
+import {
+  getOrganizationSchema,
+  getLocalBusinessSchema,
+  getWebSiteSchema,
+} from "@/lib/schema";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -25,34 +32,30 @@ const fraunces = Fraunces({
   display: "swap",
 });
 
-import { getOrganizationSchema, getLocalBusinessSchema } from "@/lib/schema";
-
 export const metadata: Metadata = {
-  metadataBase: new URL("https://auriumsports.com"),
+  metadataBase: new URL(site.url),
   title: {
-    default: "Aurium Sports | Building More Than Footballers | Kathmandu, Nepal",
+    default: "Aurium Sports | Football Academy & Youth Development in Nepal",
     template: "%s | Aurium Sports Nepal",
   },
   description:
-    "Aurium Sports is Nepal's premier youth sports ecosystem: youth academy training (football, basketball, cricket), school ECA programs, holiday camps, tournaments, and a groundbreaking Sports for Mental Health model.",
+    "Discover Aurium Sports, a Nepal-based football and youth development organization offering grassroots football training, tournaments, international exposure and community programs.",
   keywords: [
-    "Aurium Sports",
-    "Aurium Sports Nepal",
-    "Aurium Academy Kathmandu",
-    "Best Football Academy Kathmandu",
     "Football Academy Nepal",
-    "Youth Football Coaching Nepal",
-    "Sports for Mental Health Nepal",
-    "B.U.S.T. Training Framework",
-    "Dana Cup Nepal",
-    "Grassroots Football Kathmandu",
-    "School ECA Sports Nepal",
-    "Goalkeeper Coaching Nepal",
-    "Diwas Agasti",
+    "Football Academy Kathmandu",
+    "Youth Football Nepal",
+    "Grassroots Football Nepal",
+    "Kids Football Training Kathmandu",
+    "Sports for Mental Wellbeing Nepal",
+    "School Football Nepal",
+    "Girls Football Nepal",
+    "Aurium Sports",
+    "The Aurium Academy",
+    "Youth Football Development Nepal",
   ],
-  authors: [{ name: "Aurium Sports Pvt. Ltd.", url: "https://auriumsports.com" }],
-  creator: "Aurium Sports Pvt. Ltd.",
-  publisher: "Aurium Sports Pvt. Ltd.",
+  authors: [{ name: "Aurium Academy Pvt. Ltd.", url: site.url }],
+  creator: "Aurium Academy Pvt. Ltd.",
+  publisher: "Aurium Academy Pvt. Ltd.",
   alternates: {
     canonical: "/",
   },
@@ -68,10 +71,10 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Aurium Sports | Building More Than Footballers",
+    title: "Aurium Sports | Football Academy & Youth Development in Nepal",
     description:
-      "Grassroots sports development, international pathways, and mental wellbeing for youth athletes in Nepal.",
-    url: "https://auriumsports.com",
+      "Discover Aurium Sports, a Nepal-based football and youth development organization offering grassroots football training, tournaments, international exposure and community programs.",
+    url: site.url,
     siteName: "Aurium Sports",
     locale: "en_US",
     type: "website",
@@ -80,15 +83,15 @@ export const metadata: Metadata = {
         url: "/images/hero-himalaya.jpg",
         width: 1200,
         height: 630,
-        alt: "Aurium Sports Youth Football Training in Kathmandu, Nepal",
+        alt: "Aurium Sports Youth Football Training in Kathmandu Valley, Nepal",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Aurium Sports | Building More Than Footballers",
+    title: "Aurium Sports | Football Academy & Youth Development in Nepal",
     description:
-      "Nepal's complete grassroots sports ecosystem: youth academy, school programs, international tournaments, and sports mental health.",
+      "Discover Aurium Sports, a Nepal-based football and youth development organization offering grassroots football training, tournaments, international exposure and community programs.",
     images: ["/images/hero-himalaya.jpg"],
   },
 };
@@ -100,6 +103,7 @@ export default function RootLayout({
 }>) {
   const orgSchema = getOrganizationSchema();
   const localSchema = getLocalBusinessSchema();
+  const webSiteSchema = getWebSiteSchema();
 
   return (
     <html
@@ -115,8 +119,13 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localSchema) }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+        />
       </head>
       <body className="min-h-full flex flex-col font-sans bg-chalk text-ink selection:bg-gold selection:text-ink">
+        <GoogleAnalytics />
         <EnquiryProvider>
           <Navigation />
           <main className="flex-grow pt-16 overflow-x-hidden">

@@ -3,11 +3,12 @@
 
 export const site = {
   name: "Aurium Sports",
-  legalName: "Aurium Sports Pvt. Ltd.",
+  academyName: "The Aurium Academy",
+  legalName: "Aurium Academy Pvt. Ltd.",
   tagline: "Building more than footballers.",
   description:
-    "Aurium Sports is building Nepal's most complete grassroots sports ecosystem: academy training, school programs, camps, tournaments, international tours and a pioneering Sports for Mental Health model.",
-  url: "https://auriumsports.com",
+    "Aurium Sports is a Nepal-based football and youth development organization working across grassroots football, academy training, school programs, tournaments, international exposure and sport-led community development.",
+  url: "https://www.auriumsports.com",
   address: "House No. 41/11 Ka, Matakumari Marg, Baneshwor Height, Kathmandu, Nepal",
   mapQuery: "Matakumari Marg, Baneshwor Height, Kathmandu, Nepal",
   phones: ["9828978044"],
@@ -33,7 +34,7 @@ export const stats = [
 export const milestones = [
   { year: "2021", title: "First sessions", text: "Aurium begins coaching children in Kathmandu with a simple belief: sport should build people, not just players." },
   { year: "2023", title: "Schools & camps", text: "Winter, Spring and Dashain camps launch alongside ECA and after-school programs in partner schools." },
-  { year: "2024", title: "Incorporated", text: "Aurium Sports Pvt. Ltd. is formally incorporated. The Aurium Mini League and Aurium International Cup take shape." },
+  { year: "2024", title: "Incorporated", text: "Aurium Academy Pvt. Ltd. is formally incorporated. The Aurium Mini League and Aurium International Cup take shape." },
   { year: "2025", title: "Dana Cup, Denmark", text: "Aurium squads compete in Hjørring. The Aurium x Rato Bangala U14 girls reach the quarter-finals, a first for Nepal." },
   { year: "Next", title: "Aurium Sports Centers", text: "A flagship center, then 10 regional hubs across Nepal with pitches, recovery, classrooms and community spaces." },
 ];
