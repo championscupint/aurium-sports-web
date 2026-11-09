@@ -60,3 +60,4 @@ export function trackFormSubmission(formType: string) {
     form_type: formType,
   });
 }
+

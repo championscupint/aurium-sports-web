@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { site } from '@/data/site';
 import { buildMessage, whatsappUrl, mailtoUrl } from '@/lib/enquiry';
+import { trackWhatsAppClick, trackContactClick, trackFormSubmission } from '@/lib/analytics';
 import { MapPin, Phone, Mail, MessageCircle } from 'lucide-react';
 
 export function ContactClient() {
@@ -89,6 +90,7 @@ export function ContactClient() {
                       href={`https://wa.me/${site.whatsapp}`}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackWhatsAppClick('contact_page_direct')}
                       className="inline-flex items-center gap-1.5 mt-2 text-[11px] font-bold text-[#25D366] hover:underline"
                     >
                       <MessageCircle size={14} /> Instant WhatsApp Chat
@@ -195,6 +197,10 @@ export function ContactClient() {
                     href={waLink}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => {
+                      trackWhatsAppClick('contact_form');
+                      trackFormSubmission('contact_whatsapp');
+                    }}
                     className="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1EBE5D] text-white font-bold text-xs uppercase tracking-wider py-4 px-6 rounded-full transition-colors shadow-md text-center"
                   >
                     <MessageCircle size={16} /> Send via WhatsApp
@@ -202,6 +208,10 @@ export function ContactClient() {
 
                   <a
                     href={emailLink}
+                    onClick={() => {
+                      trackContactClick('email');
+                      trackFormSubmission('contact_email');
+                    }}
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border-2 border-ink/30 hover:border-ink text-ink font-bold text-xs uppercase tracking-wider py-3.5 px-6 rounded-full transition-colors text-center"
                   >
                     <Mail size={16} /> Send via Email
