@@ -20,7 +20,30 @@ export const site = {
     register: "auriumsports@gmail.com",
     inquiry: "auriumsports@gmail.com",
   },
-  instagram: "https://www.instagram.com/auriumsports",
+  instagram: "https://www.instagram.com/auriumsports/",
+  facebook: "https://www.facebook.com/auriumsports/",
+  tiktok: "https://www.tiktok.com/@auriumsports",
+  socialHandle: "@auriumsports",
+  socials: [
+    {
+      name: "Instagram",
+      handle: "@auriumsports",
+      url: "https://www.instagram.com/auriumsports/",
+      badge: "Reels, Camp Stories & Match Highlights",
+    },
+    {
+      name: "TikTok",
+      handle: "@auriumsports",
+      url: "https://www.tiktok.com/@auriumsports",
+      badge: "Drills, GK Training & Behind the Scenes",
+    },
+    {
+      name: "Facebook",
+      handle: "Aurium Sports",
+      url: "https://www.facebook.com/auriumsports/",
+      badge: "Photo Albums, Notices & Parent Community",
+    },
+  ],
 } as const;
 
 // Figures from the Aurium Sports vision document (2026).

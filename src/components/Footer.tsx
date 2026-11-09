@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { site } from '@/data/site';
 import { services } from '@/data/services';
 import { useEnquiry } from './EnquiryContext';
+import { trackSocialClick, trackWhatsAppClick } from '@/lib/analytics';
 import { Mail, MapPin, Phone, ArrowUpRight } from 'lucide-react';
 
 export function Footer() {
@@ -74,24 +75,51 @@ export function Footer() {
               <span className="font-semibold text-chalk/80">Entity:</span> <strong className="text-gold font-medium">{site.legalName}</strong> • Kathmandu, Nepal.
             </div>
 
-            <div className="flex items-center gap-3 pt-2">
-              <a
-                href={site.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs font-bold text-gold hover:text-white flex items-center gap-1 transition-colors"
-              >
-                Instagram <ArrowUpRight size={13} />
-              </a>
-              <span className="text-white/20">•</span>
-              <a
-                href={`https://wa.me/${site.whatsapp}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs font-bold text-[#25D366] hover:underline flex items-center gap-1"
-              >
-                WhatsApp Chat <ArrowUpRight size={13} />
-              </a>
+            <div className="space-y-2 pt-2">
+              <div className="text-[10px] font-mono uppercase tracking-widest text-chalk/50 font-bold">
+                Follow Us On Socials ({site.socialHandle})
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <a
+                  href={site.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackSocialClick('instagram', 'footer')}
+                  className="text-xs font-bold text-gold hover:text-white flex items-center gap-1 transition-colors"
+                >
+                  Instagram <ArrowUpRight size={13} />
+                </a>
+                <span className="text-white/20">•</span>
+                <a
+                  href={site.tiktok}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackSocialClick('tiktok', 'footer')}
+                  className="text-xs font-bold text-gold hover:text-white flex items-center gap-1 transition-colors"
+                >
+                  TikTok <ArrowUpRight size={13} />
+                </a>
+                <span className="text-white/20">•</span>
+                <a
+                  href={site.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackSocialClick('facebook', 'footer')}
+                  className="text-xs font-bold text-gold hover:text-white flex items-center gap-1 transition-colors"
+                >
+                  Facebook <ArrowUpRight size={13} />
+                </a>
+                <span className="text-white/20">•</span>
+                <a
+                  href={`https://wa.me/${site.whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackWhatsAppClick('footer')}
+                  className="text-xs font-bold text-[#25D366] hover:underline flex items-center gap-1"
+                >
+                  WhatsApp Chat <ArrowUpRight size={13} />
+                </a>
+              </div>
             </div>
           </div>
 

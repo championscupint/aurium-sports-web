@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { site, stats, journey, bust, weeklyPlan } from '@/data/site';
 import { services } from '@/data/services';
 import { useEnquiry } from '@/components/EnquiryContext';
+import { SocialMediaShowcase } from '@/components/SocialMediaShowcase';
 import { buttonClass } from '@/lib/ui';
 import { ArrowRight, MessageCircle, ChevronDown, HelpCircle, Sparkles, BarChart3, ShieldCheck } from 'lucide-react';
 import type { FAQItem } from '@/lib/schema';
@@ -486,6 +487,11 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
           </div>
         </div>
       </section>
+
+      {/* =========================================================================
+          5B. SOCIAL MEDIA REELS & HIGHLIGHTS HUB (@AURIUMSPORTS)
+          ========================================================================= */}
+      <SocialMediaShowcase />
 
       {/* =========================================================================
           6. FREQUENTLY ASKED QUESTIONS & GEO KNOWLEDGE HUB

@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import { site } from '@/data/site';
 import { buildMessage, whatsappUrl, mailtoUrl } from '@/lib/enquiry';
-import { trackWhatsAppClick, trackContactClick, trackFormSubmission } from '@/lib/analytics';
-import { MapPin, Phone, Mail, MessageCircle } from 'lucide-react';
+import { trackWhatsAppClick, trackContactClick, trackFormSubmission, trackSocialClick } from '@/lib/analytics';
+import { MapPin, Phone, Mail, MessageCircle, Share2, ArrowUpRight } from 'lucide-react';
 
 export function ContactClient() {
   const [formData, setFormData] = useState({
@@ -106,6 +106,49 @@ export function ContactClient() {
                     <h4 className="font-bold text-sm text-ink mb-1">Official Email</h4>
                     <div className="space-y-1 text-xs text-muted font-sans">
                       <div><strong className="text-ink">{site.email}</strong></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-6 bg-ink text-chalk rounded-2xl border border-ink/10 flex items-start gap-4 shadow-sm">
+                  <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
+                    <Share2 className="text-gold" size={20} />
+                  </div>
+                  <div className="space-y-2 w-full">
+                    <h4 className="font-bold text-sm text-white">
+                      Follow Us on Socials ({site.socialHandle})
+                    </h4>
+                    <p className="text-xs text-chalk/70 font-sans leading-relaxed">
+                      Watch daily training reels, goalkeeper clinics, and matchday updates across our official channels:
+                    </p>
+                    <div className="flex flex-wrap items-center gap-2 pt-1">
+                      <a
+                        href={site.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackSocialClick('instagram', 'contact_page')}
+                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/10 hover:bg-gold hover:text-ink text-xs font-bold text-gold transition-colors"
+                      >
+                        Instagram <ArrowUpRight size={12} />
+                      </a>
+                      <a
+                        href={site.tiktok}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackSocialClick('tiktok', 'contact_page')}
+                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/10 hover:bg-gold hover:text-ink text-xs font-bold text-gold transition-colors"
+                      >
+                        TikTok <ArrowUpRight size={12} />
+                      </a>
+                      <a
+                        href={site.facebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackSocialClick('facebook', 'contact_page')}
+                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/10 hover:bg-gold hover:text-ink text-xs font-bold text-gold transition-colors"
+                      >
+                        Facebook <ArrowUpRight size={12} />
+                      </a>
                     </div>
                   </div>
                 </div>

@@ -59,7 +59,7 @@ export function getOrganizationSchema() {
       areaServed: 'NP',
       availableLanguage: ['English', 'Nepali'],
     },
-    sameAs: [site.instagram],
+    sameAs: [site.instagram, site.facebook, site.tiktok],
     sport: ['Association Football', 'Basketball', 'Cricket'],
     areaServed: [
       {
@@ -142,6 +142,7 @@ export function getLocalBusinessSchema() {
     telephone: '+9779828978044',
     email: site.email,
     url: site.url,
+    sameAs: [site.instagram, site.facebook, site.tiktok],
     parentOrganization: {
       '@id': `${site.url}/#organization`,
     },

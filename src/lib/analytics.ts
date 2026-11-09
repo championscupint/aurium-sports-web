@@ -61,3 +61,15 @@ export function trackFormSubmission(formType: string) {
   });
 }
 
+export function trackSocialClick(
+  platform: 'instagram' | 'tiktok' | 'facebook',
+  placement: string
+) {
+  trackEvent('social_click', {
+    event_category: 'social_engagement',
+    social_platform: platform,
+    placement,
+  });
+}
+
+

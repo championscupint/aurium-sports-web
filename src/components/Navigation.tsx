@@ -318,6 +318,24 @@ export function Navigation() {
                 <MessageCircle size={14} /> WhatsApp Chat
               </a>
             </div>
+            <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs">
+              <span className="font-mono text-[10px] uppercase tracking-wider text-chalk/50">
+                Follow {site.socialHandle}:
+              </span>
+              <div className="flex items-center gap-3 font-bold text-gold">
+                <a href={site.instagram} target="_blank" rel="noopener noreferrer">
+                  Instagram
+                </a>
+                <span>•</span>
+                <a href={site.tiktok} target="_blank" rel="noopener noreferrer">
+                  TikTok
+                </a>
+                <span>•</span>
+                <a href={site.facebook} target="_blank" rel="noopener noreferrer">
+                  Facebook
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       )}
