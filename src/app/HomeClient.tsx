@@ -7,6 +7,8 @@ import { site, stats, journey, bust, weeklyPlan } from '@/data/site';
 import { services } from '@/data/services';
 import { useEnquiry } from '@/components/EnquiryContext';
 import { SocialMediaShowcase } from '@/components/SocialMediaShowcase';
+import { PlayerProgrammesShowcase } from '@/components/PlayerProgrammesShowcase';
+import { CoachingRemarksAndTestimonials } from '@/components/CoachingRemarksAndTestimonials';
 import { buttonClass } from '@/lib/ui';
 import { ArrowRight, MessageCircle, ChevronDown, HelpCircle, Sparkles, BarChart3, ShieldCheck } from 'lucide-react';
 import type { FAQItem } from '@/lib/schema';
@@ -58,22 +60,22 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
             </h1>
 
             <p className="text-base sm:text-xl text-chalk/85 max-w-2xl font-sans leading-relaxed mb-8">
-              Nepal’s complete youth sports ecosystem. Academy training across football, basketball, and cricket, sports science, school ECA curricula, and a pioneering <strong className="text-gold font-medium">Sports for Mental Health</strong> model.
+              Nepal’s complete youth football &amp; sports ecosystem for <strong className="text-gold font-medium">Ages 3 to 16</strong>—from <strong className="text-white font-medium">Little Ballers (3–5)</strong> and <strong className="text-white font-medium">Academy Prep (6–8)</strong> to <strong className="text-gold font-medium">Invite-Only Elite Squads</strong>, international tournaments (<strong className="text-white font-medium">Dana Cup, Norway Cup, Yangshuo Cup</strong>), and our pioneering <strong className="text-gold font-medium">Sports for Mental Health</strong> model.
             </p>
 
             {/* CTAs */}
             <div className="flex flex-wrap items-center gap-4">
               <button
-                onClick={() => openEnquiry('register')}
-                className={buttonClass('gold', '!py-4 !px-8 text-xs')}
+                onClick={() => openEnquiry('register', 'academy')}
+                className={buttonClass('gold', '!py-4 !px-8 text-xs font-bold uppercase tracking-wider shadow-lg shadow-gold/25')}
               >
-                Enroll A Player
+                Book a Spot
               </button>
               <Link
                 href="/programs"
                 className={buttonClass('outline-chalk', '!py-4 !px-8 text-xs')}
               >
-                Explore 9 Services →
+                View Our Programmes →
               </Link>
             </div>
           </div>
@@ -95,23 +97,21 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
       {/* Marquee Ticker */}
       <section className="bg-gold text-ink py-3 border-y border-ink overflow-hidden select-none">
         <div className="flex items-center gap-8 whitespace-nowrap animate-marquee font-display uppercase tracking-wider text-sm sm:text-base">
-          <span>★ THE AURIUM ACADEMY</span>
+          <span>★ THE AURIUM ACADEMY (AGES 3–16)</span>
           <span>•</span>
-          <span>DANA CUP DENMARK QUARTER-FINALISTS</span>
+          <span>LITTLE BALLERS (3–5) • ACADEMY PREP (6–8) • ELITE INVITE-ONLY</span>
           <span>•</span>
-          <span>SPORTS FOR MENTAL HEALTH (B.U.S.T.)</span>
-          <span>•</span>
-          <span>AURIUM SPORTS-ED CURRICULUM</span>
-          <span>•</span>
-          <span>KATHMANDU • JORPATI • BHAKTAPUR</span>
-          <span>•</span>
-          <span>THE AURIUM ACADEMY</span>
-          <span>•</span>
-          <span>DANA CUP DENMARK QUARTER-FINALISTS</span>
+          <span>DANA CUP DENMARK • NORWAY CUP • YANGSHUO CUP</span>
           <span>•</span>
           <span>SPORTS FOR MENTAL HEALTH (B.U.S.T.)</span>
           <span>•</span>
-          <span>AURIUM SPORTS-ED CURRICULUM</span>
+          <span>KATHMANDU • JORPATI • LALITPUR • BHAKTAPUR</span>
+          <span>•</span>
+          <span>★ THE AURIUM ACADEMY (AGES 3–16)</span>
+          <span>•</span>
+          <span>LITTLE BALLERS (3–5) • ACADEMY PREP (6–8) • ELITE INVITE-ONLY</span>
+          <span>•</span>
+          <span>DANA CUP DENMARK • NORWAY CUP • YANGSHUO CUP</span>
         </div>
       </section>
 
@@ -126,6 +126,11 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
           ))}
         </div>
       </section>
+
+      {/* =========================================================================
+          1B. AGE-GROUP & SPECIALIST PLAYER PROGRAMMES (Direct Booking Hub)
+          ========================================================================= */}
+      <PlayerProgrammesShowcase showHeader={true} />
 
       {/* =========================================================================
           2. CORE PHILOSOPHY & SPORTS FOR MENTAL HEALTH SPOTLIGHT
@@ -336,7 +341,7 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
       </section>
 
       {/* =========================================================================
-          4. INTERNATIONAL PATHWAY & DANA CUP SPOTLIGHT
+          4. INTERNATIONAL PATHWAY (DANA CUP, NORWAY CUP, YANGSHUO CUP & BEYOND)
           ========================================================================= */}
       <section className="py-24 bg-ink text-chalk grain relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -345,9 +350,9 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
             
             <div className="lg:col-span-7 space-y-6">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="eyebrow text-gold">Historic European Milestone</span>
+                <span className="eyebrow text-gold">Global Tournament Pathways</span>
                 <span className="px-3 py-1 rounded-full bg-gold text-ink font-mono text-[10px] font-bold uppercase tracking-wider animate-pulse">
-                  🇩🇰 Dana Cup Denmark 2027 Trials Open
+                  🇩🇰 Dana Cup • 🇳🇴 Norway Cup • 🇨🇳 Yangshuo Cup
                 </span>
               </div>
               <h2 className="display text-4xl sm:text-6xl uppercase tracking-tight text-white leading-tight">
@@ -356,28 +361,28 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
               </h2>
 
               <p className="text-base text-chalk/80 font-sans leading-relaxed">
-                In July 2025, Aurium Sports squads traveled to Denmark for the **Dana Cup**—one of the world&apos;s most prestigious youth football tournaments with over 1,000 teams from 45+ nations.
+                Aurium Sports connects dedicated young players in Nepal directly to the world&apos;s premier international youth tournaments—including the <strong className="text-white">Dana Cup (Denmark)</strong>, <strong className="text-white">Norway Cup (Oslo, Norway)</strong>, <strong className="text-white">Yangshuo Cup (Guilin, China)</strong>, <strong className="text-white">Gothia Cup (Sweden)</strong>, and elite European &amp; Asian youth invitations.
               </p>
 
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-3">
                 <div className="text-gold font-display text-xl uppercase tracking-wide">
-                  Dana Cup 2025 European Quarter-Finalists
+                  Dana Cup European Quarter-Finalists &amp; Multi-Nation Tours
                 </div>
                 <p className="text-xs text-chalk/70 font-sans leading-relaxed">
-                  The **Aurium x Rato Bangala U14 Girls** squad delivered historic performances, advancing through the group stages and knockout rounds into the **Quarter-Finals**—the first time a Nepali youth girls team reached that stage in a European youth tournament.
+                  At the July 2025 <strong className="text-white">Dana Cup in Denmark</strong>, the <strong className="text-white">Aurium x Rato Bangala U14 Girls</strong> squad made history by advancing to the European Quarter-Finals. Building on this landmark achievement, our 2026–2027 international calendar expands across Scandinavia and Asia with official delegations to the <strong className="text-gold">Dana Cup</strong>, <strong className="text-gold">Norway Cup</strong>, and <strong className="text-gold">Yangshuo Cup</strong>.
                 </p>
                 <div className="pt-2 text-[11px] font-mono text-gold flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                  <span>Selection Trials Now Active: U12 Boys • U14 Boys • U14 Girls • U16 Girls</span>
+                  <span>Selection Trials Active: U10 • U12 • U14 • U16 Boys &amp; Girls Squads</span>
                 </div>
               </div>
 
               <div className="flex flex-wrap items-center gap-4 pt-2">
                 <button
-                  onClick={() => openEnquiry('register', 'international', 'Dana Cup Denmark 2027 Selection Trials')}
+                  onClick={() => openEnquiry('register', 'international', 'International Tournament Selection Trials (Dana Cup / Norway Cup / Yangshuo Cup)')}
                   className={buttonClass('gold', '!py-3.5 !px-8 text-xs font-bold uppercase tracking-wider shadow-lg shadow-gold/20')}
                 >
-                  Register For Dana Cup 2027 Trials
+                  Book International Trial Spot
                 </button>
                 <Link
                   href="/camps"
@@ -399,8 +404,8 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-transparent to-transparent"></div>
                 <div className="absolute bottom-6 left-6 right-6">
-                  <div className="display text-2xl uppercase text-white">Dana Cup, Denmark</div>
-                  <div className="text-xs text-gold font-mono uppercase tracking-wider">Hjørring • International Tour</div>
+                  <div className="display text-2xl uppercase text-white">Europe &amp; Asia Tours</div>
+                  <div className="text-xs text-gold font-mono uppercase tracking-wider">Dana Cup • Norway Cup • Yangshuo Cup</div>
                 </div>
               </div>
             </div>
@@ -409,6 +414,11 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
 
         </div>
       </section>
+
+      {/* =========================================================================
+          4B. CREATIVE COACHING DIRECTORATE REMARKS & PARENT TESTIMONIALS
+          ========================================================================= */}
+      <CoachingRemarksAndTestimonials />
 
       {/* =========================================================================
           5. THE 6-STAGE PLAYER JOURNEY STEPPER
@@ -595,10 +605,10 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
 
           <div className="flex flex-wrap items-center gap-4 shrink-0">
             <button
-              onClick={() => openEnquiry('register')}
+              onClick={() => openEnquiry('register', 'academy')}
               className={buttonClass('gold', '!py-4 !px-8 text-xs')}
             >
-              Register Player Now
+              Book a Spot Now
             </button>
             <a
               href={`https://wa.me/${site.whatsapp}`}

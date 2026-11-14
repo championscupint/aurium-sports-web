@@ -78,12 +78,14 @@ export function ScheduleLocationFinder() {
               onChange={(e) => setSelectedAge(e.target.value)}
               className="w-full px-3.5 py-2.5 rounded-xl border border-ink/15 bg-chalk text-ink focus:outline-none focus:border-gold-deep"
             >
-              <option value="All">All Age Groups & Cohorts</option>
-              <option value="U8–U10 Grassroots">U8–U10 Grassroots (Ages 6–10)</option>
-              <option value="U12–U14 Juniors">U12–U14 Juniors (Ages 11–14)</option>
-              <option value="U16 Youth Elite">U16 Youth Elite (Ages 14–17)</option>
-              <option value="U14 Girls Elite">U14 Girls Elite (Dana Cup Cohort)</option>
-              <option value="Goalkeeping Specialization">Goalkeeping Specialization (Clinic)</option>
+              <option value="All">All Programmes & Age Groups</option>
+              <option value="Little Ballers (Ages 3–5)">Little Ballers (Ages 3–5)</option>
+              <option value="Academy Prep (Ages 6–8)">Academy Prep (Ages 6–8)</option>
+              <option value="Foundation (Ages 9–12)">Foundation (Ages 9–12)</option>
+              <option value="Youth Development (Ages 13–16)">Youth Development (Ages 13–16)</option>
+              <option value="Goalkeeper (Ages 7–16)">Goalkeeper (Ages 7–16)</option>
+              <option value="Girls Development (Ages 6–16)">Girls Development (Ages 6–16)</option>
+              <option value="Elite — Invite Only (Ages 7+)">Elite — Invite Only (Ages 7+)</option>
             </select>
           </div>
 
@@ -184,7 +186,7 @@ export function ScheduleLocationFinder() {
 
                   <div className="flex items-center gap-2.5">
                     <UserCheck size={14} className="text-gold-deep shrink-0" />
-                    <span><strong>Head Coach:</strong> {slot.headCoach}</span>
+                    <span><strong>Lead Unit:</strong> {slot.headCoach}</span>
                   </div>
 
                   <div className="flex items-center gap-2.5">
@@ -214,9 +216,9 @@ export function ScheduleLocationFinder() {
                       `${slot.venueName} — ${slot.ageGroup} (${slot.timing})`
                     )
                   }
-                  className="px-4 py-2.5 rounded-full bg-ink text-gold hover:bg-gold hover:text-ink font-mono text-[11px] font-bold uppercase tracking-wider transition-colors"
+                  className="px-4 py-2.5 rounded-full bg-gold text-ink hover:bg-ink hover:text-gold font-mono text-[11px] font-bold uppercase tracking-wider transition-colors shadow-sm"
                 >
-                  Book Slot
+                  Book a Spot
                 </button>
               </div>
             </div>

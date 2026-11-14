@@ -18,10 +18,11 @@ export const metadata: Metadata = {
     'Aurium Academy Pvt. Ltd.',
     'Diwas Agasti',
     'Sports Director Diwas Agasti',
-    'Sujal Poudel GK Coach',
-    'Siddhartha Koirala Strength & Conditioning Coach',
     'Football Coaches Kathmandu',
     'Youth Sports Coaches Nepal',
+    'Dana Cup Nepal',
+    'Norway Cup Nepal',
+    'Yangshuo Cup Nepal',
   ],
   openGraph: {
     title: 'About Aurium Sports Nepal | The Aurium Academy & Coaching Staff',
@@ -169,7 +170,7 @@ export default function AboutPage() {
                     Sports cannot remain a casual hobby relegated to an unstructured lunch break. It is an indispensable tool for emotional resilience, executive focus, leadership, and lifelong health. Our mission is to build international-standard grassroots training, safe sports infrastructure, and competitive exposure that elevates our youth on and off the pitch.
                   </p>
                   <p>
-                    Leading our squad to Denmark for the Dana Cup—and seeing our U14 girls team battle fiercely against European powerhouses to reach the quarter-finals—showed the world that Nepali athletes belong on global stages with systematic, science-backed coaching.
+                    Leading our squad to Denmark for the Dana Cup—and seeing our U14 girls team battle fiercely against European powerhouses to reach the quarter-finals—showed the world that Nepali athletes belong on global stages. Today, our international pathways span the Dana Cup (Denmark), Norway Cup (Norway), Yangshuo Cup (China), and elite international invitations.
                   </p>
                 </div>
               </div>

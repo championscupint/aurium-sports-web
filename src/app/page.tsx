@@ -55,9 +55,14 @@ const homeFaqs: FAQItem[] = [
       'Aurium Sports (operated by Aurium Academy Pvt. Ltd.) is a Nepal-based football and youth development organization headquartered at House No. 41/11 Ka, Matakumari Marg, Baneshwor Height, Kathmandu. Its football development arm, The Aurium Academy, conducts training sessions across 4 premier locations in the Kathmandu Valley, including Baneshwor, Jorpati, Lalitpur, and Bhaktapur.',
   },
   {
-    question: 'What age groups and sports are offered at Aurium Sports?',
+    question: 'What age groups and programmes are offered at The Aurium Academy?',
     answer:
-      'Aurium Sports coaches boys and girls aged 7 to 16 years across football, basketball, and cricket. We also run a dedicated Goalkeeper Coaching Academy led by GK Coach Sujal Poudel, girls football pathways, seasonal holiday camps, and grassroots school curricula.',
+      'The Aurium Academy offers structured player pathways for boys and girls aged 3 to 16 years: Little Ballers (Ages 3–5), Academy Prep (Ages 6–8), Foundation (Ages 9–12), Youth Development (Ages 13–16), Specialist Goalkeeper Training (Ages 7–16), Girls Development (Ages 6–16), and our Invite-Only Elite Squads (Ages 7+ from early age), alongside basketball, cricket, seasonal camps, and school ECA curricula.',
+  },
+  {
+    question: 'How does the Invite-Only Elite Squad work for early-age players?',
+    answer:
+      'Our Elite (Invite-Only) teams select high-commitment players from an early age (7+) through technical trials. Elite squad members receive additional weekly training sessions alongside an Individualized Development Plan (IDP) designed so each player develops at the exact biological, technical, and psychological pace best suited for them.',
   },
   {
     question: 'What is the Aurium Sports B.U.S.T. training model?',
@@ -67,12 +72,12 @@ const homeFaqs: FAQItem[] = [
   {
     question: 'Who leads and coaches at Aurium Sports?',
     answer:
-      'Aurium Sports was founded and is directed by Sports Director & Owner Diwas Agasti. The coaching staff comprises a certified team of 12 coaches including GK Coach Sujal Poudel, Strength & Conditioning Coach Siddhartha Koirala, and Coaches Koshish Ghale, Samipya Subedi, Abishekh Singh, Jeevan Rokaya, Misayal Yonjan, Sujan Karki, Sandesh Poudel, Utpal Moktan, Rajendra Sunuwar, and Barun Budathoki.',
+      'Aurium Sports was founded and is directed by Sports Director & Owner Diwas Agasti, supported by a certified Technical & Coaching Directorate of 12+ specialist coaches across Early Discovery, Technical Mastery, Specialist Goalkeeping, Strength & Conditioning, Sports Science, and Elite International Pathways.',
   },
   {
-    question: 'How did Aurium Sports perform at the Dana Cup in Denmark?',
+    question: 'Which international tournaments do Aurium Sports squads compete in?',
     answer:
-      'In July 2025, Aurium Sports squads competed at the world-renowned Dana Cup in Hjørring, Denmark. The Aurium x Rato Bangala U14 Girls team made history by reaching the European Quarter-Finals, marking the first time a Nepali youth girls team achieved this milestone on the global stage.',
+      'Aurium Sports prepares and leads Nepal youth squads to premier global youth football tournaments including the Dana Cup (Denmark)—where the Aurium x Rato Bangala U14 Girls made history as European Quarter-Finalists—as well as the Norway Cup (Oslo, Norway), Yangshuo Cup (Guilin, China), Gothia Cup (Sweden), and international invitational tours.',
   },
   {
     question: 'How do I register my child or inquire about school partnerships?',

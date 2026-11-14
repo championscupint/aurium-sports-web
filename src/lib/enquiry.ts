@@ -25,10 +25,10 @@ export type Field = {
 
 export const kindCopy: Record<EnquiryKind, { title: string; intro: string; email: string; subject: string }> = {
   register: {
-    title: "Register a player",
-    intro: "Tell us about the player and we'll confirm the schedule, fees and next steps.",
+    title: "Book a Spot — Player Registration",
+    intro: "Select your child's age-group programme and share their details—our coaching directorate will confirm your slot, ground timings, and trial session.",
     email: site.emails.register,
-    subject: "Registration",
+    subject: "Book a Spot · Player Registration",
   },
   inquiry: {
     title: "Send an inquiry",
@@ -58,10 +58,27 @@ const contact: Field[] = [
 export const fieldsByKind: Record<EnquiryKind, Field[]> = {
   register: [
     { name: "player", label: "Player's full name", type: "text", required: true, half: true },
-    { name: "age", label: "Player's age", type: "number", required: true, half: true },
+    { name: "age", label: "Player's age (3–16)", type: "number", required: true, half: true },
+    {
+      name: "programme",
+      label: "Preferred Programme / Pathway",
+      type: "select",
+      options: [
+        "Little Ballers (Ages 3–5)",
+        "Academy Prep (Ages 6–8)",
+        "Foundation Squad (Ages 9–12)",
+        "Youth Development (Ages 13–16)",
+        "Goalkeeper Academy (Ages 7–16)",
+        "Girls Development Programme (Ages 6–16)",
+        "Elite Squad — Invite Only (Trial Request)",
+        "Basketball Academy (Ages 8–16)",
+        "Cricket Academy (Ages 8–16)",
+        "Holiday Training Camp",
+      ],
+    },
     { name: "guardian", label: "Parent / guardian name", type: "text", required: true, autoComplete: "name" },
     ...contact,
-    { name: "message", label: "Anything we should know?", type: "textarea", placeholder: "Experience, school, medical notes, preferred location…" },
+    { name: "message", label: "Anything we should know?", type: "textarea", placeholder: "Preferred ground (Baneshwor, Patan Dhoka, Bhaktapur), school, or medical notes…" },
   ],
   inquiry: [
     { name: "name", label: "Your name", type: "text", required: true, autoComplete: "name", half: true },

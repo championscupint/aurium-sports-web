@@ -147,7 +147,7 @@ export const nextSportzPlayerCards: NextSportzPlayerCard[] = [
     ],
     badges: [
       'AML Season 2 Golden Glove',
-      'Sujal Poudel GK Clinic MVP',
+      'Specialist GK Clinic MVP',
       'Penalty Shootout Specialist',
       'Clean Sheet Record Holder',
     ],

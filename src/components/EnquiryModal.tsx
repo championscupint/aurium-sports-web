@@ -72,7 +72,7 @@ export function EnquiryModal() {
   const [prevContext, setPrevContext] = useState(context);
   if (prevContext !== context) {
     setPrevContext(context);
-    setFormData({});
+    setFormData(context.option ? { programme: context.option } : {});
     setCopied(false);
   }
 

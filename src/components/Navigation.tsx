@@ -194,7 +194,7 @@ export function Navigation() {
               onClick={() => openEnquiry('register')}
               className={buttonClass('gold', '!py-2.5 !px-5 text-xs shadow-md')}
             >
-              Register / Enquire
+              Book a Spot
             </button>
           </div>
 
@@ -204,7 +204,7 @@ export function Navigation() {
               onClick={() => openEnquiry('register')}
               className="sm:hidden px-3 py-1.5 bg-gold text-ink text-[11px] font-bold uppercase tracking-wider rounded-full"
             >
-              Join
+              Book a Spot
             </button>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -305,7 +305,7 @@ export function Navigation() {
               }}
               className="w-full py-4 bg-gold text-ink font-bold uppercase tracking-wider text-sm rounded-full text-center"
             >
-              Register a Player
+              Book a Spot
             </button>
             <div className="flex justify-between items-center text-xs text-chalk/60">
               <span>{site.phones[0]}</span>
