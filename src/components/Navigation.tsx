@@ -7,7 +7,8 @@ import { usePathname } from 'next/navigation';
 import { useEnquiry } from './EnquiryContext';
 import { site } from '@/data/site';
 import { services } from '@/data/services';
-import { Menu, X, ChevronDown, MessageCircle, ArrowRight } from 'lucide-react';
+import { trackEcosystemCrossClick } from '@/lib/analytics';
+import { Menu, X, ChevronDown, MessageCircle, ArrowRight, Shield } from 'lucide-react';
 import { buttonClass } from '@/lib/ui';
 
 export function Navigation() {
@@ -66,8 +67,47 @@ export function Navigation() {
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-7">
-            {/* Services Dropdown */}
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-6">
+            <Link
+              href="/about"
+              className={`text-xs font-bold uppercase tracking-widest transition-colors ${
+                pathname === '/about' ? 'text-gold' : 'text-chalk/90 hover:text-gold'
+              }`}
+            >
+              About
+            </Link>
+
+            <Link
+              href="/services/academy"
+              onClick={() => {
+                if (pathname.startsWith('/football-club')) {
+                  trackEcosystemCrossClick('club_to_sports', 'desktop_nav_academy');
+                }
+              }}
+              className={`text-xs font-bold uppercase tracking-widest transition-colors ${
+                pathname === '/services/academy' ? 'text-gold' : 'text-chalk/90 hover:text-gold'
+              }`}
+            >
+              Academy
+            </Link>
+
+            <Link
+              href="/football-club"
+              onClick={() => {
+                if (!pathname.startsWith('/football-club')) {
+                  trackEcosystemCrossClick('sports_to_club', 'desktop_nav_club');
+                }
+              }}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-bold uppercase tracking-widest transition-all ${
+                pathname.startsWith('/football-club')
+                  ? 'bg-gold text-ink border-gold shadow-sm'
+                  : 'bg-gold/10 text-gold border-gold/30 hover:bg-gold hover:text-ink'
+              }`}
+            >
+              <Shield size={12} /> Football Club
+            </Link>
+
+            {/* Programmes & Services Dropdown */}
             <div
               className="relative"
               onMouseEnter={() => setServicesDropdown(true)}
@@ -76,11 +116,13 @@ export function Navigation() {
               <button
                 type="button"
                 className={`flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest transition-colors py-2 ${
-                  pathname.startsWith('/services') ? 'text-gold' : 'text-chalk/90 hover:text-gold'
+                  pathname === '/programs' || (pathname.startsWith('/services') && pathname !== '/services/academy')
+                    ? 'text-gold'
+                    : 'text-chalk/90 hover:text-gold'
                 }`}
                 aria-expanded={servicesDropdown}
               >
-                Services & Programs
+                Programmes
                 <ChevronDown size={14} className={`transition-transform duration-200 ${servicesDropdown ? 'rotate-180' : ''}`} />
               </button>
 
@@ -112,13 +154,26 @@ export function Navigation() {
                       href="/programs"
                       className="text-[11px] font-bold text-gold hover:underline flex items-center justify-between"
                     >
-                      View All Programs Overview →
+                      View All Programmes Overview →
+                    </Link>
+                    <Link
+                      href="/football-club"
+                      onClick={() => trackEcosystemCrossClick('sports_to_club', 'mega_menu')}
+                      className="text-[11px] font-bold text-gold hover:underline flex items-center justify-between"
+                    >
+                      Aurium Football Club Pathway →
                     </Link>
                     <Link
                       href="/schedule"
                       className="text-[11px] font-bold text-chalk/80 hover:text-gold hover:underline flex items-center justify-between"
                     >
                       Training Schedule & Grounds →
+                    </Link>
+                    <Link
+                      href="/camps"
+                      className="text-[11px] font-bold text-chalk/80 hover:text-gold hover:underline flex items-center justify-between"
+                    >
+                      Holiday Training Camps →
                     </Link>
                     <Link
                       href="/safeguarding"
@@ -132,21 +187,12 @@ export function Navigation() {
             </div>
 
             <Link
-              href="/camps"
-              className={`text-xs font-bold uppercase tracking-widest transition-colors ${
-                pathname === '/camps' ? 'text-gold' : 'text-chalk/90 hover:text-gold'
-              }`}
-            >
-              Camps
-            </Link>
-
-            <Link
               href="/tournaments"
               className={`text-xs font-bold uppercase tracking-widest transition-colors ${
                 pathname === '/tournaments' ? 'text-gold' : 'text-chalk/90 hover:text-gold'
               }`}
             >
-              Tournaments
+              Tournaments & Tours
             </Link>
 
             <Link
@@ -155,16 +201,16 @@ export function Navigation() {
                 pathname === '/mental-health' ? 'text-gold' : 'text-chalk/90 hover:text-gold'
               }`}
             >
-              Mental Health
+              Impact
             </Link>
 
             <Link
-              href="/about"
+              href="/partners"
               className={`text-xs font-bold uppercase tracking-widest transition-colors ${
-                pathname === '/about' ? 'text-gold' : 'text-chalk/90 hover:text-gold'
+                pathname === '/partners' ? 'text-gold' : 'text-chalk/90 hover:text-gold'
               }`}
             >
-              About
+              Partnerships
             </Link>
 
             <Link
@@ -235,10 +281,48 @@ export function Navigation() {
                 Home
               </Link>
               <Link
+                href="/about"
+                className="display text-3xl uppercase text-chalk hover:text-gold transition-colors"
+              >
+                About Aurium
+              </Link>
+              <Link
+                href="/services/academy"
+                onClick={() => trackEcosystemCrossClick('club_to_sports', 'mobile_nav_academy')}
+                className="display text-3xl uppercase text-chalk hover:text-gold transition-colors"
+              >
+                Academy
+              </Link>
+              <Link
+                href="/football-club"
+                onClick={() => trackEcosystemCrossClick('sports_to_club', 'mobile_nav_club')}
+                className="display text-3xl uppercase text-gold hover:text-white transition-colors flex items-center gap-2"
+              >
+                <Shield size={22} /> Football Club
+              </Link>
+              <Link
                 href="/programs"
                 className="display text-3xl uppercase text-chalk hover:text-gold transition-colors"
               >
-                All Programs
+                Programmes
+              </Link>
+              <Link
+                href="/tournaments"
+                className="display text-3xl uppercase text-chalk hover:text-gold transition-colors"
+              >
+                Tournaments & Tours
+              </Link>
+              <Link
+                href="/mental-health"
+                className="display text-3xl uppercase text-chalk hover:text-gold transition-colors"
+              >
+                Impact (Mental Health)
+              </Link>
+              <Link
+                href="/partners"
+                className="display text-3xl uppercase text-chalk hover:text-gold transition-colors"
+              >
+                Partnerships
               </Link>
               <Link
                 href="/schedule"
@@ -253,34 +337,10 @@ export function Navigation() {
                 Training Camps
               </Link>
               <Link
-                href="/tournaments"
-                className="display text-3xl uppercase text-chalk hover:text-gold transition-colors"
-              >
-                Tournaments & Leagues
-              </Link>
-              <Link
                 href="/safeguarding"
                 className="display text-3xl uppercase text-chalk hover:text-gold transition-colors"
               >
                 Child Safeguarding
-              </Link>
-              <Link
-                href="/mental-health"
-                className="display text-3xl uppercase text-chalk hover:text-gold transition-colors"
-              >
-                Sports for Mental Health
-              </Link>
-              <Link
-                href="/about"
-                className="display text-3xl uppercase text-chalk hover:text-gold transition-colors"
-              >
-                About & Leadership
-              </Link>
-              <Link
-                href="/partners"
-                className="display text-3xl uppercase text-chalk hover:text-gold transition-colors"
-              >
-                Our Partners
               </Link>
               <Link
                 href="/become-a-trainer"
@@ -292,7 +352,7 @@ export function Navigation() {
                 href="/contact"
                 className="display text-3xl uppercase text-chalk hover:text-gold transition-colors"
               >
-                Contact & Location
+                Contact
               </Link>
             </div>
           </div>

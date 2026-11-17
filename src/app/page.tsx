@@ -80,6 +80,11 @@ const homeFaqs: FAQItem[] = [
       'Aurium Sports prepares and leads Nepal youth squads to premier global youth football tournaments including the Dana Cup (Denmark)—where the Aurium x Rato Bangala U14 Girls made history as European Quarter-Finalists—as well as the Norway Cup (Oslo, Norway), Yangshuo Cup (Guilin, China), Gothia Cup (Sweden), and international invitational tours.',
   },
   {
+    question: 'How are Aurium Sports and Aurium Football Club connected?',
+    answer:
+      'Aurium Sports (operated by Aurium Academy Pvt. Ltd.) and Aurium Football Club (a separately registered Profit Not Distributing Company registered with PAN in Nepal) are two separate legal organisations in a strategic partnership. Aurium Sports serves as the partnering academy focused on grassroots, school, and youth player development, while Aurium Football Club builds the competitive senior club pathway—preparing for the C Qualifier and working towards the National Level League in Nepal.',
+  },
+  {
     question: 'How do I register my child or inquire about school partnerships?',
     answer:
       'Admissions and partnership inquiries are processed directly with our coaching coordinators via WhatsApp at +977 9828978044 or email at auriumsports@gmail.com.',

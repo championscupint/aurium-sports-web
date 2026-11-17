@@ -205,3 +205,62 @@ export function getBreadcrumbSchema(items: { name: string; path: string }[]) {
     })),
   };
 }
+
+/**
+ * Distinct JSON-LD entity for Aurium Football Club.
+ * Strictly separated from Aurium Sports (Aurium Academy Pvt. Ltd.) — no merged legal identity,
+ * no invented registration numbers, founding dates, or unverified claims.
+ */
+export function getFootballClubSchema() {
+  const clubUrl = `${site.url}/football-club`;
+  return {
+    '@context': 'https://schema.org',
+    '@type': ['Organization', 'SportsOrganization', 'SportsTeam'],
+    '@id': `${clubUrl}#organization`,
+    name: 'Aurium Football Club',
+    alternateName: 'Aurium FC',
+    url: clubUrl,
+    sport: 'Association Football',
+    slogan: 'From Grassroots to the National Stage.',
+    description:
+      'Aurium Football Club is a separately registered football club in Nepal (registered as a Profit Not Distributing Company and registered with PAN in Nepal), building a competitive pathway from grassroots football to the national stage in strategic partnership with Aurium Sports.',
+    email: site.email,
+    telephone: '+9779828978044',
+    areaServed: {
+      '@type': 'Country',
+      name: 'Nepal',
+    },
+    knowsAbout: [
+      'Competitive Club Football in Nepal',
+      'Player Development & Recruitment Nepal',
+      'Grassroots to Senior Club Football Pathway',
+      'Nepali Football Competition Structure',
+    ],
+  };
+}
+
+export function getFootballClubWebPageSchema() {
+  const clubUrl = `${site.url}/football-club`;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${clubUrl}#webpage`,
+    url: clubUrl,
+    name: 'Aurium Football Club | Developing the Future of Nepali Football',
+    description:
+      'Discover Aurium Football Club, its football development vision, competitive ambitions and partnership with Aurium Sports to create a pathway from grassroots football to the national stage in Nepal.',
+    inLanguage: 'en',
+    isPartOf: {
+      '@id': `${site.url}/#website`,
+    },
+    about: {
+      '@id': `${clubUrl}#organization`,
+    },
+    mentions: [
+      {
+        '@id': `${site.url}/#organization`,
+      },
+    ],
+  };
+}
+

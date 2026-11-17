@@ -1,9 +1,11 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { useEnquiry } from '@/components/EnquiryContext';
+import { trackEcosystemCrossClick, trackClubPartnershipEnquiry } from '@/lib/analytics';
 import { buttonClass } from '@/lib/ui';
-import { Building2, Globe2 } from 'lucide-react';
+import { Building2, Globe2, Shield, ArrowRight } from 'lucide-react';
 
 export function PartnersClient() {
   const { openEnquiry } = useEnquiry();
@@ -42,8 +44,46 @@ export function PartnersClient() {
             Partners & Affiliations.
           </h1>
           <p className="text-chalk/80 font-sans text-base max-w-2xl mt-4 leading-relaxed">
-            Building a nationwide sports ecosystem requires deep institutional collaboration. We are proud to work with leading schools, global tournament bodies, and venue operators.
+            Building a nationwide sports ecosystem requires deep institutional collaboration. We are proud to work with leading schools, global tournament bodies, club sponsors, and venue operators.
           </p>
+        </div>
+      </section>
+
+      {/* Aurium Football Club Sponsorship Callout */}
+      <section className="py-16 bg-ink-2 text-chalk border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="rounded-3xl bg-gradient-to-r from-gold/15 via-white/[0.05] to-transparent border border-gold/40 p-8 sm:p-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+            <div className="max-w-2xl space-y-2.5">
+              <div className="inline-flex items-center gap-2 text-gold font-mono text-xs uppercase font-bold tracking-widest">
+                <Shield size={15} /> Club Sponsorship &amp; Institutional Partnerships
+              </div>
+              <h2 className="display text-3xl sm:text-4xl uppercase tracking-tight text-white">
+                Partner With Aurium Football Club.
+              </h2>
+              <p className="text-xs sm:text-sm text-chalk/80 font-sans leading-relaxed">
+                Alongside <strong className="text-gold">Aurium Sports</strong> school and tournament partnerships, <strong className="text-white">Aurium Football Club</strong> (a separately registered Profit Not Distributing Company with PAN in Nepal) welcomes Principal Partners, Official Kit Partners, Equipment, Sports Science, Youth Development, Media, Community, and Logistics Partners as the club prepares for the C Qualifier and National Level League pathway.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3 shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  trackClubPartnershipEnquiry('Partners Page Club CTA', 'whatsapp');
+                  openEnquiry('partner', undefined, 'Aurium Football Club — Official Partnership Enquiry');
+                }}
+                className={buttonClass('gold', '!py-3.5 !px-7 text-xs')}
+              >
+                Become a Club Partner
+              </button>
+              <Link
+                href="/football-club#partnerships"
+                onClick={() => trackEcosystemCrossClick('sports_to_club', 'partners_page_club_link')}
+                className={buttonClass('outline-chalk', '!py-3.5 !px-6 text-xs')}
+              >
+                View 8 Club Partner Tiers <ArrowRight size={13} className="ml-1.5" />
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -72,4 +72,48 @@ export function trackSocialClick(
   });
 }
 
+export function trackClubPageVisit() {
+  trackEvent('football_club_page_visit', {
+    event_category: 'football_club',
+    organization_entity: 'Aurium Football Club',
+  });
+}
+
+export function trackPlayerInterestSubmission(method: 'whatsapp' | 'email') {
+  trackEvent('player_interest_submission', {
+    event_category: 'football_club_conversion',
+    submission_method: method,
+  });
+}
+
+export function trackClubPartnershipEnquiry(
+  category?: string,
+  method?: 'whatsapp' | 'email'
+) {
+  trackEvent('club_partnership_enquiry', {
+    event_category: 'football_club_conversion',
+    partnership_category: category || 'general_club_partnership',
+    submission_method: method || 'modal_open',
+  });
+}
+
+export function trackClubNewsEngagement(category: string) {
+  trackEvent('club_news_engagement', {
+    event_category: 'football_club_engagement',
+    news_category: category,
+  });
+}
+
+export function trackEcosystemCrossClick(
+  direction: 'sports_to_club' | 'club_to_sports',
+  placement: string
+) {
+  trackEvent('ecosystem_cross_navigation', {
+    event_category: 'ecosystem_pathway',
+    direction,
+    placement,
+  });
+}
+
+
 

@@ -1,8 +1,9 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { site, team, milestones, sdgs } from '@/data/site';
 import { getBreadcrumbSchema, getWebPageSchema } from '@/lib/schema';
-import { HeartPulse, Target } from 'lucide-react';
+import { HeartPulse, Target, Shield, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'About Aurium Sports Nepal | The Aurium Academy & Coaching Staff',
@@ -99,11 +100,14 @@ export default function AboutPage() {
       <section className="bg-gold text-ink py-4 border-b border-ink">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-start sm:items-center justify-between text-xs font-semibold gap-2">
           <span>
-            Official Registration: <strong className="font-bold">{site.legalName}</strong> — Empowering grassroots youth sports development across Nepal.
+            Academy Partner Entity: <strong className="font-bold">{site.legalName}</strong> • Strategic Club Partner: <strong className="font-bold">Aurium Football Club</strong> (Separately registered Profit Not Distributing Company with PAN in Nepal).
           </span>
-          <span className="font-mono text-[11px] uppercase tracking-wider">
-            Regd. Kathmandu, Nepal
-          </span>
+          <Link
+            href="/football-club"
+            className="font-mono text-[11px] uppercase tracking-wider underline hover:text-white inline-flex items-center gap-1 shrink-0"
+          >
+            Explore Aurium Football Club <ArrowRight size={12} />
+          </Link>
         </div>
       </section>
 
