@@ -9,9 +9,8 @@ import { useEnquiry } from '@/components/EnquiryContext';
 import { SocialMediaShowcase } from '@/components/SocialMediaShowcase';
 import { PlayerProgrammesShowcase } from '@/components/PlayerProgrammesShowcase';
 import { CoachingRemarksAndTestimonials } from '@/components/CoachingRemarksAndTestimonials';
-import { trackEcosystemCrossClick } from '@/lib/analytics';
 import { buttonClass } from '@/lib/ui';
-import { ArrowRight, MessageCircle, ChevronDown, HelpCircle, Sparkles, BarChart3, ShieldCheck, Shield } from 'lucide-react';
+import { ArrowRight, MessageCircle, ChevronDown, HelpCircle, Sparkles, BarChart3, ShieldCheck } from 'lucide-react';
 import type { FAQItem } from '@/lib/schema';
 
 export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
@@ -132,96 +131,6 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
           1B. AGE-GROUP & SPECIALIST PLAYER PROGRAMMES (Direct Booking Hub)
           ========================================================================= */}
       <PlayerProgrammesShowcase showHeader={true} />
-
-      {/* =========================================================================
-          1C. AURIUM FOOTBALL CLUB & ECOSYSTEM PATHWAY SPOTLIGHT
-          ========================================================================= */}
-      <section className="py-24 bg-ink text-chalk grain relative border-b border-white/10 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-7 space-y-5">
-              <div className="flex flex-wrap items-center gap-2.5">
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-gold text-ink font-mono text-[10px] font-bold uppercase tracking-widest">
-                  <Shield size={12} /> Official Club Pathway
-                </span>
-                <span className="px-3 py-1 rounded-full bg-white/10 border border-white/15 text-chalk/85 font-mono text-[10px] uppercase tracking-wider">
-                  Separate Legal Entities • Strategic Partnership
-                </span>
-              </div>
-
-              <h2 className="display text-4xl sm:text-6xl uppercase tracking-tight text-white leading-tight">
-                Aurium Football Club:{' '}
-                <span className="accent font-serif italic text-gold normal-case block sm:inline">
-                  From Grassroots to the National Stage.
-                </span>
-              </h2>
-
-              <p className="text-sm sm:text-base text-chalk/85 font-sans leading-relaxed max-w-2xl">
-                Aurium is building a connected football development ecosystem in Nepal. While <strong className="text-gold">Aurium Sports</strong> (<em>Aurium Academy Pvt. Ltd.</em>) serves as our partnering academy—developing grassroots, school, and youth players—<strong className="text-white">Aurium Football Club</strong> (a separately registered Profit Not Distributing Company with PAN in Nepal) is established to build a competitive senior club preparing for the <strong className="text-gold">C Qualifier</strong> and working towards the <strong className="text-gold">National Level League</strong>.
-              </p>
-
-              <div className="flex flex-wrap items-center gap-4 pt-2">
-                <Link
-                  href="/football-club"
-                  onClick={() => trackEcosystemCrossClick('sports_to_club', 'home_club_spotlight')}
-                  className={buttonClass('gold', '!py-4 !px-8 text-xs font-bold uppercase tracking-wider shadow-lg shadow-gold/20')}
-                >
-                  Explore Aurium Football Club →
-                </Link>
-                <Link
-                  href="/football-club#recruitment"
-                  onClick={() => trackEcosystemCrossClick('sports_to_club', 'home_player_eoi')}
-                  className={buttonClass('outline-chalk', '!py-4 !px-6 text-xs font-bold uppercase tracking-wider')}
-                >
-                  Register Player Interest
-                </Link>
-              </div>
-            </div>
-
-            <div className="lg:col-span-5 grid grid-cols-1 gap-4">
-              <div className="p-6 rounded-3xl bg-white/[0.05] border border-white/15 space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-gold font-bold">
-                    Partnering Academy
-                  </span>
-                  <span className="text-[10px] font-mono text-chalk/60">
-                    Aurium Academy Pvt. Ltd.
-                  </span>
-                </div>
-                <div className="display text-2xl uppercase text-white">
-                  Aurium Sports
-                </div>
-                <p className="text-xs text-gold font-mono uppercase tracking-wider">
-                  Developing Footballers. Building Futures.
-                </p>
-                <p className="text-xs text-chalk/70 font-sans leading-relaxed pt-1">
-                  Grassroots football (Ages 3–16), school ECA programmes, girls&apos; football, international tours, and Sports for Mental Health.
-                </p>
-              </div>
-
-              <div className="p-6 rounded-3xl bg-gradient-to-br from-gold/20 via-white/[0.06] to-transparent border border-gold/40 space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-gold font-bold">
-                    Competitive Football Club
-                  </span>
-                  <span className="text-[10px] font-mono text-chalk/75">
-                    Profit Not Distributing Co. (PAN)
-                  </span>
-                </div>
-                <div className="display text-2xl uppercase text-white">
-                  Aurium Football Club
-                </div>
-                <p className="text-xs text-gold font-mono uppercase tracking-wider">
-                  From Grassroots to the National Stage.
-                </p>
-                <p className="text-xs text-chalk/80 font-sans leading-relaxed pt-1">
-                  Senior team development, merit-based player recruitment, preparing for the C Qualifier, and working towards the National Level League.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* =========================================================================
           2. CORE PHILOSOPHY & SPORTS FOR MENTAL HEALTH SPOTLIGHT

@@ -5,16 +5,15 @@ import { site } from '@/data/site';
 // Verified git modification dates (YYYY-MM-DD) for public routes.
 // Avoids assigning dynamic new Date() on every request.
 const ROUTE_LAST_MODIFIED: Record<string, string> = {
-  '/': '2026-11-17',
-  '/football-club': '2026-11-17',
-  '/programs': '2026-11-17',
-  '/about': '2026-11-17',
+  '/': '2026-11-09',
+  '/programs': '2026-11-09',
+  '/about': '2026-11-09',
   '/mental-health': '2026-11-09',
   '/camps': '2026-11-09',
-  '/schedule': '2026-11-14',
+  '/schedule': '2026-11-09',
   '/safeguarding': '2026-11-09',
   '/tournaments': '2026-11-09',
-  '/partners': '2026-11-17',
+  '/partners': '2026-11-09',
   '/announcements': '2026-11-09',
   '/become-a-trainer': '2026-11-09',
   '/contact': '2026-11-09',

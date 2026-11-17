@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { site } from '@/data/site';
 import { services } from '@/data/services';
 import { useEnquiry } from './EnquiryContext';
-import { trackSocialClick, trackWhatsAppClick, trackEcosystemCrossClick } from '@/lib/analytics';
+import { trackSocialClick, trackWhatsAppClick } from '@/lib/analytics';
 import { Mail, MapPin, Phone, ArrowUpRight } from 'lucide-react';
 
 export function Footer() {
@@ -71,15 +71,8 @@ export function Footer() {
               Building Nepal’s most complete youth sports ecosystem. Focused on athletic excellence, emotional resilience, and lifelong character through football, basketball, and cricket.
             </p>
 
-            <div className="p-3 bg-white/5 rounded-xl border border-white/5 text-[11px] text-chalk/60 max-w-sm space-y-1.5">
-              <div>
-                <span className="font-semibold text-chalk/80">Academy Partner Entity:</span>{' '}
-                <strong className="text-gold font-medium">{site.legalName}</strong> • Kathmandu, Nepal.
-              </div>
-              <div>
-                <span className="font-semibold text-chalk/80">Competitive Club Entity:</span>{' '}
-                <strong className="text-white font-medium">Aurium Football Club</strong> (Separately registered Profit Not Distributing Company with PAN in Nepal).
-              </div>
+            <div className="p-3 bg-white/5 rounded-xl border border-white/5 text-[11px] text-chalk/60 max-w-sm">
+              <span className="font-semibold text-chalk/80">Entity:</span> <strong className="text-gold font-medium">{site.legalName}</strong> • Kathmandu, Nepal.
             </div>
 
             <div className="space-y-2 pt-2">
@@ -197,25 +190,11 @@ export function Footer() {
               </li>
               <li className="pt-2">
                 <div className="flex flex-col gap-1.5 font-sans">
-                  <Link
-                    href="/football-club"
-                    onClick={() => trackEcosystemCrossClick('sports_to_club', 'footer_link')}
-                    className="text-gold font-bold hover:text-white transition-colors"
-                  >
-                    Aurium Football Club →
-                  </Link>
-                  <Link
-                    href="/football-club#recruitment"
-                    onClick={() => trackEcosystemCrossClick('sports_to_club', 'footer_eoi')}
-                    className="hover:text-gold transition-colors"
-                  >
-                    Club Player Expression of Interest
-                  </Link>
                   <Link href="/about" className="hover:text-gold transition-colors">About Us</Link>
                   <Link href="/schedule" className="hover:text-gold transition-colors">Training Schedule & Grounds</Link>
                   <Link href="/safeguarding" className="hover:text-gold transition-colors">Child Safeguarding Policy</Link>
                   <Link href="/become-a-trainer" className="hover:text-gold transition-colors">Become a Trainer</Link>
-                  <Link href="/partners" className="hover:text-gold transition-colors">Partnerships & Sponsors</Link>
+                  <Link href="/partners" className="hover:text-gold transition-colors">Our Partners</Link>
                   <Link href="/announcements" className="hover:text-gold transition-colors">Announcements & Notices</Link>
                 </div>
               </li>
