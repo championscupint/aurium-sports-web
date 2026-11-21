@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { coachRemarks, parentPlayerTestimonials } from '@/data/programmes';
 import { site } from '@/data/site';
 import { useEnquiry } from './EnquiryContext';
@@ -13,6 +13,8 @@ import {
   ArrowRight,
   Star,
   MapPin,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 
 const AFFILIATION_FILTERS = [
@@ -26,6 +28,7 @@ export function CoachingRemarksAndTestimonials() {
   const { openEnquiry } = useEnquiry();
   const [activeFilter, setActiveFilter] =
     useState<(typeof AFFILIATION_FILTERS)[number]>('All');
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const filteredTestimonials =
     activeFilter === 'All'
@@ -33,6 +36,22 @@ export function CoachingRemarksAndTestimonials() {
       : parentPlayerTestimonials.filter(
           (t) => t.affiliationType === activeFilter
         );
+
+  const handleFilterChange = (filter: (typeof AFFILIATION_FILTERS)[number]) => {
+    setActiveFilter(filter);
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+    }
+  };
+
+  const scrollByAmount = (direction: 'left' | 'right') => {
+    if (!scrollContainerRef.current) return;
+    const cardWidth = 420;
+    scrollContainerRef.current.scrollBy({
+      left: direction === 'left' ? -cardWidth : cardWidth,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <>
@@ -109,10 +128,10 @@ export function CoachingRemarksAndTestimonials() {
 
       {/* =========================================================================
           PART B: 12 AUTHENTIC & TACTICAL PARENT TESTIMONIALS
-          (Academy Parents • Training Venues • Partner Schools)
+          (Horizontal Left-to-Right Scroll Carousel)
           ========================================================================= */}
-      <section className="py-24 bg-chalk text-ink border-b border-ink/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <section className="py-24 bg-chalk text-ink border-b border-ink/10 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div className="max-w-2xl space-y-3">
               <div className="inline-flex items-center gap-2 text-gold-deep font-mono text-xs uppercase font-bold tracking-widest">
@@ -125,53 +144,84 @@ export function CoachingRemarksAndTestimonials() {
                 </span>
               </h2>
               <p className="text-muted text-sm sm:text-base font-sans">
-                Tactical and developmental feedback from Academy Parents across our 5 Training Venues and Partner Schools in Kathmandu, Lalitpur, and Bhaktapur.
+                Swipe or scroll left to right to explore tactical feedback from Academy Parents across our 5 Training Venues and Partner Schools in Kathmandu, Lalitpur, and Bhaktapur.
               </p>
             </div>
 
-            {/* Filter Pills: All / Academy Parent / Training Venue / Partner School */}
-            <div className="flex flex-wrap items-center gap-2">
-              {AFFILIATION_FILTERS.map((filter) => {
-                const isActive = activeFilter === filter;
-                const label =
-                  filter === 'All'
-                    ? `All Testimonials (${parentPlayerTestimonials.length})`
-                    : `${filter}s`;
-                return (
-                  <button
-                    key={filter}
-                    type="button"
-                    onClick={() => setActiveFilter(filter)}
-                    className={`px-4 py-2 rounded-full font-mono text-[11px] font-bold uppercase tracking-wider transition-all ${
-                      isActive
-                        ? 'bg-ink text-gold shadow-sm'
-                        : 'bg-white text-muted hover:text-ink border border-ink/10'
-                    }`}
-                  >
-                    {label}
-                  </button>
-                );
-              })}
+            {/* Filter Pills + Prev/Next Scroll Controls */}
+            <div className="flex flex-wrap items-center justify-between lg:justify-end gap-3">
+              <div className="flex flex-wrap items-center gap-2">
+                {AFFILIATION_FILTERS.map((filter) => {
+                  const isActive = activeFilter === filter;
+                  const label =
+                    filter === 'All'
+                      ? `All (${parentPlayerTestimonials.length})`
+                      : `${filter}s`;
+                  return (
+                    <button
+                      key={filter}
+                      type="button"
+                      onClick={() => handleFilterChange(filter)}
+                      className={`px-4 py-2 rounded-full font-mono text-[11px] font-bold uppercase tracking-wider transition-all ${
+                        isActive
+                          ? 'bg-ink text-gold shadow-sm'
+                          : 'bg-white text-muted hover:text-ink border border-ink/10'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => scrollByAmount('left')}
+                  aria-label="Scroll testimonials left"
+                  className="w-10 h-10 rounded-full bg-white border border-ink/15 text-ink hover:bg-ink hover:text-gold transition-colors flex items-center justify-center shadow-sm"
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollByAmount('right')}
+                  aria-label="Scroll testimonials right"
+                  className="w-10 h-10 rounded-full bg-ink text-gold hover:bg-gold hover:text-ink transition-colors flex items-center justify-center shadow-sm"
+                >
+                  <ChevronRight size={18} />
+                </button>
+              </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Horizontal Left-to-Right Scroll Track */}
+          <div
+            ref={scrollContainerRef}
+            className="flex items-stretch gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 pt-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          >
             {filteredTestimonials.map((t, idx) => (
               <div
                 key={`${t.childName}-${idx}`}
-                className="p-7 sm:p-8 rounded-3xl bg-white text-ink border border-ink/10 hover:border-gold-deep/50 transition-all flex flex-col justify-between space-y-6 shadow-sm hover:shadow-md"
+                className="w-[85vw] sm:w-[370px] lg:w-[400px] shrink-0 snap-start p-7 sm:p-8 rounded-3xl bg-white text-ink border border-ink/10 hover:border-gold-deep/50 transition-all flex flex-col justify-between space-y-6 shadow-sm hover:shadow-md"
               >
                 <div className="space-y-4">
-                  {/* Top Badges: Affiliation Type + Programme Tag */}
+                  {/* Top Badges: Affiliation Type + Quote Icon */}
                   <div className="flex items-center justify-between gap-2">
                     <span className="px-2.5 py-1 rounded-full bg-ink text-gold font-mono text-[10px] font-bold uppercase tracking-wider">
                       {t.affiliationType}
                     </span>
-                    <Quote size={20} className="text-gold-deep/40 shrink-0" />
+                    <div className="flex items-center gap-1 text-gold-deep">
+                      <span className="text-[10px] font-mono text-muted mr-1">
+                        {String(idx + 1).padStart(2, '0')} /{' '}
+                        {String(filteredTestimonials.length).padStart(2, '0')}
+                      </span>
+                      <Quote size={20} className="text-gold-deep/40 shrink-0" />
+                    </div>
                   </div>
 
                   {/* Training Venue / Partner School Pill */}
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-chalk border border-ink/10 text-[11px] font-mono font-bold text-gold-deep">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-chalk border border-ink/10 text-[11px] font-mono font-bold text-gold-deep max-w-full">
                     <MapPin size={12} className="shrink-0" />
                     <span className="truncate">{t.venueOrSchool}</span>
                   </div>
@@ -188,8 +238,8 @@ export function CoachingRemarksAndTestimonials() {
                     {t.role}
                   </div>
                   <div className="flex items-center justify-between text-[11px] font-mono text-muted">
-                    <span>{t.programmeTag}</span>
-                    <span>• {t.location}</span>
+                    <span className="truncate">{t.programmeTag}</span>
+                    <span className="shrink-0 ml-2">• {t.location}</span>
                   </div>
                 </div>
               </div>
