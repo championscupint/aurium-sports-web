@@ -4,9 +4,11 @@ import { getBreadcrumbSchema, getWebPageSchema } from '@/lib/schema';
 import { site } from '@/data/site';
 
 export const metadata: Metadata = {
-  title: 'Football Training Schedule & Grounds in Kathmandu Valley | Aurium Sports',
+  title: {
+    absolute: 'Football Training Locations and Timings in Kathmandu Valley | Aurium Sports',
+  },
   description:
-    'Find weekly youth football, girls football, basketball, and goalkeeping training schedules across Kathmandu, Lalitpur (Patan Dhoka), and Bhaktapur (Sirutar). Filter by age group U8 to U16.',
+    'Find an Aurium Sports football training location near you across 5 verified grounds in Kathmandu (Baneshwor Height, Gairidhara), Lalitpur (Patan Dhoka, Khumaltar), and Bhaktapur (Sirutar). View age groups, days, and timings.',
   alternates: {
     canonical: '/schedule',
   },

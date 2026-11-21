@@ -4,9 +4,11 @@ import { getBreadcrumbSchema, getWebPageSchema } from '@/lib/schema';
 import { site } from '@/data/site';
 
 export const metadata: Metadata = {
-  title: 'Youth Football Tournaments Nepal | School Football Tournaments Kathmandu',
+  title: {
+    absolute: 'Youth Football Tournaments and Leagues in Nepal | Aurium Sports',
+  },
   description:
-    'Register school and club teams for the Aurium Mini League, Aurium International Cup, and youth football tournaments in Kathmandu Valley, Nepal. Live tournament stats powered by NextSportz.',
+    'Register school and youth academy teams for the Aurium Mini League, Aurium International Cup, and youth football tournaments in Kathmandu Valley, Nepal with verified NextSportz match statistics.',
   alternates: {
     canonical: '/tournaments',
   },

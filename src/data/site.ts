@@ -51,7 +51,7 @@ export const stats = [
   { value: 350, suffix: "+", label: "Active players" },
   { value: 2000, suffix: "+", label: "Students reached" },
   { value: 5000, suffix: "+", label: "Parents engaged" },
-  { value: 4, suffix: "", label: "Training locations" },
+  { value: 5, suffix: "", label: "Training locations" },
 ];
 
 export const milestones = [

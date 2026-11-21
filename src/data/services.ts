@@ -46,9 +46,9 @@ export const services: Service[] = [
     imageAlt:
       "Youth football players training with certified coaches at The Aurium Academy in Kathmandu, Nepal",
     seoTitle:
-      "Football Academy Kathmandu | Kids Football Training | The Aurium Academy",
+      "Football Academy for Kids and Youth in Nepal | Aurium Sports",
     seoDescription:
-      "Book a spot at The Aurium Academy in Kathmandu Valley: Little Ballers (Ages 3–5), Academy Prep (6–8), Foundation (9–12), Youth Development (13–16), Goalkeeper, Girls Development, and Invite-Only Elite squads.",
+      "Structured year-round football training for children and young players (Ages 3–16) in Kathmandu Valley: Little Ballers, Academy Prep, Foundation, Youth Development, Goalkeeper, Girls Development, and Invite-Only Elite squads.",
     primaryKeyword: "Football Academy Kathmandu",
     secondaryKeywords: [
       "Kids Football Training Kathmandu",
@@ -91,9 +91,9 @@ export const services: Service[] = [
     imageAlt:
       "School students participating in Aurium SportsEd grassroots football and physical education program in Kathmandu",
     seoTitle:
-      "School Football Program Nepal | School Sports Development Kathmandu",
+      "School Football and Sports Programmes in Nepal | Aurium Sports",
     seoDescription:
-      "Partner with Aurium SportsEd to bring structured school football programs, certified ECA coaches, termly student report cards, and grassroots sports curricula to schools in Kathmandu Valley, Nepal.",
+      "Partner with Aurium SportsEd to bring structured school football and sports development, certified ECA coaches, termly student report cards, and grassroots sports curricula to schools in Kathmandu Valley, Nepal.",
     primaryKeyword: "School Football Program Nepal",
     secondaryKeywords: [
       "School Football Development Kathmandu",
@@ -166,9 +166,9 @@ export const services: Service[] = [
     imageAlt:
       "Nepali youth football squad competing under stadium floodlights at an international youth tournament",
     seoTitle:
-      "International Youth Football Nepal | Dana Cup, Norway Cup & Yangshuo Cup",
+      "International Youth Football Tournaments and Tours | Aurium Sports",
     seoDescription:
-      "Aurium Sports takes Nepali youth footballers and girls squads to global tournaments including the Dana Cup (Denmark), Norway Cup (Norway), Yangshuo Cup (China), and Gothia Cup.",
+      "Aurium Sports takes young Nepali footballers and girls squads to international youth football tournaments including the Dana Cup (Denmark), Norway Cup (Norway), Yangshuo Cup (China), and Gothia Cup.",
     primaryKeyword: "International Youth Football Nepal",
     secondaryKeywords: [
       "Nepali Youth Football International Tournaments",

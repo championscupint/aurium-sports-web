@@ -4,9 +4,11 @@ import { getBreadcrumbSchema, getWebPageSchema } from '@/lib/schema';
 import { site } from '@/data/site';
 
 export const metadata: Metadata = {
-  title: 'Youth Football & Sports Programs in Nepal | Academy, Schools & Leagues',
+  title: {
+    absolute: 'Football Training Programmes in Kathmandu | Aurium Sports',
+  },
   description:
-    'Explore the 9 grassroots football and youth sports pillars of Aurium Sports in Kathmandu Valley: The Aurium Academy, School Football Programs, Holiday Camps, Tournaments, and Sports for Mental Wellbeing.',
+    'Explore structured football training programmes in Kathmandu Valley for children and youth aged 3 to 16: Little Ballers (3–5), Academy Prep (6–8), Foundation (9–12), Youth Development (13–16), Goalkeeper, Girls Development, and Elite Squads.',
   alternates: {
     canonical: '/programs',
   },

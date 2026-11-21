@@ -1,4 +1,5 @@
 import { site } from '@/data/site';
+import type { TrainingLocation } from '@/data/schedule';
 
 export interface FAQItem {
   question: string;
@@ -203,5 +204,40 @@ export function getBreadcrumbSchema(items: { name: string; path: string }[]) {
       name: item.name,
       item: item.path === '/' ? site.url : `${site.url}${item.path}`,
     })),
+  };
+}
+
+export function getTrainingLocationSchema(loc: TrainingLocation) {
+  const locUrl = `${site.url}/locations/${loc.slug}`;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SportsActivityLocation',
+    '@id': `${locUrl}#location`,
+    name: `${site.name} — ${loc.name}`,
+    description: loc.intro,
+    url: locUrl,
+    image: `${site.url}${loc.image}`,
+    telephone: '+9779828978044',
+    email: site.email,
+    parentOrganization: {
+      '@id': `${site.url}/#organization`,
+    },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: loc.address,
+      addressLocality: loc.city,
+      addressRegion: 'Bagmati Province',
+      postalCode: loc.postalCode,
+      addressCountry: 'NP',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: loc.geo.latitude,
+      longitude: loc.geo.longitude,
+    },
+    areaServed: {
+      '@type': 'City',
+      name: loc.city,
+    },
   };
 }

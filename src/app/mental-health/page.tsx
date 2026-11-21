@@ -4,9 +4,11 @@ import { getFAQSchema, getBreadcrumbSchema, getWebPageSchema, FAQItem } from '@/
 import { site } from '@/data/site';
 
 export const metadata: Metadata = {
-  title: 'Sports for Mental Wellbeing Nepal | B.U.S.T. Youth Training Methodology',
+  title: {
+    absolute: 'Sports for Mental Health and Youth Wellbeing | Aurium Sports',
+  },
   description:
-    'Discover Nepal’s pioneering Sports for Mental Wellbeing framework by Aurium Sports: clinical sports science, the B.U.S.T. youth football training methodology, and school wellbeing workshops in Kathmandu.',
+    'Discover how Aurium Sports uses structured sport and the B.U.S.T. training routine to build confidence, emotional resilience, and youth wellbeing across schools and football academies in Kathmandu, Nepal.',
   alternates: {
     canonical: '/mental-health',
   },

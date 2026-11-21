@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import Link from 'next/link';
 import { trainingSchedule, trainingLocations, TrainingSlot } from '@/data/schedule';
 import { useEnquiry } from '@/components/EnquiryContext';
+import { trackScheduleView } from '@/lib/analytics';
 import { buttonClass } from '@/lib/ui';
 import {
   MapPin,
@@ -17,6 +19,10 @@ import {
 
 export function ScheduleLocationFinder() {
   const { openEnquiry } = useEnquiry();
+
+  useEffect(() => {
+    trackScheduleView();
+  }, []);
 
   const [selectedAge, setSelectedAge] = useState<string>('All');
   const [selectedArea, setSelectedArea] = useState<string>('All');
@@ -247,18 +253,33 @@ export function ScheduleLocationFinder() {
                   </span>
                 )}
               </div>
-              <h5 className="font-bold text-sm text-ink">{loc.name}</h5>
+              <h5 className="font-bold text-sm text-ink">
+                <Link
+                  href={`/locations/${loc.slug}`}
+                  className="hover:text-gold-deep transition-colors"
+                >
+                  {loc.name}
+                </Link>
+              </h5>
               <p className="text-[11px] text-muted font-sans leading-relaxed">
                 {loc.address}
               </p>
-              <a
-                href={`https://maps.google.com/?q=${encodeURIComponent(loc.mapQuery)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block text-[10px] font-bold text-gold-deep hover:underline pt-1"
-              >
-                Directions in Google Maps →
-              </a>
+              <div className="flex items-center justify-between pt-1">
+                <Link
+                  href={`/locations/${loc.slug}`}
+                  className="inline-block text-[10px] font-bold text-ink hover:text-gold-deep underline"
+                >
+                  Location Details &amp; Timetable →
+                </Link>
+                <a
+                  href={`https://maps.google.com/?q=${encodeURIComponent(loc.mapQuery)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-[10px] font-bold text-gold-deep hover:underline"
+                >
+                  Google Maps →
+                </a>
+              </div>
             </div>
           ))}
         </div>

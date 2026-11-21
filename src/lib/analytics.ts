@@ -72,4 +72,17 @@ export function trackSocialClick(
   });
 }
 
+export function trackScheduleView() {
+  trackEvent('training_schedule_view', {
+    event_category: 'engagement',
+  });
+}
+
+export function trackLocationPageView(locationSlug: string) {
+  trackEvent('location_page_view', {
+    event_category: 'local_seo_engagement',
+    location_slug: locationSlug,
+  });
+}
+
 
