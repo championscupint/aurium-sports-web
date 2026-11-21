@@ -1,14 +1,38 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { coachRemarks, parentPlayerTestimonials } from '@/data/programmes';
 import { site } from '@/data/site';
 import { useEnquiry } from './EnquiryContext';
 import { buttonClass } from '@/lib/ui';
-import { Award, Quote, ShieldCheck, Sparkles, ArrowRight, Star } from 'lucide-react';
+import {
+  Award,
+  Quote,
+  ShieldCheck,
+  Sparkles,
+  ArrowRight,
+  Star,
+  MapPin,
+} from 'lucide-react';
+
+const AFFILIATION_FILTERS = [
+  'All',
+  'Academy Parent',
+  'Training Venue',
+  'Partner School',
+] as const;
 
 export function CoachingRemarksAndTestimonials() {
   const { openEnquiry } = useEnquiry();
+  const [activeFilter, setActiveFilter] =
+    useState<(typeof AFFILIATION_FILTERS)[number]>('All');
+
+  const filteredTestimonials =
+    activeFilter === 'All'
+      ? parentPlayerTestimonials
+      : parentPlayerTestimonials.filter(
+          (t) => t.affiliationType === activeFilter
+        );
 
   return (
     <>
@@ -84,90 +108,95 @@ export function CoachingRemarksAndTestimonials() {
       </section>
 
       {/* =========================================================================
-          PART B: PARENT & PLAYER TESTIMONIALS
+          PART B: 12 AUTHENTIC & TACTICAL PARENT TESTIMONIALS
+          (Academy Parents • Training Venues • Partner Schools)
           ========================================================================= */}
       <section className="py-24 bg-chalk text-ink border-b border-ink/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
-          <div className="text-center max-w-3xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-2 text-gold-deep font-mono text-xs uppercase font-bold tracking-widest">
-              <Sparkles size={15} /> Trusted By 5,000+ Parents & Players
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+            <div className="max-w-2xl space-y-3">
+              <div className="inline-flex items-center gap-2 text-gold-deep font-mono text-xs uppercase font-bold tracking-widest">
+                <Sparkles size={15} /> Trusted By 5,000+ Academy & Partner School Parents
+              </div>
+              <h2 className="display text-4xl sm:text-6xl uppercase tracking-tight text-ink leading-none">
+                What Our Parents{' '}
+                <span className="accent font-serif italic normal-case text-gold-deep">
+                  Say.
+                </span>
+              </h2>
+              <p className="text-muted text-sm sm:text-base font-sans">
+                Tactical and developmental feedback from Academy Parents across our 5 Training Venues and Partner Schools in Kathmandu, Lalitpur, and Bhaktapur.
+              </p>
             </div>
-            <h2 className="display text-4xl sm:text-6xl uppercase tracking-tight text-ink leading-none">
-              What Our Parents &{' '}
-              <span className="accent font-serif italic normal-case text-gold-deep">
-                Players Say.
-              </span>
-            </h2>
-            <p className="text-muted text-sm sm:text-base font-sans">
-              Real experiences from families and young athletes across our Little Ballers, Academy Prep, Foundation, Girls Development, and Invite-Only Elite squads.
-            </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {parentPlayerTestimonials.map((t, idx) => (
-              <div
-                key={idx}
-                className={`p-8 sm:p-10 rounded-3xl border flex flex-col justify-between space-y-6 shadow-sm ${
-                  t.type === 'player'
-                    ? 'bg-ink text-chalk border-gold/50'
-                    : 'bg-white text-ink border-ink/10'
-                }`}
-              >
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span
-                      className={`px-3 py-1 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider ${
-                        t.type === 'player'
-                          ? 'bg-gold text-ink'
-                          : 'bg-chalk text-gold-deep border border-ink/10'
-                      }`}
-                    >
-                      {t.programmeTag}
-                    </span>
-                    <Quote
-                      size={22}
-                      className={
-                        t.type === 'player' ? 'text-gold/60' : 'text-gold-deep/40'
-                      }
-                    />
-                  </div>
-
-                  <p
-                    className={`text-sm sm:text-base font-sans leading-relaxed italic ${
-                      t.type === 'player' ? 'text-chalk/90' : 'text-ink/85'
+            {/* Filter Pills: All / Academy Parent / Training Venue / Partner School */}
+            <div className="flex flex-wrap items-center gap-2">
+              {AFFILIATION_FILTERS.map((filter) => {
+                const isActive = activeFilter === filter;
+                const label =
+                  filter === 'All'
+                    ? `All Testimonials (${parentPlayerTestimonials.length})`
+                    : `${filter}s`;
+                return (
+                  <button
+                    key={filter}
+                    type="button"
+                    onClick={() => setActiveFilter(filter)}
+                    className={`px-4 py-2 rounded-full font-mono text-[11px] font-bold uppercase tracking-wider transition-all ${
+                      isActive
+                        ? 'bg-ink text-gold shadow-sm'
+                        : 'bg-white text-muted hover:text-ink border border-ink/10'
                     }`}
                   >
+                    {label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredTestimonials.map((t, idx) => (
+              <div
+                key={`${t.childName}-${idx}`}
+                className="p-7 sm:p-8 rounded-3xl bg-white text-ink border border-ink/10 hover:border-gold-deep/50 transition-all flex flex-col justify-between space-y-6 shadow-sm hover:shadow-md"
+              >
+                <div className="space-y-4">
+                  {/* Top Badges: Affiliation Type + Programme Tag */}
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="px-2.5 py-1 rounded-full bg-ink text-gold font-mono text-[10px] font-bold uppercase tracking-wider">
+                      {t.affiliationType}
+                    </span>
+                    <Quote size={20} className="text-gold-deep/40 shrink-0" />
+                  </div>
+
+                  {/* Training Venue / Partner School Pill */}
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-chalk border border-ink/10 text-[11px] font-mono font-bold text-gold-deep">
+                    <MapPin size={12} className="shrink-0" />
+                    <span className="truncate">{t.venueOrSchool}</span>
+                  </div>
+
+                  {/* Tactical Parent Quote */}
+                  <p className="text-xs sm:text-sm font-sans leading-relaxed italic text-ink/85">
                     “{t.quote}”
                   </p>
                 </div>
 
-                <div
-                  className={`pt-5 border-t flex items-center justify-between ${
-                    t.type === 'player' ? 'border-white/10' : 'border-ink/10'
-                  }`}
-                >
-                  <div>
-                    <div
-                      className={`font-bold text-xs sm:text-sm uppercase tracking-wider ${
-                        t.type === 'player' ? 'text-gold' : 'text-ink'
-                      }`}
-                    >
-                      {t.role}
-                    </div>
-                    <div
-                      className={`text-xs font-mono mt-0.5 ${
-                        t.type === 'player' ? 'text-chalk/60' : 'text-muted'
-                      }`}
-                    >
-                      {t.location}
-                    </div>
+                {/* Card Footer: Parent of Child Name, Programme & Location */}
+                <div className="pt-5 border-t border-ink/10 space-y-1">
+                  <div className="font-bold text-xs sm:text-sm uppercase tracking-wider text-ink">
+                    {t.role}
+                  </div>
+                  <div className="flex items-center justify-between text-[11px] font-mono text-muted">
+                    <span>{t.programmeTag}</span>
+                    <span>• {t.location}</span>
                   </div>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Direct Booking Callout Bar */}
+          {/* Direct Booking & Google Review Callout Bar */}
           <div className="p-8 sm:p-10 rounded-3xl bg-white border-2 border-gold/50 shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div className="space-y-1 max-w-xl">
               <span className="text-xs font-mono uppercase tracking-widest text-gold-deep font-bold">
@@ -192,9 +221,13 @@ export function CoachingRemarksAndTestimonials() {
                 href={site.googleReviewUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={buttonClass('outline-ink', '!py-4 !px-6 text-xs inline-flex items-center gap-1.5')}
+                className={buttonClass(
+                  'outline-ink',
+                  '!py-4 !px-6 text-xs inline-flex items-center gap-1.5'
+                )}
               >
-                <Star size={14} className="text-gold-deep fill-gold" /> Review Us on Google
+                <Star size={14} className="text-gold-deep fill-gold" /> Review Us
+                on Google
               </a>
             </div>
           </div>

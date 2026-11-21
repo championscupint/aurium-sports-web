@@ -31,6 +31,9 @@ export interface CoachRemark {
 export interface Testimonial {
   quote: string;
   role: string;
+  childName: string;
+  affiliationType: 'Academy Parent' | 'Training Venue' | 'Partner School';
+  venueOrSchool: string;
   programmeTag: string;
   location: string;
   type: 'parent' | 'player';
@@ -252,34 +255,134 @@ export const coachRemarks: CoachRemark[] = [
 export const parentPlayerTestimonials: Testimonial[] = [
   {
     quote:
-      'Enrolling our younger son in Little Ballers and our older son in Academy Prep has been the best decision we have made as parents in Kathmandu. The coaches never yell destructively—they start every session with breathing and mobility, know how to encourage shy beginners, and have completely replaced evening screen time with healthy discipline and joy.',
-    role: 'Parent of Little Ballers (Age 5) & Academy Prep (Age 8) Players',
-    programmeTag: 'Little Ballers & Academy Prep',
+      'Before joining Aurium, Aarav only ever used his right foot and stared straight down at the ball while dribbling. Within four months in Academy Prep, the coaches taught him how to scan his shoulders before receiving, open his body on the half-turn, and trust his left foot in tight 3v3 and 4v4 rondo grids. His decision-making speed has improved beyond anything we expected at age 7.',
+    role: 'Academy Parent • Father of Aarav (Age 7)',
+    childName: 'Aarav',
+    affiliationType: 'Academy Parent',
+    venueOrSchool: 'Baneshwor Height Hub (HQ)',
+    programmeTag: 'Academy Prep (Ages 6–8)',
     location: 'Baneshwor Height, Kathmandu',
     type: 'parent',
   },
   {
     quote:
-      'When our son was invited into the Elite Squad, what impressed us most was the coaching team’s patience. Even with the additional weekly training sessions, they never rushed or overloaded him—every drill was tailored to the pace best suited for his growth, and his NextSportz digital report card shows incredible progress every term.',
-    role: 'Parent of U-11 Elite (Invite Only) & Foundation Player',
-    programmeTag: 'Elite (Invite Only)',
+      'What sets the Patan Dhoka training venue apart is how tactically structured every 90-minute session is. Siwani used to panic whenever opponents pressed her in midfield, but the coaches drilled third-man passing triangles, body orientation, and B.U.S.T. breathing resets. Watching her play with her head up and dictate tempo during the Dana Cup selection trials made our whole family proud.',
+    role: 'Academy Parent • Mother of Siwani (Age 13)',
+    childName: 'Siwani',
+    affiliationType: 'Training Venue',
+    venueOrSchool: 'Rato Bangala School (RBS) Hub • Patan Dhoka',
+    programmeTag: 'Girls Development (Ages 6–16)',
     location: 'Patan Dhoka, Lalitpur',
     type: 'parent',
   },
   {
     quote:
-      'As parents of a daughter who loves football, seeing Aurium build a real Girls Development pathway with equal resources, certified safeguarding, and international opportunities at the Dana Cup, Norway Cup, and Yangshuo Cup gave us complete peace of mind. Her self-confidence both at school and on the pitch has transformed.',
-    role: 'Parent of U-14 Girls Development Squad Player',
-    programmeTag: 'Girls Development & International Pathway',
+      'At age 4, Reyansh was shy around larger groups, so we enrolled him in Little Ballers at the Khumaltar turf. Instead of making toddlers stand in long queues, every child has a ball at their feet the entire hour. Through story-based agility mazes, sole-taps, and balance games, his motor coordination, spatial awareness, and social confidence have blossomed.',
+    role: 'Academy Parent • Mother of Reyansh (Age 4)',
+    childName: 'Reyansh',
+    affiliationType: 'Training Venue',
+    venueOrSchool: 'Ullens / South Valley Hub • Khumaltar',
+    programmeTag: 'Little Ballers (Ages 3–5)',
+    location: 'Khumaltar, Lalitpur',
+    type: 'parent',
+  },
+  {
+    quote:
+      'When Prayash was invited into the Elite Invite-Only squad at age 10, our biggest relief was seeing that the additional weekly sessions were built around an Individualized Development Plan. The coaches worked specifically on his center-midfield pressing triggers, transition recovery runs, and progressive line-breaking passes—at a pace suited to his physical growth spurt without overloading his knees.',
+    role: 'Academy Parent • Father of Prayash (Age 10)',
+    childName: 'Prayash',
+    affiliationType: 'Academy Parent',
+    venueOrSchool: 'Baneshwor Height Hub (HQ) & RBS Hub',
+    programmeTag: 'Elite — Invite Only (Ages 7+)',
     location: 'Kathmandu Valley',
     type: 'parent',
   },
   {
     quote:
-      'Before joining The Aurium Academy, I struggled with composure in tight matches and lacked confidence on my weaker foot. The coaches’ tactical guidance, B.U.S.T. breathing resets, and extra Elite sessions helped me understand how to scan the pitch, adapt between midfield and attack, and lead my teammates under tournament pressure.',
-    role: 'Youth Development & Elite Squad Captain (Under-16s)',
+      'Through the Aurium SportsEd partnership at Rato Bangala School, Kritika transitioned from casual school recess football to proper positional play. She learned how to hold defensive line compactness, time her overlapping full-back runs, and communicate vocally with her back four. Her termly report card and NextSportz TPR profile read like a professional academy dossier.',
+    role: 'Partner School Parent • Mother of Kritika (Age 14)',
+    childName: 'Kritika',
+    affiliationType: 'Partner School',
+    venueOrSchool: 'Rato Bangala School (Partner School)',
+    programmeTag: 'School Programme & Girls Pathway',
+    location: 'Patan Dhoka, Lalitpur',
+    type: 'parent',
+  },
+  {
+    quote:
+      'Kushal always wanted to play in goal, but nowhere in Kathmandu offered real goalkeeper biomechanics until we joined Aurium’s GK Lab at Baneshwor. They taught him set-position footwork, how to narrow 1v1 shooting angles, low collapse diving without hurting his elbows, and how to play as a modern sweeper-keeper distributing cleanly under a high press.',
+    role: 'Academy Parent • Father of Kushal (Age 12)',
+    childName: 'Kushal',
+    affiliationType: 'Training Venue',
+    venueOrSchool: 'Baneshwor Height Hub (HQ) • GK Reflex Lab',
+    programmeTag: 'Goalkeeper (Ages 7–16)',
+    location: 'Baneshwor Height, Kathmandu',
+    type: 'parent',
+  },
+  {
+    quote:
+      'The weekday after-school cohort at Ace Sports Hub fits our schedule seamlessly. Vivaan has learned the difference between just kicking the ball away and playing out from the back with composure. The coaches emphasize 1v1 defensive delay—staying on the balls of his feet, jockeying wingers onto their weaker side, and winning possession cleanly without reckless lunges.',
+    role: 'Academy Parent • Father of Vivaan (Age 11)',
+    childName: 'Vivaan',
+    affiliationType: 'Training Venue',
+    venueOrSchool: 'Ace Sports Hub • Gairidhara / Sinamangal',
+    programmeTag: 'Foundation (Ages 9–12)',
+    location: 'Gairidhara, Kathmandu',
+    type: 'parent',
+  },
+  {
+    quote:
+      'Having the Sirutar Sports Complex training ground right in Bhaktapur has been a game-changer for East Valley parents. Siddhant trains three mornings a week before school. His first-touch cushion under aerial balls, off-the-ball movement into half-spaces, and stamina in the Aurium Mini League have improved dramatically, and he starts every school day energized.',
+    role: 'Academy Parent • Mother of Siddhant (Age 11)',
+    childName: 'Siddhant',
+    affiliationType: 'Training Venue',
+    venueOrSchool: 'Sirutar Sports Complex • Bhaktapur',
+    programmeTag: 'Foundation (Ages 9–12)',
+    location: 'Sirutar, Bhaktapur',
+    type: 'parent',
+  },
+  {
+    quote:
+      'At Sanskriti International School, the Aurium coaching unit completely changed how our son Anmol approaches team sports. Instead of clustering around the ball, his U-12 school team now understands width and depth—stretching the pitch in possession and pressing as a coordinated unit when possession is lost. The coaches balance tactical detail with genuine warmth.',
+    role: 'Partner School Parent • Father of Anmol (Age 12)',
+    childName: 'Anmol',
+    affiliationType: 'Partner School',
+    venueOrSchool: 'Sanskriti International School (Partner School)',
+    programmeTag: 'Aurium SportsEd School Programme',
+    location: 'Halchowk, Kathmandu',
+    type: 'parent',
+  },
+  {
+    quote:
+      'Tenzing is 15 and preparing for higher-level competitive football. The Youth Development sessions at Baneshwor and Ace Hub treat teenage players like real athletes—combining 11v11 tactical phase play, counter-pressing triggers in the final third, and proper hamstring and ankle injury-prevention through the B.U.S.T. warm-up protocol.',
+    role: 'Academy Parent • Father of Tenzing (Age 15)',
+    childName: 'Tenzing',
+    affiliationType: 'Academy Parent',
+    venueOrSchool: 'Baneshwor Height Hub & Ace Sports Hub',
     programmeTag: 'Youth Development (Ages 13–16)',
-    location: 'The Aurium Academy',
-    type: 'player',
+    location: 'Kathmandu Central',
+    type: 'parent',
+  },
+  {
+    quote:
+      'We first discovered Aurium through the ECA football curriculum at Galaxy Public School and immediately enrolled our daughter Ananya into the weekend academy cohort as well. The coaches taught her how to disguise her passing with body feints, time her runs behind the defensive line, and bounce back mentally after a missed chance using their post-session reflection circles.',
+    role: 'Partner School & Academy Parent • Mother of Ananya (Age 9)',
+    childName: 'Ananya',
+    affiliationType: 'Partner School',
+    venueOrSchool: 'Galaxy Public School (Partner School) & Baneshwor Hub',
+    programmeTag: 'Foundation & School ECA',
+    location: 'Gyaneshwor / Baneshwor, Kathmandu',
+    type: 'parent',
+  },
+  {
+    quote:
+      'Our son Ronit joined through LRI School’s holiday camp partnership and now trains year-round with the Elite group preparing for international tours like the Norway Cup and Yangshuo Cup. Seeing his NextSportz digital card track his sprint recovery, passing accuracy, and tactical discipline every month keeps him intrinsically motivated without any parental nagging.',
+    role: 'Partner School & Elite Parent • Father of Ronit (Age 14)',
+    childName: 'Ronit',
+    affiliationType: 'Partner School',
+    venueOrSchool: 'LRI School (Partner School) & Elite Squad',
+    programmeTag: 'Elite (Invite Only) & International Pathway',
+    location: 'Kalanki / Kathmandu Valley',
+    type: 'parent',
   },
 ];
