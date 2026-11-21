@@ -149,6 +149,14 @@ export function ContactClient() {
                       >
                         Facebook <ArrowUpRight size={12} />
                       </a>
+                      <a
+                        href={site.googleReviewUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-gold text-ink hover:bg-white text-xs font-bold transition-colors"
+                      >
+                        Review on Google <ArrowUpRight size={12} />
+                      </a>
                     </div>
                   </div>
                 </div>

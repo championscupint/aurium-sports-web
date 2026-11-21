@@ -23,6 +23,7 @@ export const site = {
   instagram: "https://www.instagram.com/auriumsports/",
   facebook: "https://www.facebook.com/auriumsports/",
   tiktok: "https://www.tiktok.com/@auriumsports",
+  googleReviewUrl: "https://g.page/r/CZ8XbZDAyw6pEAE/review",
   socialHandle: "@auriumsports",
   socials: [
     {

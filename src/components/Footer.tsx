@@ -119,6 +119,15 @@ export function Footer() {
                 >
                   WhatsApp Chat <ArrowUpRight size={13} />
                 </a>
+                <span className="text-white/20">•</span>
+                <a
+                  href={site.googleReviewUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-bold text-gold hover:text-white flex items-center gap-1 transition-colors"
+                >
+                  Google Reviews <ArrowUpRight size={13} />
+                </a>
               </div>
             </div>
           </div>

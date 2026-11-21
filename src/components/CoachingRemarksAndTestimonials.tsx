@@ -2,9 +2,10 @@
 
 import React from 'react';
 import { coachRemarks, parentPlayerTestimonials } from '@/data/programmes';
+import { site } from '@/data/site';
 import { useEnquiry } from './EnquiryContext';
 import { buttonClass } from '@/lib/ui';
-import { Award, Quote, ShieldCheck, Sparkles, ArrowRight } from 'lucide-react';
+import { Award, Quote, ShieldCheck, Sparkles, ArrowRight, Star } from 'lucide-react';
 
 export function CoachingRemarksAndTestimonials() {
   const { openEnquiry } = useEnquiry();
@@ -187,6 +188,14 @@ export function CoachingRemarksAndTestimonials() {
               >
                 Book a Spot Now <ArrowRight size={14} />
               </button>
+              <a
+                href={site.googleReviewUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={buttonClass('outline-ink', '!py-4 !px-6 text-xs inline-flex items-center gap-1.5')}
+              >
+                <Star size={14} className="text-gold-deep fill-gold" /> Review Us on Google
+              </a>
             </div>
           </div>
         </div>
