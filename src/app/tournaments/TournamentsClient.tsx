@@ -2,8 +2,27 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { Space_Grotesk, Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google';
 import { useEnquiry } from '@/components/EnquiryContext';
 import { buttonClass } from '@/lib/ui';
+
+const titanSpace = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['700'],
+  display: 'swap',
+});
+
+const titanJakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['500', '600', '700', '800'],
+  display: 'swap',
+});
+
+const titanMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['700'],
+  display: 'swap',
+});
 import {
   Activity,
   Shield,
@@ -299,112 +318,199 @@ export function TournamentsClient() {
             </p>
           </div>
 
-          {/* 1. AIC TITANS CUP — FLAGSHIP CORPORATE & BANKING TOURNAMENT */}
+          {/* 1. AIC TITANS CUP — INDEPENDENT "THE TITANS ARENA" SPORTS BRAND PANEL */}
           {showAic && (
-            <div className="rounded-3xl border-2 border-gold/70 bg-[#071120] overflow-hidden shadow-2xl">
+            <div
+              className={`${titanJakarta.className} rounded-3xl border-2 border-[#C7F464]/80 bg-[#101D32] text-white overflow-hidden shadow-[0_24px_60px_rgba(9,18,32,0.75)] relative`}
+            >
+              {/* Top Independent Brand Identity Ribbon */}
+              <div className="bg-[#091220] border-b border-white/10 px-6 py-3 flex flex-wrap items-center justify-between gap-3 text-[11px]">
+                <div className="flex items-center gap-2.5">
+                  <span className="inline-block w-2 h-2 rounded-full bg-[#C7F464]" />
+                  <span className={`${titanMono.className} font-bold uppercase tracking-[0.2em] text-[#C7F464]`}>
+                    INDEPENDENT CORPORATE SPORTS PROPERTY · THE TITANS ARENA
+                  </span>
+                </div>
+                <div className="text-[#BFC8D3] font-semibold">
+                  Organized by <strong className="text-white">Aurium Sports</strong> · Official Portal:{" "}
+                  <a href="/aic-titans-cup" className="text-[#C7F464] underline font-bold">
+                    aictitanscup.auriumsports.com
+                  </a>
+                </div>
+              </div>
+
               <div className="grid grid-cols-1 lg:grid-cols-12">
-                {/* Banner & Official Crest */}
-                <div className="lg:col-span-5 relative min-h-[340px] p-8 flex flex-col justify-between overflow-hidden">
+                {/* Left Column: Arena Banner & Titanium/Lime Official Crest */}
+                <div className="lg:col-span-5 relative min-h-[380px] p-7 sm:p-9 flex flex-col justify-between overflow-hidden bg-[#091220] border-b lg:border-b-0 lg:border-r border-white/10">
                   <img
                     src="/images/tournaments/aic-titans-banner.jpg"
-                    alt="AIC Titans Cup Official Banner"
-                    className="absolute inset-0 w-full h-full object-cover opacity-35"
+                    alt="AIC Titans Cup Official Arena Banner"
+                    className="absolute inset-0 w-full h-full object-cover opacity-30"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#040914] via-[#040914]/70 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#091220] via-[#101D32]/85 to-[#091220]/70" />
 
                   <div className="relative z-10 flex flex-wrap items-center justify-between gap-2">
-                    <span className="px-3 py-1 rounded-full bg-gold text-ink font-mono text-[10px] font-bold uppercase tracking-widest">
-                      Corporate &amp; Institutional Flagship
+                    <span
+                      className={`${titanMono.className} px-3 py-1 rounded-full bg-[#C7F464] text-[#101D32] text-[10px] font-bold uppercase tracking-widest`}
+                    >
+                      Nepal&apos;s Banking Football Ecosystem
                     </span>
-                    <span className="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400 text-emerald-300 font-mono text-[10px] font-bold uppercase tracking-widest">
+                    <span
+                      className={`${titanMono.className} px-3 py-1 rounded-full bg-[#FF783D]/20 border border-[#FF783D] text-[#FF783D] text-[10px] font-bold uppercase tracking-widest`}
+                    >
                       Status: {aicData.status} · Reg: {aicData.registrationStatus}
                     </span>
                   </div>
 
                   <div className="relative z-10 my-6 flex items-center gap-4">
                     <img
-                      src="/images/tournaments/parent-crest.svg"
-                      alt="AIC Titans Cup Official Crest"
-                      className="w-24 h-28 object-contain shrink-0"
+                      src="/logos/parent-crest.svg"
+                      alt="AIC Titans Cup Official Titanium & Electric Lime Crest"
+                      className="w-24 h-28 object-contain shrink-0 drop-shadow-[0_10px_25px_rgba(199,244,100,0.22)]"
                     />
-                    <div>
-                      <div className="text-[11px] font-mono font-bold uppercase tracking-widest text-gold">
-                        {aicData.centralTagline}
+                    <div className="space-y-1.5">
+                      <div
+                        className={`${titanMono.className} text-[11px] font-bold uppercase tracking-[0.2em] text-[#C7F464]`}
+                      >
+                        WHERE BANKERS BECOME TITANS
                       </div>
-                      <h3 className="display text-3xl sm:text-4xl uppercase text-white mt-1">
+                      <h3
+                        className={`${titanSpace.className} text-3xl sm:text-4xl font-bold tracking-tight text-white leading-none`}
+                      >
                         {aicData.tournamentName}
                       </h3>
-                      <p className="text-xs text-chalk/80 font-sans mt-1">
-                        Nepal’s Five-Competition Banking Football &amp; Futsal Ecosystem
+                      <p className="text-xs text-[#BFC8D3] font-medium">
+                        {aicData.centralTagline} · 5 Competitions · 105 NRB-Licensed BFIs
                       </p>
                     </div>
                   </div>
 
-                  <div className="relative z-10 border-t border-white/15 pt-4 flex flex-wrap items-center justify-between gap-2 text-xs text-chalk/80 font-sans">
-                    <span>
-                      Next Competition: <strong className="text-gold">{aicData.nextScheduledCompetition.name}</strong>
-                    </span>
-                    <span>
-                      Window: <strong className="text-white">{aicData.nextScheduledCompetition.nepaliMonthWindow}</strong>
-                    </span>
+                  <div className="relative z-10 rounded-2xl bg-[#101D32]/90 border border-white/15 p-4 flex flex-wrap items-center justify-between gap-2 text-xs">
+                    <div>
+                      <span className="text-[#BFC8D3] block text-[10px] uppercase tracking-wider font-bold">
+                        Next Scheduled Championship
+                      </span>
+                      <strong className="text-[#C7F464] font-bold">
+                        {aicData.nextScheduledCompetition.name}
+                      </strong>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-[#BFC8D3] block text-[10px] uppercase tracking-wider font-bold">
+                        Match Window
+                      </span>
+                      <strong className={`${titanMono.className} text-white`}>
+                        {aicData.nextScheduledCompetition.nepaliMonthWindow}
+                      </strong>
+                    </div>
                   </div>
                 </div>
 
-                {/* Five-Competition Structure & Dedicated Website Link */}
-                <div className="lg:col-span-7 p-8 lg:p-10 flex flex-col justify-between space-y-6">
+                {/* Right Column: 5-Competition Architecture & Distinct Titans Arena CTAs */}
+                <div className="lg:col-span-7 p-7 sm:p-9 lg:p-10 flex flex-col justify-between space-y-6 bg-[#101D32]">
                   <div className="space-y-4">
                     <div className="flex flex-wrap items-center justify-between gap-2">
-                      <span className="text-xs font-mono font-bold uppercase tracking-widest text-gold">
-                        5 COMPETITIONS · 105 NRB-LICENSED BFIs · 7 REGIONAL HUBS
+                      <span
+                        className={`${titanMono.className} text-xs font-bold uppercase tracking-widest text-[#C7F464]`}
+                      >
+                        5 COMPETITIONS · 7 REGIONAL HUBS · 7m LEAGUE / 10m KNOCKOUT HALVES
                       </span>
-                      <span className="text-xs font-mono text-chalk/70">
-                        Gentlemen (NPR 25,000) · Ladies Promotional (NPR 15,000)
+                      <span
+                        className={`${titanMono.className} text-xs text-[#BFC8D3] bg-[#091220] px-3 py-1 rounded-lg border border-white/10`}
+                      >
+                        Gentlemen NPR 25,000 · Ladies NPR 15,000
                       </span>
                     </div>
 
-                    <p className="text-sm text-chalk/90 font-sans leading-relaxed">
-                      Designed as a sporting holiday and competitive championship for Nepal’s banking fraternity. Four individual NRB class qualifying championships (<strong>Type A Commercial, Type B Development, Type C Finance, Type D Microfinance</strong>) qualify their verified Champion and Runner-Up into the fifth competition: <strong>Clash of the Titans – The Bankers Championship</strong>. Includes local-level Sports CSR empowering underprivileged girls and employing local licensed football coaches across all 7 Provinces.
+                    <p className="text-sm text-[#F7F8FA]/90 leading-relaxed">
+                      An independently branded championship arena and outdoor sporting holiday created for Nepal&apos;s banking and financial services workforce. Four NRB class qualifying championships (<strong className="text-white">Type A Commercial, Type B Development, Type C Finance, Type D Microfinance</strong>) qualify their verified Champion and Runner-Up into the fifth competition: <strong className="text-[#C7F464]">Clash of the Titans – The Bankers Championship</strong>.
                     </p>
 
-                    {/* 5 Competitions Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-5 gap-2.5 pt-2">
-                      {aicData.fiveCompetitions.map((c) => (
-                        <a
-                          key={c.slug}
-                          href={c.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-gold transition-all flex flex-col justify-between"
-                        >
-                          <div>
-                            <div className="text-[10px] font-mono font-bold uppercase text-gold">
-                              {c.nepaliMonthWindow}
+                    {/* 5 Competitions Grid with Distinct Class Accent Colors */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-2.5 pt-2">
+                      {aicData.fiveCompetitions.map((c) => {
+                        const accentMap: Record<string, { border: string; badge: string; dot: string }> = {
+                          'type-a': {
+                            border: 'hover:border-[#2563EB] border-[#2563EB]/40',
+                            badge: 'text-[#60A5FA]',
+                            dot: 'bg-[#2563EB]',
+                          },
+                          'type-b': {
+                            border: 'hover:border-[#10B981] border-[#10B981]/40',
+                            badge: 'text-[#34D399]',
+                            dot: 'bg-[#10B981]',
+                          },
+                          'type-c': {
+                            border: 'hover:border-[#8B5CF6] border-[#8B5CF6]/40',
+                            badge: 'text-[#A78BFA]',
+                            dot: 'bg-[#8B5CF6]',
+                          },
+                          'type-d': {
+                            border: 'hover:border-[#FF783D] border-[#FF783D]/40',
+                            badge: 'text-[#FF783D]',
+                            dot: 'bg-[#FF783D]',
+                          },
+                          'clash-of-the-titans': {
+                            border: 'hover:border-[#C7F464] border-[#C7F464]/60',
+                            badge: 'text-[#C7F464]',
+                            dot: 'bg-[#C7F464]',
+                          },
+                        };
+                        const style = accentMap[c.slug] || accentMap['clash-of-the-titans'];
+                        return (
+                          <a
+                            key={c.slug}
+                            href={c.url}
+                            className={`p-3.5 rounded-2xl bg-[#091220] hover:bg-[#091220]/80 border ${style.border} transition-all flex flex-col justify-between group`}
+                          >
+                            <div>
+                              <div className="flex items-center justify-between gap-1">
+                                <span
+                                  className={`${titanMono.className} text-[10px] font-bold uppercase ${style.badge}`}
+                                >
+                                  {c.nepaliMonthWindow}
+                                </span>
+                                <span className={`w-2 h-2 rounded-full ${style.dot}`} />
+                              </div>
+                              <div
+                                className={`${titanSpace.className} text-sm font-bold text-white mt-1.5 group-hover:text-[#C7F464] transition-colors leading-snug`}
+                              >
+                                {c.name}
+                              </div>
+                              <div className="text-[11px] text-[#BFC8D3] mt-1 leading-snug">
+                                {c.subtitle}
+                              </div>
                             </div>
-                            <div className="font-display text-sm uppercase text-white mt-0.5">
-                              {c.name}
+                            <div
+                              className={`${titanMono.className} mt-3 pt-2 border-t border-white/10 text-[10px] font-bold text-[#C7F464] flex items-center justify-between`}
+                            >
+                              <span>{c.tournamentStatus}</span>
+                              <ArrowUpRight size={12} />
                             </div>
-                            <div className="text-[11px] text-chalk/70 font-sans mt-0.5">
-                              {c.subtitle}
-                            </div>
-                          </div>
-                          <div className="mt-2 pt-1.5 border-t border-white/10 text-[10px] font-mono font-bold text-emerald-300">
-                            {c.tournamentStatus}
-                          </div>
-                        </a>
-                      ))}
+                          </a>
+                        );
+                      })}
                     </div>
                   </div>
 
                   <div className="pt-4 border-t border-white/15 flex flex-wrap items-center justify-between gap-4">
-                    <div className="text-xs text-chalk/70 font-sans">
-                      Official Portal: <strong className="text-white">www.auriumsports.com/aic-titans-cup</strong> &amp; <strong className="text-gold">aictitanscup.auriumsports.com</strong>
+                    <div className="text-xs text-[#BFC8D3]">
+                      Prize Pool: <strong className="text-white">Min. 50% (70:30 Winner:Runner-Up)</strong> · Local CSR:{" "}
+                      <strong className="text-[#C7F464]">Girls &amp; Licensed Coach Jobs</strong>
                     </div>
-                    <a
-                      href="/aic-titans-cup"
-                      className={buttonClass('gold', '!py-3.5 !px-7 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2')}
-                    >
-                      Explore AIC Titans Cup <ArrowUpRight size={16} />
-                    </a>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <a
+                        href="/aic-titans-cup/register"
+                        className="py-3.5 px-5 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-white/15 text-xs font-extrabold uppercase tracking-wider transition-colors"
+                      >
+                        Register BFI Squad
+                      </a>
+                      <a
+                        href="/aic-titans-cup"
+                        className="py-3.5 px-7 rounded-xl bg-[#FF783D] hover:bg-[#e8662c] text-white text-xs font-extrabold uppercase tracking-wider inline-flex items-center gap-2 shadow-lg shadow-[#FF783D]/25 transition-all"
+                      >
+                        Explore Titans Cup <ArrowUpRight size={16} />
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>

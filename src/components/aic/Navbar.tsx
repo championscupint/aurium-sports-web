@@ -8,13 +8,9 @@ import {
   Menu,
   X,
   Trophy,
-  Shield,
-  Sparkles,
-  HeartHandshake,
-  Calendar,
-  Building2,
   ArrowUpRight,
   Lock,
+  Sparkles,
 } from "lucide-react";
 
 const FIVE_COMPETITIONS = [
@@ -23,8 +19,7 @@ const FIVE_COMPETITIONS = [
     sub: "20 Class A Commercial Banks · Shrawan",
     href: "/competitions/type-a",
     badge: "NRB Class A",
-    accent: "bg-blue-600 text-white",
-    dot: "bg-blue-500",
+    badgeBg: "bg-[#2563EB] text-white",
     logo: "/logos/type-a-crest.svg",
   },
   {
@@ -32,8 +27,7 @@ const FIVE_COMPETITIONS = [
     sub: "17 Class B Development Banks · Shrawan",
     href: "/competitions/type-b",
     badge: "NRB Class B",
-    accent: "bg-emerald-600 text-white",
-    dot: "bg-emerald-500",
+    badgeBg: "bg-[#10B981] text-slate-950 font-extrabold",
     logo: "/logos/type-b-crest.svg",
   },
   {
@@ -41,8 +35,7 @@ const FIVE_COMPETITIONS = [
     sub: "17 Class C Finance Companies · Kartik",
     href: "/competitions/type-c",
     badge: "NRB Class C",
-    accent: "bg-purple-600 text-white",
-    dot: "bg-purple-500",
+    badgeBg: "bg-[#8B5CF6] text-white",
     logo: "/logos/type-c-crest.svg",
   },
   {
@@ -50,327 +43,342 @@ const FIVE_COMPETITIONS = [
     sub: "51 Class D Microfinance (7 Hubs) · Kartik",
     href: "/competitions/type-d",
     badge: "NRB Class D",
-    accent: "bg-orange-600 text-white",
-    dot: "bg-orange-500",
+    badgeBg: "bg-[#FF783D] text-white",
     logo: "/logos/type-d-crest.svg",
   },
   {
     name: "Clash of the Titans",
     sub: "The Bankers Championship (8 Qualifiers) · Magh",
     href: "/competitions/clash-of-the-titans",
-    badge: "5th Competition · Championship",
-    accent: "bg-amber-500 text-slate-950 font-black",
-    dot: "bg-amber-400",
+    badge: "5th Competition",
+    badgeBg: "bg-[#C7F464] text-[#101D32] font-black",
     logo: "/logos/clash-crest.svg",
     isClash: true,
   },
 ];
 
-export function Navbar() {
+const CENTER_LINKS = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Competitions", href: "/competitions", hasDropdown: true },
+  { label: "Road to the Clash", href: "/road-to-the-clash" },
+  { label: "Bankers' Experience", href: "/experience" },
+  { label: "Sports CSR", href: "/csr" },
+  { label: "Sponsors", href: "/sponsors" },
+  { label: "News & Media", href: "/news" },
+];
+
+export function Navbar({ basePath = "" }: { basePath?: string }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [compDropdown, setCompDropdown] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const resolveHref = (h: string) => {
+    if (!basePath) return h;
+    return h === "/" ? basePath : `${basePath}${h}`;
+  };
+
+  const isActive = (h: string) => {
+    const full = resolveHref(h);
+    if (h === "/") {
+      return pathname === full || pathname === `${basePath}/`;
+    }
+    return pathname === full || pathname?.startsWith(`${full}/`);
+  };
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    setMobileOpen(false);
+    setCompDropdown(false);
+  }, [pathname]);
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`sticky top-0 left-0 right-0 z-50 transition-all duration-200 ${
         scrolled
-          ? "bg-[#040914]/95 backdrop-blur-xl border-b border-amber-500/25 shadow-2xl"
-          : "bg-gradient-to-b from-[#040914]/95 via-[#040914]/80 to-transparent"
+          ? "bg-[#101D32]/98 backdrop-blur-xl shadow-[0_10px_30px_rgba(9,18,32,0.45)] border-b border-[#BFC8D3]/15"
+          : "bg-[#101D32] border-b border-[#BFC8D3]/15"
       }`}
     >
-      {/* Top Ecosystem Bar connecting to Aurium Sports & Nepal Youth Cup */}
-      <div className="bg-[#071120] border-b border-white/10 text-[11px] text-slate-300 py-1.5 px-4 lg:px-8">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 font-semibold text-amber-400">
-              <Sparkles className="w-3.5 h-3.5" />
-              AURIUM SPORTS FLAGSHIP CORPORATE ECOSYSTEM
+      {/* Slim Top Ecosystem Ribbon (Clean, Uncluttered) */}
+      <div className="bg-[#091220] border-b border-[#BFC8D3]/10 text-xs text-[#BFC8D3] py-2 px-4 sm:px-6 lg:px-10">
+        <div className="max-w-[1440px] mx-auto flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2.5">
+            <span className="inline-block w-2 h-2 rounded-full bg-[#C7F464]" />
+            <span className="font-titan-mono text-[11px] font-semibold tracking-wider uppercase text-[#F7F8FA]">
+              THE TITANS ARENA
             </span>
-            <span className="hidden md:inline text-slate-500">|</span>
-            <span className="hidden md:inline text-slate-300">
-              5 Competitions · 105 NRB-Licensed BFIs · 7 Regional Hubs · Gentlemen (25k) &amp; Ladies (15k)
+            <span className="hidden md:inline text-[#BFC8D3]/40">|</span>
+            <span className="hidden md:inline text-[11px] text-[#BFC8D3]">
+              Organised by Aurium Sports · 5 Competitions · 105 NRB-Licensed BFIs · 7 Regional Hubs
             </span>
           </div>
-          <div className="flex items-center gap-4">
+
+          <div className="flex items-center gap-4 text-[11px]">
             <a
               href="https://www.auriumsports.com/tournaments"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-amber-400 transition-colors inline-flex items-center gap-1 font-medium"
+              className="text-[#BFC8D3] hover:text-[#C7F464] transition-colors inline-flex items-center gap-1 font-medium"
             >
-              Aurium Sports Directory <ArrowUpRight className="w-3 h-3" />
+              Aurium Sports <ArrowUpRight className="w-3 h-3" />
             </a>
-            <span className="text-slate-600">·</span>
+            <span className="text-[#BFC8D3]/30">·</span>
             <a
               href="https://nepalyouthcup.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-teal-400 transition-colors inline-flex items-center gap-1 font-medium"
+              className="text-[#BFC8D3] hover:text-[#C7F464] transition-colors inline-flex items-center gap-1 font-medium"
             >
-              Nepal Youth Cup 2027 <ArrowUpRight className="w-3 h-3" />
+              Nepal Youth Cup <ArrowUpRight className="w-3 h-3" />
             </a>
-            <span className="text-slate-600">·</span>
+            <span className="text-[#BFC8D3]/30">·</span>
             <Link
-              href="/aic-titans-cup/admin"
-              className="text-amber-300 hover:text-amber-200 inline-flex items-center gap-1 font-semibold"
+              href={resolveHref("/admin")}
+              className="text-[#C7F464] hover:underline inline-flex items-center gap-1 font-semibold"
             >
-              <Lock className="w-3 h-3" /> Admin Portal
+              <Lock className="w-3 h-3" /> Admin
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Main Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 h-20 flex items-center justify-between">
-        {/* Brand Crest */}
-        <Link href="/aic-titans-cup" className="flex items-center gap-3.5 group">
+      {/* Main 3-Zone Header Bar (Spacious 84px height, generous breathing room) */}
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 h-[84px] flex items-center justify-between gap-4">
+        {/* LEFT SECTION: AIC Titans Cup Logo with Breathing Room & True Proportions */}
+        <Link
+          href={resolveHref("/")}
+          className="flex items-center gap-3.5 shrink-0 py-2 pr-3 group"
+        >
           <img
             src="/logos/parent-crest.svg"
             alt="AIC Titans Cup Official Crest"
-            className="w-12 h-14 object-contain drop-shadow-[0_0_12px_rgba(212,160,23,0.45)] group-hover:scale-105 transition-transform"
+            width={46}
+            height={52}
+            className="w-[46px] h-[52px] object-contain shrink-0 transition-transform duration-200 group-hover:scale-105"
           />
-          <div>
-            <div className="text-[10px] font-extrabold tracking-[0.22em] text-amber-400 uppercase">
-              YOUR GAME. YOUR PEOPLE. YOUR ESCAPE.
-            </div>
-            <div className="font-display font-black text-xl md:text-2xl tracking-tight text-white leading-none mt-0.5">
+          <div className="flex flex-col">
+            <span className="font-titan-display font-bold text-lg sm:text-xl tracking-tight text-[#F7F8FA] leading-none">
               AIC TITANS CUP
-            </div>
-            <div className="text-[10px] font-semibold tracking-wider text-teal-400 uppercase mt-0.5">
-              Nepal Banking Fraternity Championship
-            </div>
+            </span>
+            <span className="font-titan-mono text-[10px] font-semibold tracking-[0.18em] text-[#C7F464] uppercase mt-1.5 leading-none">
+              THE BANKERS CHAMPIONSHIP
+            </span>
           </div>
         </Link>
 
-        {/* Desktop Menu (All 10 Required Sections) */}
-        <nav className="hidden xl:flex items-center gap-1">
-          <Link
-            href="/aic-titans-cup"
-            className={`px-2.5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors ${
-              pathname === "/" ? "text-amber-400 bg-white/5" : "text-slate-200 hover:text-amber-400"
-            }`}
-          >
-            Home
-          </Link>
+        {/* CENTRE SECTION: 8 Balanced Navigation Items (Shown on 1280px+ xl screens so labels NEVER squeeze) */}
+        <nav
+          aria-label="Primary Navigation"
+          className="hidden xl:flex items-center justify-center gap-1 2xl:gap-2"
+        >
+          {CENTER_LINKS.map((item) => {
+            const active = isActive(item.href);
 
-          <Link
-            href="/aic-titans-cup/about"
-            className={`px-2.5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors ${
-              pathname?.startsWith("/about")
-                ? "text-amber-400 bg-white/5"
-                : "text-slate-200 hover:text-amber-400"
-            }`}
-          >
-            About
-          </Link>
+            if (item.hasDropdown) {
+              return (
+                <div
+                  key={item.href}
+                  className="relative"
+                  onMouseEnter={() => setCompDropdown(true)}
+                  onMouseLeave={() => setCompDropdown(false)}
+                >
+                  <Link
+                    href={resolveHref(item.href)}
+                    className={`px-3.5 py-2.5 rounded-xl text-[13.5px] font-semibold whitespace-nowrap inline-flex items-center gap-1.5 transition-all ${
+                      active
+                        ? "text-[#101D32] bg-[#C7F464] font-bold shadow-sm"
+                        : "text-[#F7F8FA] hover:text-[#C7F464] hover:bg-white/5"
+                    }`}
+                  >
+                    <span>{item.label}</span>
+                    <ChevronDown className="w-3.5 h-3.5 shrink-0" />
+                  </Link>
 
-          {/* The Five Competitions Dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => setCompDropdown(true)}
-            onMouseLeave={() => setCompDropdown(false)}
-          >
-            <Link
-              href="/aic-titans-cup/competitions"
-              className={`px-2.5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1 transition-colors ${
-                pathname?.startsWith("/competitions")
-                  ? "text-amber-400 bg-white/5"
-                  : "text-slate-200 hover:text-amber-400"
-              }`}
-            >
-              The 5 Competitions <ChevronDown className="w-3.5 h-3.5" />
-            </Link>
-
-            {compDropdown && (
-              <div className="absolute top-full left-0 w-[430px] pt-2 z-50">
-                <div className="bg-[#071120] border border-amber-500/35 rounded-2xl shadow-2xl p-4 space-y-2">
-                  <div className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-amber-400 px-2 pb-1 border-b border-white/10 flex items-center justify-between">
-                    <span>4 Qualifying Leagues + 5th Championship</span>
-                    <Link href="/aic-titans-cup/competitions" className="underline hover:text-white">
-                      Compare All 5 &rarr;
-                    </Link>
-                  </div>
-                  {FIVE_COMPETITIONS.map((c) => (
-                    <Link
-                      key={c.href}
-                      href={c.href}
-                      className={`flex items-center gap-3.5 p-2.5 rounded-xl transition-all ${
-                        c.isClash
-                          ? "bg-gradient-to-r from-amber-500/20 via-amber-500/10 to-transparent border border-amber-400/40 hover:border-amber-400"
-                          : "hover:bg-white/5 border border-transparent"
-                      }`}
-                    >
-                      <img src={c.logo} alt={c.name} className="w-10 h-11 object-contain shrink-0" />
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
-                          <span className="font-display font-bold text-sm text-white truncate">
-                            {c.name}
+                  {compDropdown && (
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 w-[460px] pt-3 z-50">
+                      <div className="bg-[#101D32] border border-[#BFC8D3]/25 rounded-2xl shadow-2xl p-4 space-y-2">
+                        <div className="flex items-center justify-between px-2 pb-2 border-b border-[#BFC8D3]/15">
+                          <span className="font-titan-mono text-[11px] font-bold uppercase tracking-wider text-[#C7F464]">
+                            5 Separate Competitions
                           </span>
-                          <span className={`text-[9px] px-2 py-0.5 rounded-full font-bold uppercase ${c.accent}`}>
-                            {c.badge}
-                          </span>
+                          <Link
+                            href={resolveHref("/competitions")}
+                            className="text-xs font-semibold text-[#F7F8FA] hover:text-[#C7F464] underline"
+                          >
+                            Compare All 5 &rarr;
+                          </Link>
                         </div>
-                        <p className="text-xs text-slate-400 truncate mt-0.5">{c.sub}</p>
+
+                        {FIVE_COMPETITIONS.map((c) => (
+                          <Link
+                            key={c.href}
+                            href={resolveHref(c.href)}
+                            className={`flex items-center gap-3.5 p-2.5 rounded-xl transition-all ${
+                              c.isClash
+                                ? "bg-[#162642] border border-[#C7F464]/50 hover:border-[#C7F464]"
+                                : "hover:bg-white/5 border border-transparent"
+                            }`}
+                          >
+                            <img
+                              src={c.logo}
+                              alt={c.name}
+                              width={38}
+                              height={42}
+                              className="w-[38px] h-[42px] object-contain shrink-0"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between gap-2">
+                                <span className="font-titan-display font-bold text-sm text-[#F7F8FA] truncate">
+                                  {c.name}
+                                </span>
+                                <span
+                                  className={`text-[10px] px-2.5 py-0.5 rounded-full uppercase shrink-0 ${c.badgeBg}`}
+                                >
+                                  {c.badge}
+                                </span>
+                              </div>
+                              <p className="text-xs text-[#BFC8D3] truncate mt-0.5">{c.sub}</p>
+                            </div>
+                          </Link>
+                        ))}
                       </div>
-                    </Link>
-                  ))}
+                    </div>
+                  )}
                 </div>
-              </div>
-            )}
-          </div>
+              );
+            }
 
-          <Link
-            href="/aic-titans-cup/road-to-the-clash"
-            className={`px-2.5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors ${
-              pathname?.startsWith("/road-to-the-clash")
-                ? "text-amber-400 bg-white/5"
-                : "text-slate-200 hover:text-amber-400"
-            }`}
-          >
-            Road to the Clash
-          </Link>
+            return (
+              <Link
+                key={item.href}
+                href={resolveHref(item.href)}
+                className={`px-3.5 py-2.5 rounded-xl text-[13.5px] font-semibold whitespace-nowrap transition-all ${
+                  active
+                    ? "text-[#101D32] bg-[#C7F464] font-bold shadow-sm"
+                    : "text-[#F7F8FA] hover:text-[#C7F464] hover:bg-white/5"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
 
+        {/* RIGHT SECTION: Contact Link + Prominent Registration CTA + Responsive Menu Trigger */}
+        <div className="flex items-center gap-3 shrink-0">
           <Link
-            href="/aic-titans-cup/experience"
-            className={`px-2.5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors ${
-              pathname?.startsWith("/experience")
-                ? "text-amber-400 bg-white/5"
-                : "text-slate-200 hover:text-amber-400"
-            }`}
-          >
-            Bankers&apos; Escape
-          </Link>
-
-          <Link
-            href="/aic-titans-cup/csr"
-            className={`px-2.5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors ${
-              pathname?.startsWith("/csr")
-                ? "text-amber-400 bg-white/5"
-                : "text-slate-200 hover:text-amber-400"
-            }`}
-          >
-            Sports CSR
-          </Link>
-
-          <Link
-            href="/aic-titans-cup/sponsors"
-            className={`px-2.5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors ${
-              pathname?.startsWith("/sponsors")
-                ? "text-amber-400 bg-white/5"
-                : "text-slate-200 hover:text-amber-400"
-            }`}
-          >
-            Sponsors
-          </Link>
-
-          <Link
-            href="/aic-titans-cup/news"
-            className={`px-2.5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors ${
-              pathname?.startsWith("/news")
-                ? "text-amber-400 bg-white/5"
-                : "text-slate-200 hover:text-amber-400"
-            }`}
-          >
-            News &amp; Media
-          </Link>
-
-          <Link
-            href="/aic-titans-cup/contact"
-            className={`px-2.5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors ${
-              pathname?.startsWith("/contact")
-                ? "text-amber-400 bg-white/5"
-                : "text-slate-200 hover:text-amber-400"
+            href={resolveHref("/contact")}
+            className={`hidden 2xl:inline-flex px-3.5 py-2.5 rounded-xl text-[13.5px] font-semibold whitespace-nowrap transition-colors ${
+              isActive("/contact")
+                ? "text-[#C7F464] underline"
+                : "text-[#BFC8D3] hover:text-[#F7F8FA]"
             }`}
           >
             Contact
           </Link>
-        </nav>
 
-        {/* Persistent Register Your Institution Button */}
-        <div className="flex items-center gap-3">
           <Link
-            href="/aic-titans-cup/register"
-            className="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-extrabold text-xs uppercase tracking-wider px-4 py-3 rounded-xl shadow-[0_0_24px_rgba(212,160,23,0.4)] transition-all hover:scale-[1.02]"
+            href={resolveHref("/register")}
+            className="hidden sm:inline-flex items-center justify-center gap-2 bg-[#FF783D] hover:bg-[#FF5E1A] text-white font-titan-display font-bold text-xs sm:text-[13px] uppercase tracking-wider px-5 py-3 rounded-xl shadow-[0_6px_20px_rgba(255,120,61,0.35)] transition-all whitespace-nowrap"
           >
-            <Trophy className="w-4 h-4" />
-            Register Your Institution
+            <Trophy className="w-4 h-4 shrink-0" />
+            <span>Register Institution</span>
           </Link>
 
+          {/* Clean Hamburger Trigger for <1280px (Tablets, Small Laptops & Mobile — before any squeezing occurs) */}
           <button
+            type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle Menu"
-            className="xl:hidden p-2.5 rounded-xl bg-white/5 border border-white/10 text-white hover:text-amber-400"
+            aria-expanded={mobileOpen}
+            aria-label="Toggle Navigation Menu"
+            className="xl:hidden inline-flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#162642] border border-[#BFC8D3]/25 text-[#F7F8FA] hover:border-[#C7F464] transition-colors"
           >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            <span className="text-xs font-bold uppercase tracking-wider hidden sm:inline">
+              Menu
+            </span>
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* RESPONSIVE COLLAPSIBLE DRAWER (Mobile, Tablet & Compact Laptop <1280px) */}
       {mobileOpen && (
-        <div className="xl:hidden bg-[#071120] border-t border-amber-500/30 px-6 py-6 max-h-[85vh] overflow-y-auto space-y-5">
-          <div className="grid grid-cols-2 gap-2">
-            {[
-              { label: "1. Home", href: "/" },
-              { label: "2. About AIC Titans Cup", href: "/about" },
-              { label: "3. All 5 Competitions", href: "/competitions" },
-              { label: "4. Road to the Clash", href: "/road-to-the-clash" },
-              { label: "5. Bankers' Experience", href: "/experience" },
-              { label: "6. Sports CSR", href: "/csr" },
-              { label: "7. Sponsors & Partners", href: "/sponsors" },
-              { label: "8. News & Media", href: "/news" },
-              { label: "9. Registration", href: "/register" },
-              { label: "10. Contact & BFI Hubs", href: "/contact" },
-            ].map((item) => (
+        <div className="xl:hidden bg-[#091220] border-t border-[#BFC8D3]/20 px-4 sm:px-8 py-6 max-h-[calc(100vh-110px)] overflow-y-auto">
+          <div className="max-w-3xl mx-auto space-y-6">
+            {/* Primary Navigation Links */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              {[...CENTER_LINKS, { label: "Contact & 105 BFI Hubs", href: "/contact" }].map((item) => {
+                const active = isActive(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={resolveHref(item.href)}
+                    onClick={() => setMobileOpen(false)}
+                    className={`px-4 py-3.5 rounded-xl text-sm font-bold flex items-center justify-between transition-all ${
+                      active
+                        ? "bg-[#C7F464] text-[#101D32]"
+                        : "bg-[#101D32] text-[#F7F8FA] hover:bg-[#162642] border border-[#BFC8D3]/15"
+                    }`}
+                  >
+                    <span>{item.label}</span>
+                    <span className="text-xs opacity-60">&rarr;</span>
+                  </Link>
+                );
+              })}
+            </div>
+
+            {/* Five Competitions Quick-Jump Grid */}
+            <div className="pt-4 border-t border-[#BFC8D3]/15 space-y-3">
+              <div className="font-titan-mono text-xs font-bold uppercase tracking-wider text-[#C7F464]">
+                The Five Competitions
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {FIVE_COMPETITIONS.map((c) => (
+                  <Link
+                    key={c.href}
+                    href={resolveHref(c.href)}
+                    onClick={() => setMobileOpen(false)}
+                    className={`flex items-center gap-3 p-3 rounded-xl border ${
+                      c.isClash
+                        ? "bg-[#162642] border-[#C7F464]/60 sm:col-span-2"
+                        : "bg-[#101D32] border-[#BFC8D3]/15"
+                    }`}
+                  >
+                    <img
+                      src={c.logo}
+                      alt={c.name}
+                      width={36}
+                      height={40}
+                      className="w-9 h-10 object-contain shrink-0"
+                    />
+                    <div className="min-w-0 flex-1">
+                      <div className="font-titan-display font-bold text-sm text-[#F7F8FA] truncate">
+                        {c.name}
+                      </div>
+                      <div className="text-xs text-[#BFC8D3] truncate">{c.sub}</div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Prominent Mobile Registration CTA */}
+            <div className="pt-2">
               <Link
-                key={item.href}
-                href={item.href}
+                href={resolveHref("/register")}
                 onClick={() => setMobileOpen(false)}
-                className="px-3 py-2.5 rounded-xl bg-white/5 hover:bg-amber-500/20 text-xs font-bold text-white border border-white/10"
+                className="w-full flex items-center justify-center gap-2 bg-[#FF783D] hover:bg-[#FF5E1A] text-white font-titan-display font-bold text-sm uppercase tracking-wider py-4 px-6 rounded-xl shadow-lg"
               >
-                {item.label}
+                <Trophy className="w-4 h-4 shrink-0" />
+                <span>Register Your Institution</span>
               </Link>
-            ))}
-          </div>
-
-          <div className="border-t border-white/10 pt-4">
-            <div className="text-[11px] font-extrabold uppercase tracking-widest text-amber-400 mb-2">
-              The Five Competitions
-            </div>
-            <div className="space-y-2">
-              {FIVE_COMPETITIONS.map((c) => (
-                <Link
-                  key={c.href}
-                  href={c.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-3 p-2.5 rounded-xl bg-white/5 border border-white/10"
-                >
-                  <img src={c.logo} alt={c.name} className="w-8 h-9 object-contain" />
-                  <div>
-                    <div className="text-xs font-bold text-white">{c.name}</div>
-                    <div className="text-[11px] text-slate-400">{c.sub}</div>
-                  </div>
-                </Link>
-              ))}
             </div>
           </div>
-
-          <Link
-            href="/aic-titans-cup/register"
-            onClick={() => setMobileOpen(false)}
-            className="w-full flex items-center justify-center gap-2 bg-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider py-3.5 rounded-xl"
-          >
-            <Trophy className="w-4 h-4" />
-            Register Your Institution
-          </Link>
         </div>
       )}
     </header>

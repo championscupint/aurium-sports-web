@@ -1,62 +1,67 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 560" width="500" height="560">
   <defs>
-    <linearGradient id="rim_typec" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#FEF08A"/>
-      <stop offset="40%" stop-color="#D4A017"/>
-      <stop offset="75%" stop-color="#92400E"/>
-      <stop offset="100%" stop-color="#FDE047"/>
+    <linearGradient id="ti_typec" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F7F8FA"/>
+      <stop offset="45%" stop-color="#BFC8D3"/>
+      <stop offset="80%" stop-color="#64748B"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
     </linearGradient>
-    <linearGradient id="shield_typec" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0F2342"/>
-      <stop offset="60%" stop-color="#071120"/>
-      <stop offset="100%" stop-color="#030712"/>
+    <linearGradient id="navy_typec" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#172A46"/>
+      <stop offset="55%" stop-color="#101D32"/>
+      <stop offset="100%" stop-color="#09111E"/>
     </linearGradient>
-    <linearGradient id="accent_typec" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#7C3AED"/>
+    <linearGradient id="acc_typec" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8B5CF6"/>
       <stop offset="100%" stop-color="#5B21B6"/>
     </linearGradient>
   </defs>
 
-  <!-- Outer Titanium & Gold Shield -->
-  <path d="M55 35 L250 15 L445 35 L445 255 C445 388 250 525 250 525 C250 525 55 388 55 255 Z" fill="url(#rim_typec)" stroke="#1E293B" stroke-width="4"/>
-  <!-- Deep Championship Navy Inner Shield -->
-  <path d="M72 50 L250 32 L428 50 L428 250 C428 370 250 498 250 498 C250 498 72 370 72 250 Z" fill="url(#shield_typec)" stroke="#DDD6FE" stroke-width="3"/>
-  <!-- Competition Accent Header Field -->
-  <path d="M88 64 L250 48 L412 64 L412 206 L88 206 Z" fill="url(#accent_typec)" opacity="0.92"/>
+  <!-- Outer Titanium Silver & Arena Shield -->
+  <path d="M52 34 L250 14 L448 34 L448 256 C448 392 250 528 250 528 C250 528 52 392 52 256 Z" fill="url(#ti_typec)" stroke="#101D32" stroke-width="4"/>
+  <!-- Midnight Navy Inner Arena Shield -->
+  <path d="M70 49 L250 31 L430 49 L430 250 C430 372 250 500 250 500 C250 500 70 372 70 250 Z" fill="url(#navy_typec)" stroke="#C7F464" stroke-width="3.5"/>
+  <!-- Top Competition Header Field -->
+  <path d="M86 63 L250 47 L414 63 L414 204 L86 204 Z" fill="url(#acc_typec)" opacity="0.9"/>
 
   
-        <g fill="#DDD6FE">
-          <circle cx="190" cy="78" r="4"/><circle cx="220" cy="70" r="5"/><circle cx="250" cy="66" r="6.5"/><circle cx="280" cy="70" r="5"/><circle cx="310" cy="78" r="4"/>
+        <g fill="#C7F464">
+          <circle cx="190" cy="74" r="4.5"/>
+          <circle cx="220" cy="67" r="5.5"/>
+          <circle cx="250" cy="63" r="7"/>
+          <circle cx="280" cy="67" r="5.5"/>
+          <circle cx="310" cy="74" r="4.5"/>
         </g>
         
 
-  <!-- 4 Banking Pillars & Himalayan Horizon -->
-  <g fill="url(#rim_typec)" opacity="0.9">
-    <rect x="156" y="114" width="20" height="72" rx="2"/>
-    <rect x="206" y="96" width="22" height="90" rx="2"/>
-    <rect x="272" y="96" width="22" height="90" rx="2"/>
-    <rect x="324" y="114" width="20" height="72" rx="2"/>
-    <polygon points="142,114 250,74 358,114"/>
+  <!-- 4 Architectural Banking Pillars & Stadium Roof -->
+  <g fill="#F7F8FA" opacity="0.92">
+    <rect x="156" y="114" width="20" height="70" rx="3"/>
+    <rect x="206" y="96" width="22" height="88" rx="3"/>
+    <rect x="272" y="96" width="22" height="88" rx="3"/>
+    <rect x="324" y="114" width="20" height="70" rx="3"/>
+    <polygon points="140,114 250,74 360,114"/>
   </g>
-  <polygon points="88,206 155,150 205,178 250,126 302,174 355,146 412,206" fill="#071120" opacity="0.82"/>
+  <!-- Himalayan Stadium Horizon -->
+  <polygon points="86,204 155,148 205,176 250,124 302,172 355,144 414,204" fill="#101D32" opacity="0.88"/>
 
-  <!-- Lower Pitch & Trophy Cup -->
-  <path d="M120 264 C146 356 214 432 250 466 C286 432 354 356 380 264 Z" fill="#0B162C" stroke="#7C3AED" stroke-width="2.5"/>
-  <path d="M150 272 C172 346 218 408 250 438" fill="none" stroke="#7C3AED" stroke-width="13" stroke-linecap="round"/>
-  <path d="M350 272 C328 346 282 408 250 438" fill="none" stroke="#D4A017" stroke-width="13" stroke-linecap="round"/>
+  <!-- Lower Arena Pitch & Dynamic Energy Wings -->
+  <path d="M118 264 C144 358 214 434 250 468 C286 434 356 358 382 264 Z" fill="#0B1526" stroke="#8B5CF6" stroke-width="2.5"/>
+  <path d="M148 274 C170 348 218 410 250 440" fill="none" stroke="#C7F464" stroke-width="12" stroke-linecap="round"/>
+  <path d="M352 274 C330 348 282 410 250 440" fill="none" stroke="#8B5CF6" stroke-width="12" stroke-linecap="round"/>
 
-  <!-- Trophy & Football Centerpiece -->
-  <circle cx="250" cy="296" r="29" fill="#FFFFFF" stroke="#071120" stroke-width="3"/>
-  <polygon points="250,280 263,289 258,304 242,304 237,289" fill="#071120"/>
-  <path d="M208 318 H292 L278 400 C274 420 262 432 250 432 C238 432 226 420 222 400 Z" fill="url(#rim_typec)" stroke="#451A03" stroke-width="2.5"/>
-  <rect x="212" y="446" width="76" height="15" rx="4" fill="url(#rim_typec)"/>
+  <!-- Football & Championship Cup Centerpiece -->
+  <circle cx="250" cy="296" r="29" fill="#F7F8FA" stroke="#101D32" stroke-width="3"/>
+  <polygon points="250,280 263,289 258,304 242,304 237,289" fill="#101D32"/>
+  <path d="M210 320 H290 L276 400 C272 420 260 432 250 432 C240 432 228 420 224 400 Z" fill="url(#ti_typec)" stroke="#101D32" stroke-width="2.5"/>
+  <rect x="214" y="446" width="72" height="14" rx="4" fill="#C7F464"/>
 
   <!-- Central Nameplate Ribbon -->
-  <path d="M28 190 L472 190 L456 264 L44 264 Z" fill="#071120" stroke="url(#rim_typec)" stroke-width="5.5"/>
-  <text x="250" y="228" font-family="'Outfit', 'Georgia', serif" font-size="31" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="2.5">AIC TITANS CUP</text>
-  <text x="250" y="252" font-family="'Inter', 'Arial', sans-serif" font-size="12" font-weight="800" fill="#DDD6FE" text-anchor="middle" letter-spacing="4">TYPE C · FINANCE COMPANIES</text>
+  <path d="M26 190 L474 190 L458 264 L42 264 Z" fill="#101D32" stroke="url(#ti_typec)" stroke-width="5"/>
+  <text x="250" y="229" font-family="'Space Grotesk', 'Arial Black', sans-serif" font-size="31" font-weight="800" fill="#F7F8FA" text-anchor="middle" letter-spacing="2.5">AIC TITANS CUP</text>
+  <text x="250" y="252" font-family="'Plus Jakarta Sans', 'Inter', sans-serif" font-size="11.5" font-weight="800" fill="#C7F464" text-anchor="middle" letter-spacing="3.5">TYPE C · FINANCE COMPANIES</text>
 
-  <!-- Bottom Competition Classification Pill -->
-  <rect x="115" y="476" width="270" height="32" rx="16" fill="#7C3AED" stroke="#FDE047" stroke-width="2"/>
-  <text x="250" y="497" font-family="'Inter', 'Arial', sans-serif" font-size="11.5" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="3">NRB CLASS C · KARTIK</text>
+  <!-- Bottom Competition Pill -->
+  <rect x="110" y="476" width="280" height="32" rx="16" fill="#8B5CF6" stroke="#C7F464" stroke-width="2"/>
+  <text x="250" y="497" font-family="'Space Grotesk', 'Inter', sans-serif" font-size="11.5" font-weight="800" fill="#F7F8FA" text-anchor="middle" letter-spacing="3">NRB CLASS C · KARTIK</text>
 </svg>
