@@ -111,9 +111,9 @@
       "nrbClass": "Class A",
       "competitionSlug": "type-a",
       "headOffice": "Lazimpat, Kathmandu (Pokhara Origin)",
-      "district": "Kathmandu / Kaski",
-      "province": "Bagmati / Gandaki",
-      "operatingScope": "National (7 Provinces)",
+      "district": "Kathmandu",
+      "province": "Bagmati",
+      "operatingScope": "National (7 Provinces · Gandaki Origin)",
       "estimatedBranches": "177+",
       "branchSpread": "Deep Gandaki / Pokhara Roots + Nationwide Network",
       "assignedHub": "Hub 1: Kathmandu Valley (HQ) / Hub 6: Pokhara",
@@ -1582,9 +1582,9 @@
       "name": "Kathmandu Valley Central Hub",
       "cities": "Kathmandu, Lalitpur, Bhaktapur",
       "province": "Bagmati",
-      "hqsHosted": "20 Class A · 7 Class B · 12 Class C · 7 Class D",
-      "density": "46 Head Offices (+ All National Branch Teams)",
-      "operationalPlan": "Primary Stage 1 Arena for all Kathmandu-headquartered Class A, B, C, and D institutions, plus the Magh Grand Finale."
+      "hqsHosted": "20 Class A · 7 Class B · 13 Class C · 7 Class D",
+      "density": "47 Head Offices (+ All National Branch Teams)",
+      "operationalPlan": "Primary Stage 1 Arena for all Kathmandu-headquartered Class A, B, C, and D institutions, plus the Magh Clash of the Titans."
     },
     {
       "id": "Hub 2",
