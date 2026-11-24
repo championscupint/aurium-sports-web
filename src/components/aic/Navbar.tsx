@@ -93,10 +93,12 @@ export function Navbar({ basePath = "" }: { basePath?: string }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
     setMobileOpen(false);
     setCompDropdown(false);
-  }, [pathname]);
+  }
 
   return (
     <header

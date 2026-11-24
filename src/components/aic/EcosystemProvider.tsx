@@ -44,8 +44,24 @@ export function EcosystemProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    refreshStore();
-  }, [refreshStore]);
+    let active = true;
+    fetch("/api/ecosystem", { cache: "no-store" })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (active && data?.store) {
+          setStore(data.store);
+        }
+      })
+      .catch((e) => {
+        console.warn("Using local initial store fallback:", e);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const mutateStore = async (action: string, payload: Record<string, unknown>, adminKey?: string) => {
     try {
