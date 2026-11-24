@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { site } from '@/data/site';
 import { services } from '@/data/services';
 import { useEnquiry } from './EnquiryContext';
@@ -11,6 +12,10 @@ import { Mail, MapPin, Phone, ArrowUpRight } from 'lucide-react';
 
 export function Footer() {
   const { openEnquiry } = useEnquiry();
+  const pathname = usePathname();
+  if (pathname?.startsWith('/aic-titans-cup')) {
+    return null;
+  }
 
   return (
     <footer className="bg-ink text-chalk border-t border-white/10 pt-16 pb-12 overflow-hidden">

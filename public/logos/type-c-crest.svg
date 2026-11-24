@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 560" width="500" height="560">
+  <defs>
+    <linearGradient id="rim_typec" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FEF08A"/>
+      <stop offset="40%" stop-color="#D4A017"/>
+      <stop offset="75%" stop-color="#92400E"/>
+      <stop offset="100%" stop-color="#FDE047"/>
+    </linearGradient>
+    <linearGradient id="shield_typec" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0F2342"/>
+      <stop offset="60%" stop-color="#071120"/>
+      <stop offset="100%" stop-color="#030712"/>
+    </linearGradient>
+    <linearGradient id="accent_typec" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#5B21B6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Titanium & Gold Shield -->
+  <path d="M55 35 L250 15 L445 35 L445 255 C445 388 250 525 250 525 C250 525 55 388 55 255 Z" fill="url(#rim_typec)" stroke="#1E293B" stroke-width="4"/>
+  <!-- Deep Championship Navy Inner Shield -->
+  <path d="M72 50 L250 32 L428 50 L428 250 C428 370 250 498 250 498 C250 498 72 370 72 250 Z" fill="url(#shield_typec)" stroke="#DDD6FE" stroke-width="3"/>
+  <!-- Competition Accent Header Field -->
+  <path d="M88 64 L250 48 L412 64 L412 206 L88 206 Z" fill="url(#accent_typec)" opacity="0.92"/>
+
+  
+        <g fill="#DDD6FE">
+          <circle cx="190" cy="78" r="4"/><circle cx="220" cy="70" r="5"/><circle cx="250" cy="66" r="6.5"/><circle cx="280" cy="70" r="5"/><circle cx="310" cy="78" r="4"/>
+        </g>
+        
+
+  <!-- 4 Banking Pillars & Himalayan Horizon -->
+  <g fill="url(#rim_typec)" opacity="0.9">
+    <rect x="156" y="114" width="20" height="72" rx="2"/>
+    <rect x="206" y="96" width="22" height="90" rx="2"/>
+    <rect x="272" y="96" width="22" height="90" rx="2"/>
+    <rect x="324" y="114" width="20" height="72" rx="2"/>
+    <polygon points="142,114 250,74 358,114"/>
+  </g>
+  <polygon points="88,206 155,150 205,178 250,126 302,174 355,146 412,206" fill="#071120" opacity="0.82"/>
+
+  <!-- Lower Pitch & Trophy Cup -->
+  <path d="M120 264 C146 356 214 432 250 466 C286 432 354 356 380 264 Z" fill="#0B162C" stroke="#7C3AED" stroke-width="2.5"/>
+  <path d="M150 272 C172 346 218 408 250 438" fill="none" stroke="#7C3AED" stroke-width="13" stroke-linecap="round"/>
+  <path d="M350 272 C328 346 282 408 250 438" fill="none" stroke="#D4A017" stroke-width="13" stroke-linecap="round"/>
+
+  <!-- Trophy & Football Centerpiece -->
+  <circle cx="250" cy="296" r="29" fill="#FFFFFF" stroke="#071120" stroke-width="3"/>
+  <polygon points="250,280 263,289 258,304 242,304 237,289" fill="#071120"/>
+  <path d="M208 318 H292 L278 400 C274 420 262 432 250 432 C238 432 226 420 222 400 Z" fill="url(#rim_typec)" stroke="#451A03" stroke-width="2.5"/>
+  <rect x="212" y="446" width="76" height="15" rx="4" fill="url(#rim_typec)"/>
+
+  <!-- Central Nameplate Ribbon -->
+  <path d="M28 190 L472 190 L456 264 L44 264 Z" fill="#071120" stroke="url(#rim_typec)" stroke-width="5.5"/>
+  <text x="250" y="228" font-family="'Outfit', 'Georgia', serif" font-size="31" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="2.5">AIC TITANS CUP</text>
+  <text x="250" y="252" font-family="'Inter', 'Arial', sans-serif" font-size="12" font-weight="800" fill="#DDD6FE" text-anchor="middle" letter-spacing="4">TYPE C · FINANCE COMPANIES</text>
+
+  <!-- Bottom Competition Classification Pill -->
+  <rect x="115" y="476" width="270" height="32" rx="16" fill="#7C3AED" stroke="#FDE047" stroke-width="2"/>
+  <text x="250" y="497" font-family="'Inter', 'Arial', sans-serif" font-size="11.5" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="3">NRB CLASS C · KARTIK</text>
+</svg>

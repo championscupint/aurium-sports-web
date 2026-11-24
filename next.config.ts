@@ -89,6 +89,22 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: "/",
+          has: [{ type: "host", value: "aictitanscup.auriumsports.com" }],
+          destination: "/aic-titans-cup",
+        },
+        {
+          source: "/:path((?!api|_next|logos|images|downloads|aic-titans-cup|favicon\\.ico).*)",
+          has: [{ type: "host", value: "aictitanscup.auriumsports.com" }],
+          destination: "/aic-titans-cup/:path",
+        },
+      ],
+    };
+  },
 };
 
 export default nextConfig;

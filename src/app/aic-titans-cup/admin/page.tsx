@@ -1,0 +1,609 @@
+"use client";
+
+import React, { useState } from "react";
+import { useEcosystem } from "@/components/aic/EcosystemProvider";
+import {
+  Lock,
+  ShieldCheck,
+  Trophy,
+  RotateCcw,
+  CheckCircle2,
+  HeartHandshake,
+  Building2,
+  ClipboardList,
+  Activity,
+} from "lucide-react";
+
+export default function AdminDashboardPage() {
+  const { store, bfis, mutateStore } = useEcosystem();
+  const [adminKey, setAdminKey] = useState("aurium-titans-admin-2026");
+  const [activeTab, setActiveTab] = useState<
+    "QUALIFICATION" | "CLASH_CONTROL" | "COMPETITIONS" | "REGISTRATIONS" | "CSR_ADMIN" | "AUDIT_LOG"
+  >("QUALIFICATION");
+  const [statusBanner, setStatusBanner] = useState<string | null>(null);
+
+  // Selected BFI per slot for qualification approval
+  const [selectedSlotBfi, setSelectedSlotBfi] = useState<Record<string, string>>({
+    A1: "A-04", // Global IME Bank
+    A2: "A-09", // Nabil Bank
+    B1: "B-01", // Muktinath Bikas Bank
+    B2: "B-08", // Shine Resunga Dev Bank
+    C1: "C-01", // ICFC Finance
+    C2: "C-05", // Pokhara Finance
+    D1: "D-01", // Forward Microfinance
+    D2: "D-35", // Kalika Laghubitta
+  });
+
+  // CSR Form state
+  const [csrForm, setCsrForm] = useState({
+    childrenReached: store.csrMetrics.childrenReached ?? "",
+    girlsParticipating: store.csrMetrics.girlsParticipating ?? "",
+    localLicensedCoachesEmployed: store.csrMetrics.localLicensedCoachesEmployed ?? "",
+    csrFundingAllocatedNpr: store.csrMetrics.csrFundingAllocatedNpr ?? "",
+  });
+
+  const handleQualifySlot = async (slotCode: string, approve: boolean) => {
+    const bfiId = selectedSlotBfi[slotCode];
+    const bfi = bfis.find((b) => b.id === bfiId);
+    const res = await mutateStore(
+      "VERIFY_AND_TRANSFER_QUALIFIER",
+      {
+        slotCode,
+        institutionId: approve ? bfi?.id : null,
+        institutionName: approve ? bfi?.name : null,
+        teamName: approve ? `${bfi?.name}` : null,
+        isVerifiedAndApproved: approve,
+      },
+      adminKey
+    );
+    if (res.ok) {
+      setStatusBanner(
+        approve
+          ? `Verified & Transferred ${bfi?.name} into Clash of the Titans Slot ${slotCode}.`
+          : `Revoked Slot ${slotCode} back to Pending Verification.`
+      );
+    } else {
+      setStatusBanner(`Error: ${res.error}`);
+    }
+  };
+
+  const handleFixtureUpdate = async (
+    fixtureId: string,
+    homeScore: string,
+    awayScore: string,
+    status: "UPCOMING" | "LIVE" | "COMPLETED",
+    isVerifiedByAdmin: boolean
+  ) => {
+    const res = await mutateStore(
+      "UPDATE_FIXTURE_SCORE",
+      {
+        fixtureId,
+        homeScore: homeScore === "" ? null : Number(homeScore),
+        awayScore: awayScore === "" ? null : Number(awayScore),
+        status,
+        isVerifiedByAdmin,
+      },
+      adminKey
+    );
+    if (res.ok) {
+      setStatusBanner(`Updated Fixture ${fixtureId} and recalculated Clash of the Titans standings.`);
+    } else {
+      setStatusBanner(`Error: ${res.error}`);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-[#040914] pt-36 pb-24">
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 space-y-8">
+        {/* Header & Auth Key Bar */}
+        <div className="rounded-3xl bg-[#081326] border-2 border-amber-400/50 p-6 md:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="space-y-1.5">
+            <div className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-amber-400">
+              <Lock className="w-4 h-4" /> TOURNAMENT DIRECTORATE ADMINISTRATIVE SYSTEM
+            </div>
+            <h1 className="font-display font-black text-3xl sm:text-4xl text-white">
+              AIC Titans Cup &amp; Clash of the Titans Control Center
+            </h1>
+            <p className="text-xs text-slate-300">
+              Manage all 5 competitions, verify &amp; transfer Stage 1 Champions/Runners-Up into Clash of the Titans, update live scores, audit HR payroll registrations, and publish verified CSR impact.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <div>
+              <label className="block text-[10px] font-bold uppercase text-amber-300 mb-1">
+                Directorate Admin Key
+              </label>
+              <input
+                type="password"
+                value={adminKey}
+                onChange={(e) => setAdminKey(e.target.value)}
+                className="px-3.5 py-2 rounded-xl bg-black/50 border border-amber-400/40 text-xs text-white w-56"
+              />
+            </div>
+            <button
+              onClick={async () => {
+                const res = await mutateStore("RESET_TO_CLEAN_VERIFIED_STATE", {}, adminKey);
+                if (res.ok) {
+                  setStatusBanner("Reset ecosystem store to clean zero-fabrication baseline.");
+                }
+              }}
+              className="mt-4 inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-bold text-slate-200 border border-white/15"
+            >
+              <RotateCcw className="w-3.5 h-3.5" /> Reset Baseline
+            </button>
+          </div>
+        </div>
+
+        {statusBanner && (
+          <div className="p-4 rounded-2xl bg-emerald-500/20 border border-emerald-400 text-xs text-emerald-200 flex items-center justify-between">
+            <span>{statusBanner}</span>
+            <button onClick={() => setStatusBanner(null)} className="font-bold underline">
+              Dismiss
+            </button>
+          </div>
+        )}
+
+        {/* Navigation Tabs */}
+        <div className="flex flex-wrap gap-2">
+          {[
+            { id: "QUALIFICATION", label: "1. Qualification Transfer (A1–D2 -> Clash)" },
+            { id: "CLASH_CONTROL", label: "2. Clash League & Knockout Match Control" },
+            { id: "COMPETITIONS", label: "3. 5-Competition Status Control" },
+            { id: "REGISTRATIONS", label: `4. Institutional Registrations (${store.registrations.length})` },
+            { id: "CSR_ADMIN", label: "5. Verified CSR Impact Ledger" },
+            { id: "AUDIT_LOG", label: `6. Audit Log (${store.auditLogs.length})` },
+          ].map((t) => (
+            <button
+              key={t.id}
+              onClick={() => setActiveTab(t.id as typeof activeTab)}
+              className={`px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all ${
+                activeTab === t.id
+                  ? "bg-amber-400 text-slate-950 shadow-lg"
+                  : "bg-[#081326] text-slate-300 hover:bg-white/10 border border-white/10"
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+
+        {/* TAB 1: DEDICATED QUALIFICATION ADMINISTRATION MODULE */}
+        {activeTab === "QUALIFICATION" && (
+          <div className="rounded-3xl bg-[#081326] border border-amber-400/40 p-6 md:p-8 space-y-6">
+            <div>
+              <div className="text-xs font-black uppercase tracking-widest text-amber-400">
+                DEDICATED QUALIFICATION MANAGEMENT MODULE
+              </div>
+              <h2 className="font-display font-black text-2xl text-white mt-1">
+                Verify Stage 1 Champions &amp; Runners-Up &rarr; Transfer into Clash of the Titans
+              </h2>
+              <p className="text-xs text-slate-300 mt-1">
+                Per Section 19 of the architecture brief: After each Type A, B, C, and D tournament is completed, verify the final standings, select the confirmed Champion and Runner-Up from the NRB BFI census, and approve their transfer into Clash of the Titans Group X or Group Y.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {store.qualifications.map((q) => {
+                const eligibleForSlot = bfis.filter((b) => b.competitionSlug === q.sourceCompetitionSlug);
+                return (
+                  <div
+                    key={q.id}
+                    className="p-5 rounded-2xl bg-white/5 border border-white/15 space-y-3 flex flex-col justify-between"
+                  >
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-black text-amber-400">
+                          SLOT {q.slotCode} · {q.qualificationRank} ({q.sourceCompetitionName})
+                        </span>
+                        <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-teal-500/20 text-teal-300">
+                          Seeds into Clash {q.assignedClashGroup}
+                        </span>
+                      </div>
+
+                      <div className="text-xs text-slate-300">
+                        Current Status:{" "}
+                        {q.isVerifiedAndApproved ? (
+                          <strong className="text-emerald-300">
+                            VERIFIED: {q.institutionName}
+                          </strong>
+                        ) : (
+                          <strong className="text-amber-300">
+                            Pending Official Admin Verification
+                          </strong>
+                        )}
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-400 mb-1">
+                          Select Verified {q.qualificationRank} from {eligibleForSlot.length} Eligible NRB BFIs:
+                        </label>
+                        <select
+                          value={selectedSlotBfi[q.slotCode] || eligibleForSlot[0]?.id}
+                          onChange={(e) =>
+                            setSelectedSlotBfi({ ...selectedSlotBfi, [q.slotCode]: e.target.value })
+                          }
+                          className="w-full px-3 py-2 rounded-xl bg-black/50 border border-white/15 text-xs text-white"
+                        >
+                          {eligibleForSlot.map((b) => (
+                            <option key={b.id} value={b.id}>
+                              [{b.id}] {b.name} ({b.headOffice})
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2 pt-2">
+                      <button
+                        onClick={() => handleQualifySlot(q.slotCode, true)}
+                        className="flex-1 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs uppercase tracking-wider"
+                      >
+                        Verify &amp; Transfer to Clash
+                      </button>
+                      {q.isVerifiedAndApproved && (
+                        <button
+                          onClick={() => handleQualifySlot(q.slotCode, false)}
+                          className="px-4 py-2.5 rounded-xl bg-red-500/20 hover:bg-red-500/30 text-red-200 border border-red-400/40 font-bold text-xs"
+                        >
+                          Revoke
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* TAB 2: CLASH OF THE TITANS LEAGUE & KNOCKOUT MATCH CONTROL */}
+        {activeTab === "CLASH_CONTROL" && (
+          <div className="rounded-3xl bg-[#081326] border border-white/15 p-6 md:p-8 space-y-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div>
+                <div className="text-xs font-black uppercase tracking-widest text-amber-400">
+                  CLASH OF THE TITANS · LEAGUE-CUM-KNOCKOUT ENGINE
+                </div>
+                <h2 className="font-display font-black text-2xl text-white mt-1">
+                  Enter Verified Match Scores &amp; Confirm Semi-Finalists
+                </h2>
+              </div>
+              <button
+                onClick={async () => {
+                  const res = await mutateStore("CONFIRM_KNOCKOUT_QUALIFIERS", {}, adminKey);
+                  if (res.ok) {
+                    setStatusBanner("Confirmed Top 2 from Group X and Group Y into Semi-Finals.");
+                  }
+                }}
+                className="bg-teal-400 hover:bg-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider px-5 py-3 rounded-xl"
+              >
+                Confirm Group Top-2 into Semi-Finals &rarr;
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {store.fixtures.map((f) => (
+                <FixtureEditorCard
+                  key={f.id}
+                  fixture={f}
+                  onSave={(hs, as, st, ver) => handleFixtureUpdate(f.id, hs, as, st, ver)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* TAB 3: 5-COMPETITION STATUS CONTROL */}
+        {activeTab === "COMPETITIONS" && (
+          <div className="rounded-3xl bg-[#081326] border border-white/15 p-6 md:p-8 space-y-5">
+            <h2 className="font-display font-black text-2xl text-white">
+              Manage Tournament &amp; Registration Status Across All 5 Competitions
+            </h2>
+            <p className="text-xs text-slate-300">
+              Changes here dynamically update the public Read-Only Master API (<code className="text-amber-300">/api/public/summary</code>) consumed by the main Aurium Sports Tournaments tab.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {store.competitions.map((c) => (
+                <div key={c.slug} className="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+                  <div className="font-display font-black text-lg text-white">{c.name}</div>
+                  <div className="text-xs text-amber-300">{c.nepaliMonthWindow}</div>
+                  <div className="space-y-2 text-xs">
+                    <label className="block font-bold text-slate-400">Tournament Status:</label>
+                    <div className="flex gap-1.5">
+                      {(["UPCOMING", "LIVE", "COMPLETED"] as const).map((st) => (
+                        <button
+                          key={st}
+                          onClick={() =>
+                            mutateStore(
+                              "UPDATE_COMPETITION_STATUS",
+                              { slug: c.slug, tournamentStatus: st },
+                              adminKey
+                            )
+                          }
+                          className={`px-3 py-1.5 rounded-lg font-bold text-[11px] ${
+                            c.tournamentStatus === st
+                              ? "bg-amber-400 text-slate-950 font-black"
+                              : "bg-black/40 text-slate-300"
+                          }`}
+                        >
+                          {st}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* TAB 4: INSTITUTIONAL REGISTRATIONS */}
+        {activeTab === "REGISTRATIONS" && (
+          <div className="rounded-3xl bg-[#081326] border border-white/15 p-6 md:p-8 space-y-5">
+            <h2 className="font-display font-black text-2xl text-white">
+              Submitted BFI Team Registrations ({store.registrations.length})
+            </h2>
+            {store.registrations.length === 0 ? (
+              <p className="text-xs text-slate-400">
+                No institutional applications submitted yet. Use the{" "}
+                <a href="/aic-titans-cup/register" className="text-amber-400 underline">
+                  Registration Page
+                </a>{" "}
+                to submit an application.
+              </p>
+            ) : (
+              <div className="space-y-3">
+                {store.registrations.map((r) => (
+                  <div
+                    key={r.id}
+                    className="p-5 rounded-2xl bg-white/5 border border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs"
+                  >
+                    <div className="space-y-1">
+                      <div className="font-display font-black text-base text-white">
+                        [{r.id}] {r.institutionName} ({r.nrbClass})
+                      </div>
+                      <div className="text-amber-300 font-bold">
+                        Competition: {r.competitionSlug.toUpperCase()} · Divisions:{" "}
+                        {r.divisionsEntered.join(" & ")} · Fee: NPR{" "}
+                        {r.calculatedEntryFeeNpr.toLocaleString()}
+                      </div>
+                      <div className="text-slate-300">
+                        Hub: {r.preferredRegionalHub} · Local CSR District: {r.csrPreferredDistrict}
+                      </div>
+                      <div className="text-slate-400">
+                        HR Rep: {r.authorizedHrRepName} ({r.authorizedHrRepTitle}) · Manager:{" "}
+                        {r.teamManagerName} ({r.teamManagerPhone})
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      {(["SUBMITTED", "HR_VERIFIED", "APPROVED"] as const).map((st) => (
+                        <button
+                          key={st}
+                          onClick={() =>
+                            mutateStore(
+                              "APPROVE_REGISTRATION",
+                              { registrationId: r.id, status: st },
+                              adminKey
+                            )
+                          }
+                          className={`px-3 py-2 rounded-xl font-bold text-[11px] ${
+                            r.status === st
+                              ? "bg-emerald-400 text-slate-950 font-black"
+                              : "bg-black/40 text-slate-300"
+                          }`}
+                        >
+                          {st}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* TAB 5: VERIFIED CSR IMPACT LEDGER */}
+        {activeTab === "CSR_ADMIN" && (
+          <div className="rounded-3xl bg-[#081326] border border-white/15 p-6 md:p-8 space-y-5">
+            <h2 className="font-display font-black text-2xl text-white">
+              Update Audited CSR Impact Metrics
+            </h2>
+            <p className="text-xs text-slate-300">
+              Leave fields blank to display &ldquo;Pending Verified MOU&rdquo; on the public CSR dashboard (zero-fabrication rule), or enter audited numbers as BFI CSR MOUs are executed.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+              <div>
+                <label className="block font-bold text-slate-300 mb-1">Verified Children Reached</label>
+                <input
+                  type="number"
+                  value={csrForm.childrenReached}
+                  onChange={(e) => setCsrForm({ ...csrForm, childrenReached: e.target.value })}
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white"
+                  placeholder="Pending Verified MOU"
+                />
+              </div>
+              <div>
+                <label className="block font-bold text-slate-300 mb-1">Verified Girls Participating</label>
+                <input
+                  type="number"
+                  value={csrForm.girlsParticipating}
+                  onChange={(e) => setCsrForm({ ...csrForm, girlsParticipating: e.target.value })}
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white"
+                  placeholder="Pending Verified MOU"
+                />
+              </div>
+              <div>
+                <label className="block font-bold text-slate-300 mb-1">
+                  Verified Local Licensed Coaches Employed
+                </label>
+                <input
+                  type="number"
+                  value={csrForm.localLicensedCoachesEmployed}
+                  onChange={(e) =>
+                    setCsrForm({ ...csrForm, localLicensedCoachesEmployed: e.target.value })
+                  }
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white"
+                  placeholder="Pending Verified MOU"
+                />
+              </div>
+              <div>
+                <label className="block font-bold text-slate-300 mb-1">
+                  Verified CSR Funding Allocated (NPR)
+                </label>
+                <input
+                  type="number"
+                  value={csrForm.csrFundingAllocatedNpr}
+                  onChange={(e) =>
+                    setCsrForm({ ...csrForm, csrFundingAllocatedNpr: e.target.value })
+                  }
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/15 text-white"
+                  placeholder="Pending Verified MOU"
+                />
+              </div>
+            </div>
+            <button
+              onClick={async () => {
+                const res = await mutateStore(
+                  "UPDATE_CSR_METRICS",
+                  {
+                    childrenReached:
+                      csrForm.childrenReached === "" ? null : Number(csrForm.childrenReached),
+                    girlsParticipating:
+                      csrForm.girlsParticipating === "" ? null : Number(csrForm.girlsParticipating),
+                    localLicensedCoachesEmployed:
+                      csrForm.localLicensedCoachesEmployed === ""
+                        ? null
+                        : Number(csrForm.localLicensedCoachesEmployed),
+                    csrFundingAllocatedNpr:
+                      csrForm.csrFundingAllocatedNpr === ""
+                        ? null
+                        : Number(csrForm.csrFundingAllocatedNpr),
+                  },
+                  adminKey
+                );
+                if (res.ok) setStatusBanner("Updated Verified CSR Impact Metrics.");
+              }}
+              className="bg-teal-400 hover:bg-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider px-6 py-3.5 rounded-xl"
+            >
+              Publish Verified CSR Metrics
+            </button>
+          </div>
+        )}
+
+        {/* TAB 6: AUDIT LOG */}
+        {activeTab === "AUDIT_LOG" && (
+          <div className="rounded-3xl bg-[#081326] border border-white/15 p-6 md:p-8 space-y-4">
+            <h2 className="font-display font-black text-2xl text-white">
+              Immutable Administrative Audit Log
+            </h2>
+            <div className="space-y-2.5 text-xs">
+              {store.auditLogs.map((log) => (
+                <div key={log.id} className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                  <div className="flex items-center justify-between text-[10px] text-amber-400 font-bold">
+                    <span>{log.action}</span>
+                    <span className="text-slate-400">{log.timestamp}</span>
+                  </div>
+                  <div className="text-white font-semibold mt-1">{log.details}</div>
+                  <div className="text-[11px] text-slate-400 mt-0.5">Actor: {log.actor}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function FixtureEditorCard({
+  fixture,
+  onSave,
+}: {
+  fixture: {
+    id: string;
+    matchNumber: number;
+    dayLabel: string;
+    groupName?: string;
+    homeTeamName: string;
+    awayTeamName: string;
+    homeScore: number | null;
+    awayScore: number | null;
+    status: "UPCOMING" | "LIVE" | "COMPLETED";
+    isVerifiedByAdmin: boolean;
+  };
+  onSave: (
+    hs: string,
+    as: string,
+    st: "UPCOMING" | "LIVE" | "COMPLETED",
+    ver: boolean
+  ) => void;
+}) {
+  const [hs, setHs] = useState(fixture.homeScore !== null ? String(fixture.homeScore) : "");
+  const [as, setAs] = useState(fixture.awayScore !== null ? String(fixture.awayScore) : "");
+  const [st, setSt] = useState<"UPCOMING" | "LIVE" | "COMPLETED">(fixture.status);
+  const [ver, setVer] = useState<boolean>(fixture.isVerifiedByAdmin);
+
+  return (
+    <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3 text-xs">
+      <div className="flex items-center justify-between text-[10px] font-black text-amber-400">
+        <span>
+          Match #{fixture.matchNumber} · {fixture.groupName || "Knockout"}
+        </span>
+        <span>{fixture.dayLabel}</span>
+      </div>
+      <div className="grid grid-cols-2 gap-2">
+        <div>
+          <label className="block text-[10px] text-slate-300 truncate mb-1">
+            {fixture.homeTeamName}
+          </label>
+          <input
+            type="number"
+            value={hs}
+            onChange={(e) => setHs(e.target.value)}
+            className="w-full px-3 py-1.5 rounded-lg bg-black/50 border border-white/15 text-white font-bold"
+            placeholder="Score"
+          />
+        </div>
+        <div>
+          <label className="block text-[10px] text-slate-300 truncate mb-1">
+            {fixture.awayTeamName}
+          </label>
+          <input
+            type="number"
+            value={as}
+            onChange={(e) => setAs(e.target.value)}
+            className="w-full px-3 py-1.5 rounded-lg bg-black/50 border border-white/15 text-white font-bold"
+            placeholder="Score"
+          />
+        </div>
+      </div>
+      <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
+        <select
+          value={st}
+          onChange={(e) => setSt(e.target.value as "UPCOMING" | "LIVE" | "COMPLETED")}
+          className="px-2.5 py-1.5 rounded-lg bg-black/50 border border-white/15 text-white text-[11px]"
+        >
+          <option value="UPCOMING">UPCOMING</option>
+          <option value="LIVE">LIVE</option>
+          <option value="COMPLETED">COMPLETED</option>
+        </select>
+        <label className="inline-flex items-center gap-1.5 text-[11px] text-emerald-300 font-bold">
+          <input
+            type="checkbox"
+            checked={ver}
+            onChange={(e) => setVer(e.target.checked)}
+          />
+          Admin Verified
+        </label>
+        <button
+          onClick={() => onSave(hs, as, st, ver)}
+          className="px-3.5 py-1.5 rounded-lg bg-amber-400 text-slate-950 font-black text-[11px] uppercase"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  );
+}

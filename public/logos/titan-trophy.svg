@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 420" width="320" height="420">
+  <defs>
+    <linearGradient id="tGold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FEF08A"/>
+      <stop offset="45%" stop-color="#D4A017"/>
+      <stop offset="85%" stop-color="#78350F"/>
+      <stop offset="100%" stop-color="#FDE047"/>
+    </linearGradient>
+  </defs>
+  <circle cx="160" cy="180" r="135" fill="#D4A017" opacity="0.12"/>
+  <circle cx="160" cy="86" r="38" fill="url(#tGold)" stroke="#451A03" stroke-width="3"/>
+  <polygon points="160,62 169,79 188,82 174,95 177,114 160,105 143,114 146,95 132,82 151,79" fill="#071120"/>
+  <path d="M95 118 H225 L204 256 C198 286 178 302 160 302 C142 302 122 286 116 256 Z" fill="url(#tGold)" stroke="#451A03" stroke-width="3.5"/>
+  <path d="M95 138 C52 138 52 216 110 232" fill="none" stroke="url(#tGold)" stroke-width="11" stroke-linecap="round"/>
+  <path d="M225 138 C268 138 268 216 210 232" fill="none" stroke="url(#tGold)" stroke-width="11" stroke-linecap="round"/>
+  <rect x="140" y="302" width="40" height="36" fill="#78350F" stroke="#FDE047" stroke-width="2"/>
+  <rect x="96" y="338" width="128" height="34" rx="6" fill="#071120" stroke="url(#tGold)" stroke-width="3"/>
+  <text x="160" y="360" font-family="'Outfit', serif" font-size="13" font-weight="900" fill="#FDE047" text-anchor="middle" letter-spacing="3">THE TITAN SHIELD</text>
+</svg>

@@ -32,6 +32,10 @@ export function Navigation() {
     setServicesDropdown(false);
   }
 
+  if (pathname?.startsWith('/aic-titans-cup')) {
+    return null;
+  }
+
   return (
     <>
       <header

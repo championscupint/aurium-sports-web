@@ -54,6 +54,62 @@ export default function TournamentsPage() {
     {
       '@context': 'https://schema.org',
       '@type': 'SportsEvent',
+      name: 'AIC Titans Cup & Clash of the Titans – The Bankers Championship',
+      description:
+        'Five-competition corporate banking football and futsal ecosystem uniting all 105 NRB-licensed Class A, B, C, and D Banks and Financial Institutions across 7 Regional Hubs in Nepal.',
+      url: 'https://aictitanscup.auriumsports.com',
+      sport: 'Football / Futsal',
+      eventStatus: 'https://schema.org/EventScheduled',
+      eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+      location: {
+        '@type': 'Place',
+        name: 'Kathmandu Valley & 7 Regional Hubs Across Nepal',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Kathmandu',
+          addressRegion: 'Bagmati Province',
+          addressCountry: 'NP',
+        },
+      },
+      organizer: {
+        '@type': 'SportsOrganization',
+        name: 'Aurium Sports',
+        legalName: 'Aurium Academy Pvt. Ltd.',
+        url: site.url,
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'SportsEvent',
+      name: 'Nepal Youth Cup 2027',
+      description:
+        'An international youth football and futsal competition (U12 Boys & U14 Boys, 5v5 futsal) bringing together schools, academies and clubs on 9–10 January 2027 at Galaxy Public School Sports Complex, Gyaneshwor, Kathmandu.',
+      url: 'https://nepalyouthcup.com/',
+      startDate: '2027-01-09',
+      endDate: '2027-01-10',
+      sport: 'Futsal',
+      eventStatus: 'https://schema.org/EventScheduled',
+      eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+      location: {
+        '@type': 'Place',
+        name: 'Galaxy Public School Sports Complex, Gyaneshwor, Kathmandu',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Kathmandu',
+          addressRegion: 'Bagmati Province',
+          addressCountry: 'NP',
+        },
+      },
+      organizer: {
+        '@type': 'SportsOrganization',
+        name: 'Aurium Sports',
+        legalName: 'Aurium Academy Pvt. Ltd.',
+        url: site.url,
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'SportsEvent',
       name: 'Aurium Mini League (3rd Edition)',
       description:
         'Multi-age youth football and futsal league in Kathmandu Valley featuring U-8, U-10, U-12, U-14, and U-16 school and academy divisions with live NextSportz stats.',
