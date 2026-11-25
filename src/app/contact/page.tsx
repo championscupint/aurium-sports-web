@@ -43,6 +43,7 @@ export default function ContactPage() {
     description:
       'Contact Aurium Sports (Aurium Academy Pvt. Ltd.) headquarters in Baneshwor Height, Kathmandu, Nepal.',
     path: '/contact',
+    type: 'ContactPage',
   });
   const localSchema = getLocalBusinessSchema();
 

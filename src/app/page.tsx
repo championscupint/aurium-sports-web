@@ -12,19 +12,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
-  keywords: [
-    'Football academy in Nepal',
-    'Football academy Kathmandu',
-    'Football coaching in Nepal',
-    'Youth football academy Nepal',
-    'Kids football academy Kathmandu',
-    'Football training for kids in Nepal',
-    'Girls football academy Nepal',
-    'Goalkeeper training Nepal',
-    'School football programme Nepal',
-    'Aurium Sports',
-    'The Aurium Academy',
-  ],
   openGraph: {
     title: 'Football Academy in Kathmandu, Nepal | Aurium Sports',
     description:
@@ -83,6 +70,16 @@ const homeFaqs: FAQItem[] = [
     question: 'Does Aurium Sports organise international football tours and work with schools?',
     answer:
       'Yes, Aurium Sports leads Nepali youth delegations to international tournaments including the Dana Cup (Denmark), Norway Cup (Norway), Yangshuo Cup (China), and Gothia Cup (Sweden), and partners with leading schools in Kathmandu Valley through the Aurium SportsEd ECA and after-school curriculum.',
+  },
+  {
+    question: 'Does Aurium Sports offer specialist goalkeeper training in Kathmandu?',
+    answer:
+      'Yes, Aurium Sports runs a dedicated Goalkeeper Academy (Ages 7–16) at our Baneshwor Height Hub (HQ) focusing on shot-stopping reflexes, safe diving biomechanics, 1v1 angle narrowing, aerial box command, and sweeper-keeper distribution.',
+  },
+  {
+    question: 'What should a child bring to football training and how are fees structured?',
+    answer:
+      'Children should bring comfortable sportswear, turf football shoes or trainers, shin guards, and a labelled water bottle (all balls, bibs, agility equipment, and pitch-side first-aid kits are provided by Aurium). Fee structures vary by programme frequency and cohort tier—contact our academy desk via WhatsApp (+977 9828978044) or Book a Spot for the current term fee sheet and trial session details.',
   },
   {
     question: 'How can a parent register their child for a trial session or inquire about school partnerships?',

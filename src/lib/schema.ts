@@ -118,11 +118,12 @@ export function getWebPageSchema(params: {
   title: string;
   description: string;
   path: string;
+  type?: 'WebPage' | 'AboutPage' | 'ContactPage';
 }) {
   const fullUrl = params.path === '/' ? site.url : `${site.url}${params.path}`;
   return {
     '@context': 'https://schema.org',
-    '@type': 'WebPage',
+    '@type': params.type || 'WebPage',
     '@id': `${fullUrl}#webpage`,
     url: fullUrl,
     name: params.title,

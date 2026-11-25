@@ -33,16 +33,6 @@ export async function generateMetadata({
     alternates: {
       canonical: `/services/${svc.slug}`,
     },
-    keywords: [
-      ...(svc.primaryKeyword ? [svc.primaryKeyword] : []),
-      ...(svc.secondaryKeywords || []),
-      svc.name,
-      svc.brand || 'Aurium Sports',
-      `${svc.name} Kathmandu`,
-      `${svc.name} Nepal`,
-      'Aurium Sports',
-      ...svc.audience,
-    ],
     openGraph: {
       title,
       description,

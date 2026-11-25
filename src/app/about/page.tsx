@@ -51,6 +51,7 @@ export default function AboutPage() {
     description:
       'Learn about Aurium Sports (Aurium Academy Pvt. Ltd.) and The Aurium Academy in Kathmandu, Nepal.',
     path: '/about',
+    type: 'AboutPage',
   });
 
   const directorSchema = {

@@ -144,7 +144,12 @@ export function PlayerProgrammesShowcase({
 
                         <div>
                           <h3 className="display text-3xl sm:text-5xl uppercase tracking-tight text-white">
-                            {prog.name}
+                            <Link
+                              href={`/programs/${prog.id}`}
+                              className="hover:text-gold transition-colors"
+                            >
+                              {prog.name}
+                            </Link>
                           </h3>
                           <p className="accent font-serif italic text-xl text-gold mt-1">
                             {prog.tagline}
@@ -243,7 +248,9 @@ export function PlayerProgrammesShowcase({
                       <div className="p-6 space-y-4">
                         <div>
                           <h3 className="display text-3xl uppercase tracking-tight text-ink group-hover:text-gold-deep transition-colors">
-                            {prog.name}
+                            <Link href={`/programs/${prog.id}`}>
+                              {prog.name}
+                            </Link>
                           </h3>
                           <p className="text-xs font-serif italic text-gold-deep mt-0.5">
                             {prog.tagline}
@@ -289,10 +296,10 @@ export function PlayerProgrammesShowcase({
                       </button>
 
                       <Link
-                        href="/schedule"
+                        href={`/programs/${prog.id}`}
                         className="py-3.5 px-4 rounded-full border border-ink/15 hover:border-ink text-ink font-bold text-xs uppercase tracking-wider transition-all"
                       >
-                        Timings
+                        Syllabus
                       </Link>
                     </div>
                   </>

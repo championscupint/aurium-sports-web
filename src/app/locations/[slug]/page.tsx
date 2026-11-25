@@ -49,15 +49,6 @@ export async function generateMetadata({
     alternates: {
       canonical: `/locations/${loc.slug}`,
     },
-    keywords: [
-      loc.primaryKeyword,
-      ...loc.secondaryKeywords,
-      loc.name,
-      `Football Academy ${loc.city}`,
-      `Kids Football Training ${loc.neighborhood}`,
-      'Aurium Sports',
-      'The Aurium Academy',
-    ],
     openGraph: {
       title: loc.seoTitle,
       description: loc.seoDescription,
