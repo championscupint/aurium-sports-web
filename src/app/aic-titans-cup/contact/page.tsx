@@ -124,16 +124,9 @@ export default function ContactAndHubsPage() {
               <Download className="w-4 h-4 shrink-0" /> Download 105-BFI Contact &amp; Outreach Excel (.XLSX)
             </a>
             <a
-              href="/downloads/AIC_Titans_Cup_Official_BFI_Invitation_Concept_Note.pdf"
-              target="_blank"
-              className="inline-flex items-center justify-center gap-2 bg-[#FF783D] hover:bg-[#e8662c] text-white font-extrabold text-xs uppercase tracking-wider py-3.5 px-5 rounded-xl transition-colors text-center"
-            >
-              <Download className="w-4 h-4 shrink-0" /> Download Official BFI Invitation Concept Note PDF
-            </a>
-            <a
               href="/downloads/AIC_Titans_Cup_BFI_Location_and_Regional_Hub_Directory.pdf"
               target="_blank"
-              className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/15 text-white font-bold text-xs uppercase tracking-wider py-3 px-5 rounded-xl transition-colors text-center"
+              className="inline-flex items-center justify-center gap-2 bg-[#FF783D] hover:bg-[#e8662c] text-white font-extrabold text-xs uppercase tracking-wider py-3.5 px-5 rounded-xl transition-colors text-center"
             >
               <Download className="w-4 h-4 shrink-0" /> Download 105-BFI &amp; 7 Hubs Directory PDF
             </a>
