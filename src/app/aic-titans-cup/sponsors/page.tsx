@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useEcosystem } from "@/components/aic/EcosystemProvider";
+import { trackTitansSponsorEnquiry } from "@/lib/analytics";
 import { ShieldCheck, CheckCircle2, Sparkles, Send } from "lucide-react";
 
 export default function SponsorsPage() {
@@ -28,6 +29,7 @@ export default function SponsorsPage() {
     e.preventDefault();
     const res = await mutateStore("SUBMIT_SPONSOR_ENQUIRY", form);
     if (res.ok) {
+      trackTitansSponsorEnquiry(form.interestedLevel, form.interestedCompetition);
       setSubmitted(true);
     }
   };

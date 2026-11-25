@@ -22,6 +22,25 @@ const ROUTE_LAST_MODIFIED: Record<string, string> = {
 
 const SERVICE_LAST_MODIFIED = '2026-11-21';
 const LOCATION_LAST_MODIFIED = '2026-11-21';
+const TITANS_LAST_MODIFIED = '2026-11-25';
+
+const AIC_TITANS_ROUTES = [
+  '/aic-titans-cup',
+  '/aic-titans-cup/about',
+  '/aic-titans-cup/competitions',
+  '/aic-titans-cup/competitions/type-a',
+  '/aic-titans-cup/competitions/type-b',
+  '/aic-titans-cup/competitions/type-c',
+  '/aic-titans-cup/competitions/type-d',
+  '/aic-titans-cup/competitions/clash-of-the-titans',
+  '/aic-titans-cup/road-to-the-clash',
+  '/aic-titans-cup/experience',
+  '/aic-titans-cup/csr',
+  '/aic-titans-cup/sponsors',
+  '/aic-titans-cup/news',
+  '/aic-titans-cup/register',
+  '/aic-titans-cup/contact',
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = site.url; // https://www.auriumsports.com
@@ -45,5 +64,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  return [...staticRoutes, ...serviceRoutes, ...locationRoutes];
+  const titansRoutes: MetadataRoute.Sitemap = AIC_TITANS_ROUTES.map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: TITANS_LAST_MODIFIED,
+  }));
+
+  return [...staticRoutes, ...serviceRoutes, ...locationRoutes, ...titansRoutes];
 }

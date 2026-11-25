@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import crypto from "crypto";
 import {
   readEcosystemStore,
   writeEcosystemStore,
@@ -7,8 +8,29 @@ import {
 } from "@/lib/store";
 import { INITIAL_ECOSYSTEM_STORE } from "@/data/initial-store";
 import { RegistrationApplication, SponsorEnquiry } from "@/types/ecosystem";
+import { sendRegistrationAlertEmail, sendSponsorEnquiryAlertEmail } from "@/lib/mailer";
 
-const ADMIN_KEY = process.env.AIC_ADMIN_PASSPHRASE || "aurium-titans-admin-2026";
+const ALLOWED_ADMIN_EMAIL = "auriumsports@gmail.com";
+const DEFAULT_ADMIN_KEY = process.env.AIC_ADMIN_PASSPHRASE || "TitansAdmin@2026!";
+
+function hashPassword(password: string): string {
+  const salt = crypto.randomBytes(16).toString("hex");
+  const hash = crypto.scryptSync(password, salt, 64).toString("hex");
+  return `${salt}:${hash}`;
+}
+
+function verifyPassword(password: string, storedHash?: string): boolean {
+  if (!password) return false;
+  if (storedHash && storedHash.includes(":")) {
+    const [salt, keyHex] = storedHash.split(":");
+    const derived = crypto.scryptSync(password, salt, 64);
+    const storedBuf = Buffer.from(keyHex, "hex");
+    if (derived.length === storedBuf.length && crypto.timingSafeEqual(derived, storedBuf)) {
+      return true;
+    }
+  }
+  return password === DEFAULT_ADMIN_KEY;
+}
 
 export async function GET() {
   const store = readEcosystemStore();
@@ -85,7 +107,8 @@ export async function POST(req: NextRequest) {
       });
 
       writeEcosystemStore(store);
-      return NextResponse.json({ ok: true, registration: newReg, store });
+      const emailStatus = await sendRegistrationAlertEmail(newReg);
+      return NextResponse.json({ ok: true, registration: newReg, emailNotified: emailStatus.sent, store });
     }
 
     if (action === "SUBMIT_SPONSOR_ENQUIRY") {
@@ -115,18 +138,47 @@ export async function POST(req: NextRequest) {
         }`,
       });
       writeEcosystemStore(store);
-      return NextResponse.json({ ok: true, enquiry: enq, store });
+      const emailStatus = await sendSponsorEnquiryAlertEmail(enq);
+      return NextResponse.json({ ok: true, enquiry: enq, emailNotified: emailStatus.sent, store });
     }
 
-    // Protected Admin Actions require adminKey
-    if (adminKey !== ADMIN_KEY) {
+    // Protected Admin Actions require auriumsports@gmail.com + verified password
+    const userEmail = typeof payload?.user === "string" ? payload.user.trim().toLowerCase() : "";
+    if (action === "VERIFY_ADMIN_KEY" && userEmail !== ALLOWED_ADMIN_EMAIL) {
       return NextResponse.json(
-        { error: "Unauthorized: Invalid Tournament Directorate Admin Passphrase." },
+        { error: `Access restricted. Sign in with ${ALLOWED_ADMIN_EMAIL}.` },
+        { status: 401 }
+      );
+    }
+
+    if (!verifyPassword(String(adminKey || ""), store.adminPasswordHash)) {
+      return NextResponse.json(
+        { error: "Unauthorized: Invalid Tournament Directorate Admin Password." },
         { status: 401 }
       );
     }
 
     if (action === "VERIFY_ADMIN_KEY") {
+      return NextResponse.json({ ok: true, store });
+    }
+
+    if (action === "CHANGE_ADMIN_PASSWORD") {
+      const nextPass = typeof payload?.newPassword === "string" ? payload.newPassword.trim() : "";
+      if (nextPass.length < 8) {
+        return NextResponse.json(
+          { error: "New password must be at least 8 characters long." },
+          { status: 400 }
+        );
+      }
+      store.adminPasswordHash = hashPassword(nextPass);
+      store.auditLogs.unshift({
+        id: `log-${Date.now()}`,
+        timestamp: new Date().toISOString(),
+        actor: ALLOWED_ADMIN_EMAIL,
+        action: "ADMIN_PASSWORD_UPDATED",
+        details: "Tournament Directorate Admin password was updated.",
+      });
+      writeEcosystemStore(store);
       return NextResponse.json({ ok: true, store });
     }
 

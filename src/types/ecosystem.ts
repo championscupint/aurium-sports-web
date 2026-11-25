@@ -373,4 +373,5 @@ export interface EcosystemStore {
   news: NewsArticle[];
   missingDecisions: MissingDecisionItem[];
   auditLogs: AuditLogEntry[];
+  adminPasswordHash?: string;
 }

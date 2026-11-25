@@ -10,21 +10,33 @@ import {
   Eye,
   EyeOff,
   AlertCircle,
+  KeyRound,
 } from "lucide-react";
 
 const SESSION_STORAGE_KEY = "aic_titans_admin_auth_token";
+const ALLOWED_EMAIL = "auriumsports@gmail.com";
 
 export default function AdminDashboardPage() {
   const { store, bfis, mutateStore } = useEcosystem();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [adminUser, setAdminUser] = useState<string>("");
+  const [adminUser, setAdminUser] = useState<string>(ALLOWED_EMAIL);
   const [adminKey, setAdminKey] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loginError, setLoginError] = useState<string | null>(null);
   const [verifying, setVerifying] = useState<boolean>(false);
 
+  const [showChangePassword, setShowChangePassword] = useState<boolean>(false);
+  const [newPassword, setNewPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+
   const [activeTab, setActiveTab] = useState<
-    "QUALIFICATION" | "CLASH_CONTROL" | "COMPETITIONS" | "REGISTRATIONS" | "CSR_ADMIN" | "AUDIT_LOG"
+    | "QUALIFICATION"
+    | "CLASH_CONTROL"
+    | "COMPETITIONS"
+    | "REGISTRATIONS"
+    | "SPONSOR_ENQUIRIES"
+    | "CSR_ADMIN"
+    | "AUDIT_LOG"
   >("QUALIFICATION");
   const [statusBanner, setStatusBanner] = useState<string | null>(null);
 
@@ -50,7 +62,7 @@ export default function AdminDashboardPage() {
     try {
       const savedKey = sessionStorage.getItem(SESSION_STORAGE_KEY);
       if (savedKey) {
-        mutateStore("VERIFY_ADMIN_KEY", {}, savedKey).then((res) => {
+        mutateStore("VERIFY_ADMIN_KEY", { user: ALLOWED_EMAIL }, savedKey).then((res) => {
           if (res.ok) {
             setAdminKey(savedKey);
             setIsAuthenticated(true);
@@ -67,8 +79,12 @@ export default function AdminDashboardPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginError(null);
+    if (adminUser.trim().toLowerCase() !== ALLOWED_EMAIL) {
+      setLoginError(`Access restricted. Only ${ALLOWED_EMAIL} is authorized to sign in.`);
+      return;
+    }
     setVerifying(true);
-    const res = await mutateStore("VERIFY_ADMIN_KEY", { user: adminUser }, adminKey.trim());
+    const res = await mutateStore("VERIFY_ADMIN_KEY", { user: adminUser.trim() }, adminKey.trim());
     setVerifying(false);
     if (res.ok) {
       setIsAuthenticated(true);
@@ -79,15 +95,46 @@ export default function AdminDashboardPage() {
       }
     } else {
       setLoginError(
-        res.error || "Invalid Directorate Admin Passphrase. Access is restricted to authorized Aurium Sports tournament officials."
+        res.error || "Invalid Directorate Admin Password. Please verify your credentials."
       );
+    }
+  };
+
+  const handlePasswordChange = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newPassword.trim().length < 8) {
+      setStatusBanner("Error: New password must be at least 8 characters long.");
+      return;
+    }
+    if (newPassword.trim() !== confirmPassword.trim()) {
+      setStatusBanner("Error: New password and confirmation do not match.");
+      return;
+    }
+    const res = await mutateStore(
+      "CHANGE_ADMIN_PASSWORD",
+      { newPassword: newPassword.trim() },
+      adminKey
+    );
+    if (res.ok) {
+      const updated = newPassword.trim();
+      setAdminKey(updated);
+      try {
+        sessionStorage.setItem(SESSION_STORAGE_KEY, updated);
+      } catch {
+        // ignore
+      }
+      setNewPassword("");
+      setConfirmPassword("");
+      setShowChangePassword(false);
+      setStatusBanner("Tournament Directorate Admin Password updated successfully.");
+    } else {
+      setStatusBanner(`Error: ${res.error}`);
     }
   };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
     setAdminKey("");
-    setAdminUser("");
     try {
       sessionStorage.removeItem(SESSION_STORAGE_KEY);
     } catch {
@@ -145,7 +192,7 @@ export default function AdminDashboardPage() {
     }
   };
 
-  // STRICT AUTHENTICATION GATE: Hide all admin controls, registrations, and audit logs until logged in
+  // STRICT AUTHENTICATION GATE: Only auriumsports@gmail.com can sign in
   if (!isAuthenticated) {
     return (
       <div className="min-h-[82vh] bg-[#101D32] py-16 sm:py-24 flex items-center justify-center px-4">
@@ -165,7 +212,7 @@ export default function AdminDashboardPage() {
           </div>
 
           <p className="text-xs text-[#BFC8D3] leading-relaxed">
-            This portal is restricted to authorized <strong className="text-white">Aurium Sports &amp; AIC Titans Cup Tournament Directorate</strong> officials. Sign in with your official Directorate credentials to manage competition statuses, verify Stage 1 qualifiers, enter match scores, and audit BFI registrations.
+            This portal is restricted exclusively to <strong className="text-white">{ALLOWED_EMAIL}</strong>. Sign in with your Directorate password to manage competitions, verify Stage 1 qualifiers, view BFI registrations &amp; sponsor enquiries, and update CSR metrics.
           </p>
 
           {loginError && (
@@ -178,14 +225,14 @@ export default function AdminDashboardPage() {
           <form onSubmit={handleLogin} className="space-y-4 text-xs">
             <div>
               <label className="block font-bold text-[#BFC8D3] mb-1.5">
-                Directorate Official Email / ID *
+                Authorized Admin Email *
               </label>
               <input
-                type="text"
+                type="email"
                 required
                 value={adminUser}
                 onChange={(e) => setAdminUser(e.target.value)}
-                placeholder="directorate@auriumsports.com"
+                placeholder={ALLOWED_EMAIL}
                 autoComplete="username"
                 className="w-full px-4 py-3 rounded-xl bg-[#101D32] border border-white/15 focus:border-[#C7F464] focus:outline-none text-white"
               />
@@ -193,7 +240,7 @@ export default function AdminDashboardPage() {
 
             <div>
               <label className="block font-bold text-[#BFC8D3] mb-1.5">
-                Directorate Admin Passphrase *
+                Admin Password *
               </label>
               <div className="relative">
                 <input
@@ -201,7 +248,7 @@ export default function AdminDashboardPage() {
                   required
                   value={adminKey}
                   onChange={(e) => setAdminKey(e.target.value)}
-                  placeholder="Enter Directorate Passphrase"
+                  placeholder="Enter Admin Password"
                   autoComplete="current-password"
                   className="w-full pl-4 pr-11 py-3 rounded-xl bg-[#101D32] border border-white/15 focus:border-[#C7F464] focus:outline-none text-white"
                 />
@@ -228,7 +275,7 @@ export default function AdminDashboardPage() {
           <div className="pt-3 border-t border-white/10 flex items-center gap-2 text-[11px] text-[#BFC8D3]/70">
             <ShieldCheck className="w-4 h-4 text-[#C7F464] shrink-0" />
             <span>
-              All administrative actions are cryptographically timestamped in the immutable governance audit log.
+              You can set or change your custom Admin Password anytime after signing in.
             </span>
           </div>
         </div>
@@ -243,17 +290,23 @@ export default function AdminDashboardPage() {
         <div className="rounded-3xl bg-[#091220] border-2 border-[#C7F464]/50 p-6 md:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-1.5">
             <div className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#C7F464]">
-              <ShieldCheck className="w-4 h-4" /> AUTHENTICATED DIRECTORATE SESSION ({adminUser || "Tournament Director"})
+              <ShieldCheck className="w-4 h-4" /> SIGNED IN AS {ALLOWED_EMAIL}
             </div>
             <h1 className="font-titan-display font-bold text-3xl sm:text-4xl text-white">
               AIC Titans Cup &amp; Clash of the Titans Control Center
             </h1>
             <p className="text-xs text-[#BFC8D3]">
-              Manage all 5 competitions, verify &amp; transfer Stage 1 Champions/Runners-Up into Clash of the Titans, update live scores, audit HR payroll registrations, and publish verified CSR impact.
+              Manage all 5 competitions, verify &amp; transfer Stage 1 Champions/Runners-Up into Clash of the Titans, update live scores, audit BFI registrations &amp; sponsor enquiries, and publish verified CSR impact.
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2.5">
+            <button
+              onClick={() => setShowChangePassword(!showChangePassword)}
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#C7F464]/15 hover:bg-[#C7F464]/25 text-xs font-bold text-[#C7F464] border border-[#C7F464]/40"
+            >
+              <KeyRound className="w-3.5 h-3.5" /> Set / Change Password
+            </button>
             <button
               onClick={async () => {
                 const res = await mutateStore("RESET_TO_CLEAN_VERIFIED_STATE", {}, adminKey);
@@ -274,6 +327,58 @@ export default function AdminDashboardPage() {
           </div>
         </div>
 
+        {/* Custom Password Setter Panel */}
+        {showChangePassword && (
+          <form
+            onSubmit={handlePasswordChange}
+            className="rounded-2xl bg-[#091220] border border-[#C7F464]/40 p-5 sm:p-6 grid grid-cols-1 sm:grid-cols-3 gap-4 items-end text-xs"
+          >
+            <div>
+              <label className="block font-bold text-[#BFC8D3] mb-1">
+                New Admin Password (min. 8 chars) *
+              </label>
+              <input
+                type="password"
+                required
+                minLength={8}
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                className="w-full px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/15 text-white"
+                placeholder="Enter your custom password"
+              />
+            </div>
+            <div>
+              <label className="block font-bold text-[#BFC8D3] mb-1">
+                Confirm New Password *
+              </label>
+              <input
+                type="password"
+                required
+                minLength={8}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/15 text-white"
+                placeholder="Re-enter custom password"
+              />
+            </div>
+            <div className="flex gap-2">
+              <button
+                type="submit"
+                className="flex-1 py-2.5 px-4 rounded-xl bg-[#C7F464] hover:bg-[#b5e550] text-[#101D32] font-extrabold uppercase tracking-wider"
+              >
+                Save New Password
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowChangePassword(false)}
+                className="py-2.5 px-4 rounded-xl bg-white/10 text-white font-bold"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        )}
+
         {statusBanner && (
           <div className="p-4 rounded-2xl bg-[#C7F464]/15 border border-[#C7F464] text-xs text-white flex items-center justify-between gap-2">
             <span>{statusBanner}</span>
@@ -286,12 +391,13 @@ export default function AdminDashboardPage() {
         {/* Navigation Tabs */}
         <div className="flex flex-wrap gap-2">
           {[
-            { id: "QUALIFICATION", label: "1. Qualification Transfer (A1–D2 -> Clash)" },
-            { id: "CLASH_CONTROL", label: "2. Clash League & Knockout Match Control" },
-            { id: "COMPETITIONS", label: "3. 5-Competition Status Control" },
-            { id: "REGISTRATIONS", label: `4. Institutional Registrations (${store.registrations.length})` },
-            { id: "CSR_ADMIN", label: "5. Verified CSR Impact Ledger" },
-            { id: "AUDIT_LOG", label: `6. Audit Log (${store.auditLogs.length})` },
+            { id: "QUALIFICATION", label: "1. Qualification Transfer (A1–D2)" },
+            { id: "CLASH_CONTROL", label: "2. Clash Match Control" },
+            { id: "COMPETITIONS", label: "3. 5-Competition Status" },
+            { id: "REGISTRATIONS", label: `4. BFI Registrations (${store.registrations.length})` },
+            { id: "SPONSOR_ENQUIRIES", label: `5. Sponsor Enquiries (${store.sponsorEnquiries.length})` },
+            { id: "CSR_ADMIN", label: "6. Verified CSR Ledger" },
+            { id: "AUDIT_LOG", label: `7. Audit Log (${store.auditLogs.length})` },
           ].map((t) => (
             <button
               key={t.id}
@@ -508,7 +614,7 @@ export default function AdminDashboardPage() {
                       </div>
                       <div className="text-[#BFC8D3]">
                         HR Rep: {r.authorizedHrRepName} ({r.authorizedHrRepTitle}) · Manager:{" "}
-                        {r.teamManagerName} ({r.teamManagerPhone})
+                        {r.teamManagerName} ({r.teamManagerPhone}) · Email: {r.officialEmail}
                       </div>
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -539,7 +645,47 @@ export default function AdminDashboardPage() {
           </div>
         )}
 
-        {/* TAB 5: VERIFIED CSR IMPACT LEDGER */}
+        {/* TAB 5: COMMERCIAL & CSR SPONSOR ENQUIRIES */}
+        {activeTab === "SPONSOR_ENQUIRIES" && (
+          <div className="rounded-3xl bg-[#091220] border border-white/15 p-6 md:p-8 space-y-5">
+            <h2 className="font-titan-display font-bold text-2xl text-white">
+              Submitted Sponsorship &amp; CSR Partnership Enquiries ({store.sponsorEnquiries.length})
+            </h2>
+            {store.sponsorEnquiries.length === 0 ? (
+              <p className="text-xs text-[#BFC8D3]">
+                No sponsorship or CSR enquiries submitted yet.
+              </p>
+            ) : (
+              <div className="space-y-3">
+                {store.sponsorEnquiries.map((enq) => (
+                  <div
+                    key={enq.id}
+                    className="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-1.5 text-xs"
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div className="font-titan-display font-bold text-base text-white">
+                        [{enq.id}] {enq.organizationName} ({enq.industryCategory})
+                      </div>
+                      <span className="px-2.5 py-1 rounded-full bg-[#C7F464]/15 text-[#C7F464] font-titan-mono text-[10px] font-bold">
+                        {enq.status} · {enq.createdAt}
+                      </span>
+                    </div>
+                    <div className="text-[#FF783D] font-bold">
+                      Level: {enq.interestedLevel} · Target: {enq.interestedCompetition} · CSR Co-Sponsor:{" "}
+                      {enq.csrInterest ? "Yes" : "No"}
+                    </div>
+                    <div className="text-[#BFC8D3]">
+                      Contact: {enq.contactName} ({enq.designation}) · Email: {enq.email} · Phone: {enq.phone}
+                    </div>
+                    {enq.message && <div className="text-white/90 pt-1">Message: {enq.message}</div>}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* TAB 6: VERIFIED CSR IMPACT LEDGER */}
         {activeTab === "CSR_ADMIN" && (
           <div className="rounded-3xl bg-[#091220] border border-white/15 p-6 md:p-8 space-y-5">
             <h2 className="font-titan-display font-bold text-2xl text-white">
@@ -627,7 +773,7 @@ export default function AdminDashboardPage() {
           </div>
         )}
 
-        {/* TAB 6: AUDIT LOG */}
+        {/* TAB 7: AUDIT LOG */}
         {activeTab === "AUDIT_LOG" && (
           <div className="rounded-3xl bg-[#091220] border border-white/15 p-6 md:p-8 space-y-4">
             <h2 className="font-titan-display font-bold text-2xl text-white">

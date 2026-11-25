@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useEcosystem } from "@/components/aic/EcosystemProvider";
+import { trackTitansDownload } from "@/lib/analytics";
 import { Share2, Download, Sparkles } from "lucide-react";
 
 export default function NewsAndMediaPage() {
@@ -141,6 +142,7 @@ export default function NewsAndMediaPage() {
                   key={doc.url}
                   href={doc.url}
                   target="_blank"
+                  onClick={() => trackTitansDownload(doc.name, "news_vault")}
                   className="p-4 rounded-2xl bg-[#091220] hover:bg-white/10 border border-white/10 hover:border-[#C7F464] flex items-center justify-between gap-3 transition-all"
                 >
                   <span className="font-bold text-white">{doc.name}</span>

@@ -4,6 +4,7 @@ import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { useEcosystem } from "@/components/aic/EcosystemProvider";
 import { DivisionType } from "@/types/ecosystem";
+import { trackTitansRegistration } from "@/lib/analytics";
 import {
   Lock,
   CheckCircle2,
@@ -95,6 +96,7 @@ export default function RegistrationPage() {
       rosterSummary,
     });
     if (res.ok) {
+      trackTitansRegistration(selectedSlug, divisions.length);
       setSubmittedRecordId(`Submitted for ${currentBfi?.name}`);
     } else {
       setErrorMsg(res.error || "Submission failed");

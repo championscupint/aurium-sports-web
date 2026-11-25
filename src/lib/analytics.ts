@@ -85,4 +85,36 @@ export function trackLocationPageView(locationSlug: string) {
   });
 }
 
+export function trackTitansDownload(documentName: string, placement: string) {
+  trackEvent('aic_titans_pdf_download', {
+    event_category: 'aic_titans_cup',
+    document_name: documentName,
+    placement,
+  });
+}
+
+export function trackTitansRegistration(competitionSlug: string, divisionsCount: number) {
+  trackEvent('aic_titans_registration_submit', {
+    event_category: 'conversion',
+    competition_slug: competitionSlug,
+    divisions_count: divisionsCount,
+  });
+}
+
+export function trackTitansSponsorEnquiry(level: string, competition: string) {
+  trackEvent('aic_titans_sponsor_enquiry_submit', {
+    event_category: 'conversion',
+    partnership_level: level,
+    target_competition: competition,
+  });
+}
+
+export function trackTitansBfiFilter(filterType: string, filterValue: string) {
+  trackEvent('aic_titans_bfi_filter', {
+    event_category: 'engagement',
+    filter_type: filterType,
+    filter_value: filterValue,
+  });
+}
+
 
