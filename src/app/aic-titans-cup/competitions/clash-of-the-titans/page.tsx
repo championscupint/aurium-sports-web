@@ -150,7 +150,7 @@ export default function ClashOfTheTitansPage() {
                 SECTION B · VERIFIED QUALIFICATION PATHWAY
               </div>
               <h2 className="font-titan-display font-extrabold text-2xl sm:text-4xl text-white mt-1">
-                Four Qualifying Leagues &rarr; Eight Verified Championship Berths
+                Four Standalone Category Championships &rarr; Eight Verified Finale Berths
               </h2>
               <p className="text-xs text-[#BFC8D3] mt-1">
                 Winners and Runners-Up must be officially confirmed by the Tournament Directorate before they appear as qualified teams. Same-class Winners and Runners-Up are placed in opposite groups (Group X vs. Group Y).

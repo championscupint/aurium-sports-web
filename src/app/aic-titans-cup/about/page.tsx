@@ -20,7 +20,7 @@ export default function AboutPage() {
               Nepal&apos;s Five-Competition <span className="text-[#C7F464]">Banking Football</span> Ecosystem.
             </h1>
             <p className="text-base sm:text-lg text-[#BFC8D3] leading-relaxed">
-              Created by <strong className="text-white">Aurium Sports – The Aurium Academy Pvt. Ltd.</strong>, AIC Titans Cup unites all 105 NRB-licensed Class A, B, C, and D Banks and Financial Institutions across four peer-group qualifying championships and the fifth championship tournament: <strong className="text-[#C7F464]">Clash of the Titans – The Bankers Championship</strong>.
+              Created by <strong className="text-white">Aurium Sports – The Aurium Academy Pvt. Ltd.</strong>, AIC Titans Cup unites all 105 NRB-licensed Class A, B, C, and D Banks and Financial Institutions across four standalone category championships—whose Champions &amp; Runners-Up also qualify for the fifth grand finale tournament: <strong className="text-[#C7F464]">Clash of the Titans – The Bankers Championship</strong>.
             </p>
           </div>
         </div>

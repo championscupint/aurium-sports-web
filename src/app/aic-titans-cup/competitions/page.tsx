@@ -21,7 +21,7 @@ export default function CompetitionsOverviewPage() {
             The Five Competitions of <span className="text-[#C7F464]">AIC Titans Cup</span>
           </h1>
           <p className="text-sm sm:text-base text-[#BFC8D3] max-w-3xl leading-relaxed">
-            AIC Titans Cup consists of four individual NRB class qualifying championships (Types A, B, C, and D) followed by a fifth, full-fledged league-cum-knockout tournament:{" "}
+            AIC Titans Cup consists of four major standalone NRB category championships (Types A, B, C, and D)—each crowning its own Champion, Runner-Up, and prize winners—whose top two teams also qualify for the fifth, full-fledged league-cum-knockout finale:{" "}
             <strong className="text-white">Clash of the Titans – The Bankers Championship</strong>.
           </p>
         </div>

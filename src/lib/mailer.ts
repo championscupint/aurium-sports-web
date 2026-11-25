@@ -82,7 +82,7 @@ export async function sendRegistrationAlertEmail(
           "Warm regards,",
           "Tournament Directorate — AIC Titans Cup",
           "Aurium Sports (The Aurium Academy Pvt. Ltd.)",
-          "Phone: +977-9801855881",
+          "Phone: +977-9828978044",
         ].join("\n"),
       });
     }
@@ -146,7 +146,7 @@ export async function sendSponsorEnquiryAlertEmail(
           "Tournament Directorate — AIC Titans Cup",
           "Aurium Sports (The Aurium Academy Pvt. Ltd.)",
           "Website: https://www.auriumsports.com/aic-titans-cup",
-          "Phone: +977-9801855881",
+          "Phone: +977-9828978044",
         ].join("\n"),
       });
     }

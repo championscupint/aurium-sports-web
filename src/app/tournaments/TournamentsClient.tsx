@@ -422,7 +422,7 @@ export function TournamentsClient() {
                     </div>
 
                     <p className="text-sm text-[#F7F8FA]/90 leading-relaxed">
-                      An independently branded championship arena and outdoor sporting holiday created for Nepal&apos;s banking and financial services workforce. Four NRB class qualifying championships (<strong className="text-white">Type A Commercial, Type B Development, Type C Finance, Type D Microfinance</strong>) qualify their verified Champion and Runner-Up into the fifth competition: <strong className="text-[#C7F464]">Clash of the Titans – The Bankers Championship</strong>.
+                      An independently branded championship arena and outdoor sporting holiday created for Nepal&apos;s banking and financial services workforce. Four major standalone NRB category championships (<strong className="text-white">Type A Commercial, Type B Development, Type C Finance, Type D Microfinance</strong>) crown their own division Champions and Runners-Up—who also earn qualification into the fifth grand finale: <strong className="text-[#C7F464]">Clash of the Titans – The Bankers Championship</strong>.
                     </p>
 
                     {/* 5 Competitions Grid with Distinct Class Accent Colors */}

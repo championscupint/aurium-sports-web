@@ -66,7 +66,7 @@ export function Footer({ basePath = "" }: { basePath?: string }) {
               </div>
             </div>
             <p className="text-xs text-[#BFC8D3] leading-relaxed max-w-md">
-              Nepal&apos;s official banking and financial services football &amp; futsal ecosystem uniting all 105 NRB-licensed Class A, B, C, and D institutions across four qualifying championships and the fifth league-cum-knockout championship:{" "}
+              Nepal&apos;s official banking and financial services football &amp; futsal ecosystem uniting all 105 NRB-licensed Class A, B, C, and D institutions across four standalone category championships—whose Champions &amp; Runners-Up also qualify for the fifth grand finale:{" "}
               <strong className="text-[#F7F8FA]">Clash of the Titans – The Bankers Championship</strong>.
             </p>
             <div className="flex flex-wrap gap-2 pt-1">
