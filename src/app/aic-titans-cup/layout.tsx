@@ -33,7 +33,7 @@ export default function AicTitansCupLayout({
 }) {
   return (
     <div
-      className={`${spaceGrotesk.variable} ${jakarta.variable} ${jetbrains.variable} titan-Root -mt-16 min-h-screen flex flex-col bg-[#F7F8FA] text-[#101D32]`}
+      className={`${spaceGrotesk.variable} ${jakarta.variable} ${jetbrains.variable} titan-Root min-h-screen flex flex-col bg-[#F7F8FA] text-[#101D32]`}
       style={{ fontFamily: "var(--font-jakarta), sans-serif" }}
     >
       <EcosystemProvider>

@@ -115,20 +115,27 @@ export default function ContactAndHubsPage() {
               Verified against <strong className="text-white">Nepal Rastra Bank (NRB) Bank &amp; Financial Institution Regulation Department</strong> statistics (<strong className="text-[#C7F464]">20 Class A · 17 Class B · 17 Class C · 51 Class D = 105 BFIs operating ~11,500+ branches across all 77 Districts</strong>). Because <strong className="text-white">58 of the 105 BFI Head Offices (55.2%)</strong> and <strong className="text-white">65% of all bank branches</strong> operate outside Kathmandu Valley, AIC Titans Cup maps every institution and provincial branch network into <strong className="text-[#C7F464]">7 Regional Tournament Hubs</strong>.
             </p>
           </div>
-          <div className="lg:col-span-4 flex flex-col gap-3">
-            <a
-              href="/downloads/AIC_Titans_Cup_BFI_Location_and_Regional_Hub_Directory.pdf"
-              target="_blank"
-              className="inline-flex items-center justify-center gap-2 bg-[#FF783D] hover:bg-[#e8662c] text-white font-extrabold text-xs uppercase tracking-wider py-4 px-5 rounded-xl transition-colors text-center"
-            >
-              <Download className="w-4 h-4 shrink-0" /> Download 105-BFI Directory PDF
-            </a>
+          <div className="lg:col-span-4 flex flex-col gap-2.5">
             <a
               href="/downloads/AIC_Titans_Cup_BFI_Directory_and_Location_Tracker.xlsx"
               target="_blank"
               className="inline-flex items-center justify-center gap-2 bg-[#C7F464] hover:bg-[#b5e550] text-[#101D32] font-extrabold text-xs uppercase tracking-wider py-3.5 px-5 rounded-xl transition-colors text-center"
             >
-              <Download className="w-4 h-4 shrink-0" /> Download Master Excel Tracker (.XLSX)
+              <Download className="w-4 h-4 shrink-0" /> Download 105-BFI Contact &amp; Outreach Excel (.XLSX)
+            </a>
+            <a
+              href="/downloads/AIC_Titans_Cup_Official_BFI_Invitation_Concept_Note.pdf"
+              target="_blank"
+              className="inline-flex items-center justify-center gap-2 bg-[#FF783D] hover:bg-[#e8662c] text-white font-extrabold text-xs uppercase tracking-wider py-3.5 px-5 rounded-xl transition-colors text-center"
+            >
+              <Download className="w-4 h-4 shrink-0" /> Download Official BFI Invitation Concept Note PDF
+            </a>
+            <a
+              href="/downloads/AIC_Titans_Cup_BFI_Location_and_Regional_Hub_Directory.pdf"
+              target="_blank"
+              className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/15 text-white font-bold text-xs uppercase tracking-wider py-3 px-5 rounded-xl transition-colors text-center"
+            >
+              <Download className="w-4 h-4 shrink-0" /> Download 105-BFI &amp; 7 Hubs Directory PDF
             </a>
           </div>
         </div>
@@ -426,14 +433,14 @@ export default function ContactAndHubsPage() {
           </div>
 
           <div className="overflow-x-auto max-h-[620px] overflow-y-auto border border-[#CBD5E1] rounded-2xl bg-white">
-            <table className="w-full text-left text-xs min-w-[1080px]">
+            <table className="w-full text-left text-xs min-w-[1160px]">
               <thead className="bg-[#101D32] text-white sticky top-0 z-10">
                 <tr className="border-b border-white/15">
                   <th className="py-3.5 px-3">ID</th>
-                  <th className="py-3.5 px-3">Institution Name</th>
+                  <th className="py-3.5 px-3">Institution Name &amp; Website</th>
                   <th className="py-3.5 px-3">NRB Class</th>
-                  <th className="py-3.5 px-3">Head Office &amp; District</th>
-                  <th className="py-3.5 px-3">Province &amp; Scope</th>
+                  <th className="py-3.5 px-3">Official Email &amp; Phone</th>
+                  <th className="py-3.5 px-3">Head Office &amp; Province</th>
                   <th className="py-3.5 px-3">Branches</th>
                   <th className="py-3.5 px-3">Geographical Branch Spread Across Nepal</th>
                   <th className="py-3.5 px-3">Assigned Regional Hub</th>
@@ -446,22 +453,45 @@ export default function ContactAndHubsPage() {
                     <td className="py-3 px-3 font-titan-mono font-bold text-[#FF783D] whitespace-nowrap">
                       {b.id}
                     </td>
-                    <td className="py-3 px-3 font-bold text-[#101D32]">{b.name}</td>
+                    <td className="py-3 px-3">
+                      <div className="font-bold text-[#101D32]">{b.name}</div>
+                      {b.website && (
+                        <a
+                          href={b.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[11px] text-[#2563EB] hover:underline font-titan-mono"
+                        >
+                          {b.website.replace(/^https?:\/\//, "")}
+                        </a>
+                      )}
+                    </td>
                     <td className="py-3 px-3 text-[#2563EB] font-bold whitespace-nowrap">
                       {b.nrbClass}
                     </td>
                     <td className="py-3 px-3 text-[#252B35]">
-                      <div className="font-semibold text-[#101D32]">{b.headOffice}</div>
-                      <div className="text-[11px] text-[#475569]">District: {b.district}</div>
+                      {b.officialEmail && (
+                        <a
+                          href={`mailto:${b.officialEmail}`}
+                          className="font-titan-mono font-bold text-[#101D32] hover:text-[#2563EB] block"
+                        >
+                          {b.officialEmail}
+                        </a>
+                      )}
+                      <div className="text-[11px] text-[#475569] font-titan-mono mt-0.5">
+                        {b.officialPhone}
+                      </div>
                     </td>
                     <td className="py-3 px-3 text-[#252B35]">
-                      <div className="font-semibold text-[#101D32]">{b.province}</div>
-                      <div className="text-[11px] text-[#475569]">{b.operatingScope}</div>
+                      <div className="font-semibold text-[#101D32]">{b.headOffice}</div>
+                      <div className="text-[11px] text-[#475569]">
+                        {b.province} · {b.operatingScope}
+                      </div>
                     </td>
                     <td className="py-3 px-3 font-titan-mono font-bold text-[#101D32] whitespace-nowrap">
                       {b.estimatedBranches}
                     </td>
-                    <td className="py-3 px-3 text-[#252B35] max-w-[240px]">
+                    <td className="py-3 px-3 text-[#252B35] max-w-[230px]">
                       {b.branchSpread}
                     </td>
                     <td className="py-3 px-3 font-semibold text-[#101D32]">

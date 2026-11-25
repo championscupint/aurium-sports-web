@@ -72,12 +72,6 @@ export default function SportsCsrPage() {
                   Live Audited Community Impact vs. Full-Ecosystem Blueprint
                 </h2>
               </div>
-              <Link
-                href="/aic-titans-cup/admin"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#C7F464] hover:underline"
-              >
-                <Lock className="w-3.5 h-3.5" /> Update Verified Metrics in Admin Portal &rarr;
-              </Link>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

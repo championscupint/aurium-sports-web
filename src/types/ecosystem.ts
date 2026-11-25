@@ -112,6 +112,11 @@ export interface BFIInstitution {
   assignedHub: string;
   expectedCsrRange: string;
   localCsrFocus: string;
+  officialEmail?: string;
+  secondaryEmail?: string;
+  officialPhone?: string;
+  tollFreeOrHotline?: string;
+  website?: string;
 }
 
 export interface RegionalHub {

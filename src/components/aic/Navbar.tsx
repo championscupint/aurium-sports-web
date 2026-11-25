@@ -138,13 +138,6 @@ export function Navbar({ basePath = "" }: { basePath?: string }) {
             >
               Nepal Youth Cup <ArrowUpRight className="w-3 h-3" />
             </a>
-            <span className="text-[#BFC8D3]/30">·</span>
-            <Link
-              href={resolveHref("/admin")}
-              className="text-[#C7F464] hover:underline inline-flex items-center gap-1 font-semibold"
-            >
-              <Lock className="w-3 h-3" /> Admin
-            </Link>
           </div>
         </div>
       </div>

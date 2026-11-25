@@ -121,9 +121,13 @@ export async function POST(req: NextRequest) {
     // Protected Admin Actions require adminKey
     if (adminKey !== ADMIN_KEY) {
       return NextResponse.json(
-        { error: "Unauthorized: Invalid Tournament Directorate Admin Key." },
+        { error: "Unauthorized: Invalid Tournament Directorate Admin Passphrase." },
         { status: 401 }
       );
+    }
+
+    if (action === "VERIFY_ADMIN_KEY") {
+      return NextResponse.json({ ok: true, store });
     }
 
     if (action === "VERIFY_AND_TRANSFER_QUALIFIER") {

@@ -174,12 +174,6 @@ export default function RegistrationPage() {
                   >
                     Register Another Squad
                   </button>
-                  <Link
-                    href="/aic-titans-cup/admin"
-                    className="bg-white/10 text-white font-bold text-xs uppercase tracking-wider px-5 py-3 rounded-xl"
-                  >
-                    View Application in Admin Portal &rarr;
-                  </Link>
                 </div>
               </div>
             ) : (

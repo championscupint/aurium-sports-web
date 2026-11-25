@@ -3,6 +3,7 @@ import { Inter, Anton, Fraunces } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { MainWrapper } from "@/components/MainWrapper";
 import { EnquiryProvider } from "@/components/EnquiryContext";
 import { EnquiryModal } from "@/components/EnquiryModal";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
@@ -136,9 +137,9 @@ export default function RootLayout({
         <GoogleAnalytics />
         <EnquiryProvider>
           <Navigation />
-          <main className="flex-grow pt-16 overflow-x-hidden">
+          <MainWrapper>
             {children}
-          </main>
+          </MainWrapper>
           <Footer />
           <EnquiryModal />
         </EnquiryProvider>

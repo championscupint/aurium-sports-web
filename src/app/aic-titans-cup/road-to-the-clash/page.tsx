@@ -25,13 +25,13 @@ export default function RoadToTheClashPage() {
 
         <div className="flex flex-wrap items-center justify-between gap-4 p-6 rounded-2xl bg-[#091220] border border-white/15">
           <div className="text-xs sm:text-sm text-[#BFC8D3]">
-            Want to test live qualification transfers and league-stage standings updates in real time?
+            Ready to enter your institution&apos;s Gentlemen and Ladies squads in Stage 1?
           </div>
           <Link
-            href="/aic-titans-cup/admin"
+            href="/aic-titans-cup/register"
             className="inline-flex items-center gap-2 bg-[#FF783D] hover:bg-[#e8662c] text-white font-extrabold text-xs uppercase tracking-wider px-5 py-3.5 rounded-xl transition-colors"
           >
-            Open Qualification Admin Simulator <ArrowRight className="w-4 h-4" />
+            Register Your Institution <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </div>

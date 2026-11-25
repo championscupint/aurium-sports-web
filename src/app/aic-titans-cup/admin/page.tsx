@@ -1,15 +1,28 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useEcosystem } from "@/components/aic/EcosystemProvider";
 import {
   Lock,
   RotateCcw,
+  ShieldCheck,
+  LogOut,
+  Eye,
+  EyeOff,
+  AlertCircle,
 } from "lucide-react";
+
+const SESSION_STORAGE_KEY = "aic_titans_admin_auth_token";
 
 export default function AdminDashboardPage() {
   const { store, bfis, mutateStore } = useEcosystem();
-  const [adminKey, setAdminKey] = useState("aurium-titans-admin-2026");
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [adminUser, setAdminUser] = useState<string>("");
+  const [adminKey, setAdminKey] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [loginError, setLoginError] = useState<string | null>(null);
+  const [verifying, setVerifying] = useState<boolean>(false);
+
   const [activeTab, setActiveTab] = useState<
     "QUALIFICATION" | "CLASH_CONTROL" | "COMPETITIONS" | "REGISTRATIONS" | "CSR_ADMIN" | "AUDIT_LOG"
   >("QUALIFICATION");
@@ -32,6 +45,55 @@ export default function AdminDashboardPage() {
     localLicensedCoachesEmployed: store.csrMetrics.localLicensedCoachesEmployed ?? "",
     csrFundingAllocatedNpr: store.csrMetrics.csrFundingAllocatedNpr ?? "",
   });
+
+  useEffect(() => {
+    try {
+      const savedKey = sessionStorage.getItem(SESSION_STORAGE_KEY);
+      if (savedKey) {
+        mutateStore("VERIFY_ADMIN_KEY", {}, savedKey).then((res) => {
+          if (res.ok) {
+            setAdminKey(savedKey);
+            setIsAuthenticated(true);
+          } else {
+            sessionStorage.removeItem(SESSION_STORAGE_KEY);
+          }
+        });
+      }
+    } catch {
+      // ignore sessionStorage error
+    }
+  }, [mutateStore]);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginError(null);
+    setVerifying(true);
+    const res = await mutateStore("VERIFY_ADMIN_KEY", { user: adminUser }, adminKey.trim());
+    setVerifying(false);
+    if (res.ok) {
+      setIsAuthenticated(true);
+      try {
+        sessionStorage.setItem(SESSION_STORAGE_KEY, adminKey.trim());
+      } catch {
+        // ignore
+      }
+    } else {
+      setLoginError(
+        res.error || "Invalid Directorate Admin Passphrase. Access is restricted to authorized Aurium Sports tournament officials."
+      );
+    }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setAdminKey("");
+    setAdminUser("");
+    try {
+      sessionStorage.removeItem(SESSION_STORAGE_KEY);
+    } catch {
+      // ignore
+    }
+  };
 
   const handleQualifySlot = async (slotCode: string, approve: boolean) => {
     const bfiId = selectedSlotBfi[slotCode];
@@ -83,14 +145,105 @@ export default function AdminDashboardPage() {
     }
   };
 
+  // STRICT AUTHENTICATION GATE: Hide all admin controls, registrations, and audit logs until logged in
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-[82vh] bg-[#101D32] py-16 sm:py-24 flex items-center justify-center px-4">
+        <div className="w-full max-w-md rounded-3xl bg-[#091220] border-2 border-[#C7F464]/40 p-7 sm:p-9 shadow-2xl space-y-6">
+          <div className="flex items-center gap-3.5">
+            <div className="w-12 h-12 rounded-2xl bg-[#C7F464]/15 border border-[#C7F464]/40 flex items-center justify-center text-[#C7F464] shrink-0">
+              <Lock className="w-6 h-6" />
+            </div>
+            <div>
+              <div className="font-titan-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#C7F464]">
+                RESTRICTED DIRECTORATE PORTAL
+              </div>
+              <h1 className="font-titan-display font-bold text-2xl text-white">
+                Tournament Admin Login
+              </h1>
+            </div>
+          </div>
+
+          <p className="text-xs text-[#BFC8D3] leading-relaxed">
+            This portal is restricted to authorized <strong className="text-white">Aurium Sports &amp; AIC Titans Cup Tournament Directorate</strong> officials. Sign in with your official Directorate credentials to manage competition statuses, verify Stage 1 qualifiers, enter match scores, and audit BFI registrations.
+          </p>
+
+          {loginError && (
+            <div className="p-3.5 rounded-xl bg-red-500/15 border border-red-400/50 text-xs text-red-200 flex items-start gap-2.5">
+              <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+              <span>{loginError}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleLogin} className="space-y-4 text-xs">
+            <div>
+              <label className="block font-bold text-[#BFC8D3] mb-1.5">
+                Directorate Official Email / ID *
+              </label>
+              <input
+                type="text"
+                required
+                value={adminUser}
+                onChange={(e) => setAdminUser(e.target.value)}
+                placeholder="directorate@auriumsports.com"
+                autoComplete="username"
+                className="w-full px-4 py-3 rounded-xl bg-[#101D32] border border-white/15 focus:border-[#C7F464] focus:outline-none text-white"
+              />
+            </div>
+
+            <div>
+              <label className="block font-bold text-[#BFC8D3] mb-1.5">
+                Directorate Admin Passphrase *
+              </label>
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  required
+                  value={adminKey}
+                  onChange={(e) => setAdminKey(e.target.value)}
+                  placeholder="Enter Directorate Passphrase"
+                  autoComplete="current-password"
+                  className="w-full pl-4 pr-11 py-3 rounded-xl bg-[#101D32] border border-white/15 focus:border-[#C7F464] focus:outline-none text-white"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  aria-label="Toggle password visibility"
+                  className="absolute right-3.5 top-3 text-[#BFC8D3] hover:text-white"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={verifying}
+              className="w-full py-3.5 rounded-xl bg-[#FF783D] hover:bg-[#e8662c] disabled:opacity-50 text-white font-titan-display font-bold text-xs uppercase tracking-wider shadow-lg transition-colors"
+            >
+              {verifying ? "Verifying Directorate Credentials..." : "Sign In to Directorate Control Center"}
+            </button>
+          </form>
+
+          <div className="pt-3 border-t border-white/10 flex items-center gap-2 text-[11px] text-[#BFC8D3]/70">
+            <ShieldCheck className="w-4 h-4 text-[#C7F464] shrink-0" />
+            <span>
+              All administrative actions are cryptographically timestamped in the immutable governance audit log.
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#101D32] py-14 sm:py-20">
       <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        {/* Header & Auth Key Bar */}
+        {/* Authenticated Header Bar */}
         <div className="rounded-3xl bg-[#091220] border-2 border-[#C7F464]/50 p-6 md:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-1.5">
             <div className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#C7F464]">
-              <Lock className="w-4 h-4" /> TOURNAMENT DIRECTORATE ADMINISTRATIVE SYSTEM
+              <ShieldCheck className="w-4 h-4" /> AUTHENTICATED DIRECTORATE SESSION ({adminUser || "Tournament Director"})
             </div>
             <h1 className="font-titan-display font-bold text-3xl sm:text-4xl text-white">
               AIC Titans Cup &amp; Clash of the Titans Control Center
@@ -100,18 +253,7 @@ export default function AdminDashboardPage() {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 w-full lg:w-auto">
-            <div className="w-full sm:w-56">
-              <label className="block text-[10px] font-bold uppercase text-[#C7F464] mb-1">
-                Directorate Admin Key
-              </label>
-              <input
-                type="password"
-                value={adminKey}
-                onChange={(e) => setAdminKey(e.target.value)}
-                className="px-3.5 py-2 rounded-xl bg-black/50 border border-[#C7F464]/40 text-xs text-white w-full"
-              />
-            </div>
+          <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={async () => {
                 const res = await mutateStore("RESET_TO_CLEAN_VERIFIED_STATE", {}, adminKey);
@@ -119,9 +261,15 @@ export default function AdminDashboardPage() {
                   setStatusBanner("Reset ecosystem store to clean zero-fabrication baseline.");
                 }
               }}
-              className="sm:mt-4 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-bold text-white border border-white/15"
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-bold text-white border border-white/15"
             >
               <RotateCcw className="w-3.5 h-3.5" /> Reset Baseline
+            </button>
+            <button
+              onClick={handleLogout}
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-red-500/20 hover:bg-red-500/30 text-xs font-bold text-red-200 border border-red-400/40"
+            >
+              <LogOut className="w-3.5 h-3.5" /> Sign Out
             </button>
           </div>
         </div>
@@ -337,11 +485,7 @@ export default function AdminDashboardPage() {
             </h2>
             {store.registrations.length === 0 ? (
               <p className="text-xs text-[#BFC8D3]">
-                No institutional applications submitted yet. Use the{" "}
-                <a href="/aic-titans-cup/register" className="text-[#C7F464] underline">
-                  Registration Page
-                </a>{" "}
-                to submit an application.
+                No institutional applications submitted yet.
               </p>
             ) : (
               <div className="space-y-3">

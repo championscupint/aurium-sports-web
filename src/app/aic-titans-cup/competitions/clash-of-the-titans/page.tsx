@@ -156,12 +156,9 @@ export default function ClashOfTheTitansPage() {
                 Winners and Runners-Up must be officially confirmed by the Tournament Directorate before they appear as qualified teams. Same-class Winners and Runners-Up are placed in opposite groups (Group X vs. Group Y).
               </p>
             </div>
-            <Link
-              href="/aic-titans-cup/admin"
-              className="text-xs font-bold text-[#C7F464] hover:underline inline-flex items-center gap-1.5"
-            >
-              <Lock className="w-3.5 h-3.5" /> Admin Qualification Transfer Module &rarr;
-            </Link>
+            <span className="text-xs font-bold text-[#C7F464] inline-flex items-center gap-1.5">
+              <Lock className="w-3.5 h-3.5" /> Verified by Tournament Directorate
+            </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">

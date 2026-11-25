@@ -180,11 +180,6 @@ export function Footer({ basePath = "" }: { basePath?: string }) {
                   105 BFI Geolocation &amp; 7 Regional Hubs
                 </Link>
               </li>
-              <li>
-                <Link href={resolveHref("/admin")} className="text-[#C7F464] hover:underline transition-colors">
-                  Tournament Directorate Admin
-                </Link>
-              </li>
             </ul>
           </div>
 
