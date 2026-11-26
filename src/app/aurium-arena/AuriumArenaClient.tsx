@@ -49,7 +49,7 @@ const REGIONS = [
 ];
 
 const ENQUIRY_SCOPES = [
-  'Request Approved Project Overview & Cost Breakdown (BOQ)',
+  'Request Approved Project Overview & Architecture Brief',
   'Schedule Private Investor / Partner Briefing',
   'Explore Restaurant & Viewing Deck Operating Partnership',
   'Explore Corporate Naming Rights & Tournament Sponsorship',
@@ -363,10 +363,8 @@ export default function AuriumArenaClient() {
             </strong>{' '}
             General industry observations reflect visible recreational, school, and
             corporate sports trends in Kathmandu Valley. Project-specific
-            utilization targets, hourly tariff assumptions, and multi-scenario
-            revenue models are maintained as internal project assumptions in the
-            Aurium Arena Financial Model and are shared transparently with
-            qualified prospective investors for independent evaluation.
+            operational details and partnership structures are discussed directly
+            with qualified prospective partners during private briefings.
           </div>
         </div>
       </section>

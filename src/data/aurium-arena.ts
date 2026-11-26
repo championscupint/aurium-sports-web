@@ -181,9 +181,9 @@ export const auriumArenaData = {
   collaborationCategories: [
     {
       title: 'Capital & Equity Investment',
-      badge: 'Subject to Approved Disclosure',
+      badge: 'Private Briefing Only',
       description:
-        'Structured private capital participation in the Aurium Arena development project. Detailed capital expenditure breakdowns, scenario models, and equity structures are shared directly with qualified investors under owner-approved disclosure.',
+        'Structured private participation in the Aurium Arena development project. Project scope and partnership structures are discussed directly with qualified partners in private briefings.',
     },
     {
       title: 'Strategic & Institutional Investment',
@@ -231,7 +231,7 @@ export const auriumArenaData = {
       statusLabel: 'Active Phase',
       window: 'Pre-Mobilization',
       description:
-        'Total-station cadastral survey, geotechnical soil bearing verification, Nepal National Building Code (NBC 105) structural steel certification, final lease registration, and binding contractor BOQ execution.',
+        'Total-station cadastral survey, geotechnical soil bearing verification, Nepal National Building Code (NBC 105) structural steel certification, final lease registration, and contractor execution.',
     },
     {
       stage: 'STAGE 03',
@@ -299,7 +299,7 @@ export const auriumArenaData = {
       category: 'Project & Infrastructure',
       question: 'What is the project’s current development status?',
       answer:
-        'Aurium Arena is currently in the pre-construction, architectural/engineering verification, and investor/partner alignment phase. Master architectural plans, 7v7 pitch geometry, spectator stand layouts, restaurant floor plans, lighting schedules, and cost breakdown models have been prepared, with final total-station survey, geotechnical testing, and contractor execution scheduled prior to the target 90-day construction window.',
+        'Aurium Arena is currently in the pre-construction, architectural/engineering verification, and investor/partner alignment phase. Master architectural plans, 7v7 pitch geometry, spectator stand layouts, restaurant floor plans, and lighting schedules have been prepared, with final total-station survey, geotechnical testing, and contractor execution scheduled prior to the target 90-day construction window.',
     },
     {
       category: 'Project & Infrastructure',
@@ -321,9 +321,9 @@ export const auriumArenaData = {
     },
     {
       category: 'Investment & Market',
-      question: 'What are the costs involved in developing a commercial futsal and 7v7 facility?',
+      question: 'What are the key considerations in developing a commercial futsal and 7v7 facility?',
       answer:
-        'Development costs depend on pitch dimensions, structural steel roofing, turf grade, spectator seating, and restaurant/kitchen integration. For Aurium Arena 007 in Pasikot, a detailed Bill of Quantities (BOQ) and financial model have been prepared for the essential 7v7 turf, spectator seating, and restaurant scope. Qualified investors can request the official Project Cost Breakdown and Financial Model directly through our Investor Enquiry Desk.',
+        'Developing a commercial venue involves site geometry and accessibility, structural steel and roofing design, FIFA-grade synthetic turf and sub-base drainage specification, spectator seating, and restaurant/kitchen integration. Prospective partners can connect directly with our leadership team through the Investor & Partnership Enquiry Desk to discuss the project scope.',
     },
     {
       category: 'Investment & Market',
@@ -407,7 +407,7 @@ export const auriumArenaData = {
             'Civil & drainage engineering: Engineered sub-base compaction and monsoon slot drainage to ensure 365-day all-weather playability.',
             'Programmatic demand engine: Built-in academy cohorts, school partnerships, and recurring leagues rather than relying solely on walk-in bookings.',
             'Diversified revenue mix: Combining turf rentals, tournament hosting, F&B hospitality, and corporate sponsorships.',
-            'Transparent governance & legal due diligence: Verified land lease terms, municipal building permits, and realistic multi-scenario financial modeling.',
+            'Transparent governance & legal due diligence: Verified land lease terms, municipal building permits, and thorough engineering verification.',
           ],
         },
       ],
@@ -459,7 +459,7 @@ export const auriumArenaData = {
           bullets: [
             'Peak-hour recreational bookings (Early mornings, weekday evenings, and Saturdays).',
             'Daytime & afternoon academy cohorts (Youth training programmes for Ages 3–16 and school ECA blocks that utilize otherwise idle daytime hours).',
-            'Weekend tournaments & corporate championships (Entry fees, venue hire, and broadcast packages).',
+            'Weekend tournaments & corporate championships (Event hosting and broadcast packages).',
             'Elevated restaurant & viewing deck sales (Coffee, meals, hydration, and team dining from players, parents, and ~260 grandstand spectators).',
             'Perimeter & digital sponsorship (Brand boards, tournament naming rights, and livestream graphic overlays).',
           ],
@@ -467,7 +467,7 @@ export const auriumArenaData = {
         {
           heading: '3. Operational Risks and How Professional Venues Mitigate Them',
           paragraphs: [
-            'Prospective futsal investors in Nepal should carefully evaluate three common operational risks: (1) lease tenure and rent escalation terms, (2) monsoon waterlogging and premature turf wear from poor sub-base construction, and (3) low off-peak utilization. Partnering with an established football development organization like Aurium Sports directly mitigates off-peak vacancy by anchoring the pitch with year-round academy and tournament programming.',
+            'Prospective futsal investors in Nepal should carefully evaluate three common operational risks: (1) site location and lease stability, (2) monsoon waterlogging and premature turf wear from poor sub-base construction, and (3) low off-peak utilization. Partnering with an established football development organization like Aurium Sports directly mitigates off-peak vacancy by anchoring the pitch with year-round academy and tournament programming.',
           ],
         },
       ],
@@ -475,12 +475,12 @@ export const auriumArenaData = {
         {
           question: 'Why choose a 7v7 turf format over a small 5v5 futsal court?',
           answer:
-            'A 7v7 pitch (such as Aurium Arena’s 130 ft × 95 ft playing surface) commands higher group booking value, supports official youth academy developmental formats, and hosts major school and corporate tournaments that outgrow tight 5v5 cages.',
+            'A 7v7 pitch (such as Aurium Arena’s 130 ft × 95 ft playing surface) supports broader group participation, official youth academy developmental formats, and major school and corporate tournaments that outgrow tight 5v5 cages.',
         },
         {
           question: 'Can investors partner in Aurium Arena’s 7v7 futsal and restaurant project?',
           answer:
-            'Yes. Qualified investors and hospitality operators can submit an enquiry on the main Aurium Arena page to review the project scope, cost breakdown, and partnership structures.',
+            'Yes. Qualified investors and hospitality operators can submit an enquiry on the main Aurium Arena page to discuss the project scope and partnership structures.',
         },
       ],
     },
@@ -609,13 +609,13 @@ export const auriumArenaData = {
         {
           heading: '2. Our Commitment to Transparent Due Diligence',
           paragraphs: [
-            'Aurium Sports does not advertise exaggerated or guaranteed financial returns on public web pages. Instead, qualified prospective partners who submit an enquiry receive our structured Investment Proposal, itemized Project Cost Breakdown (BOQ), 3-scenario financial model (Conservative, Base, and Optimistic), and a transparent Validation Register identifying all pre-mobilization legal and engineering checkpoints.',
+            'Aurium Sports does not advertise financial figures or projections on public web pages. Instead, prospective partners who submit an enquiry connect directly with our leadership team for private project briefings covering architectural design, operational scope, and pre-mobilization legal and engineering checkpoints.',
           ],
         },
       ],
       faqs: [
         {
-          question: 'How do I request the official Aurium Arena investment proposal and BOQ?',
+          question: 'How do I request a private project briefing on Aurium Arena?',
           answer:
             'Complete the Investor & Strategic Partnership Enquiry Form on the Aurium Arena page or contact our leadership desk directly via WhatsApp at +977 9828978044 or email at auriumsports@gmail.com.',
         },
