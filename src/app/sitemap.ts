@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next';
 import { services } from '@/data/services';
 import { trainingLocations } from '@/data/schedule';
 import { playerProgrammes } from '@/data/programmes';
+import { auriumArenaData } from '@/data/aurium-arena';
 import { site } from '@/data/site';
 
 // Verified git modification dates (YYYY-MM-DD) for public routes.
@@ -9,22 +10,23 @@ import { site } from '@/data/site';
 const ROUTE_LAST_MODIFIED: Record<string, string> = {
   '/': '2026-11-26',
   '/programs': '2026-11-26',
+  '/aurium-arena': '2026-11-26',
   '/about': '2026-11-25',
   '/mental-health': '2026-11-21',
   '/camps': '2026-11-09',
   '/schedule': '2026-11-21',
   '/safeguarding': '2026-11-09',
   '/tournaments': '2026-11-21',
-  '/aurium-arena': '2026-11-26',
   '/partners': '2026-11-09',
   '/announcements': '2026-11-09',
   '/become-a-trainer': '2026-11-09',
   '/contact': '2026-11-25',
 };
 
-const SERVICE_LAST_MODIFIED = '2026-11-21';
+const SERVICE_LAST_MODIFIED = '2026-11-26';
 const LOCATION_LAST_MODIFIED = '2026-11-25';
 const PROGRAMME_LAST_MODIFIED = '2026-11-26';
+const ARENA_GUIDE_LAST_MODIFIED = '2026-11-26';
 const TITANS_LAST_MODIFIED = '2026-11-25';
 
 const AIC_TITANS_ROUTES = [
@@ -74,6 +76,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
+  const arenaGuideRoutes: MetadataRoute.Sitemap =
+    auriumArenaData.supportingGuides.map((guide) => ({
+      url: `${baseUrl}/aurium-arena/${guide.slug}`,
+      lastModified: ARENA_GUIDE_LAST_MODIFIED,
+    }));
+
   const titansRoutes: MetadataRoute.Sitemap = AIC_TITANS_ROUTES.map(
     (route) => ({
       url: `${baseUrl}${route}`,
@@ -86,6 +94,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...programmeRoutes,
     ...serviceRoutes,
     ...locationRoutes,
+    ...arenaGuideRoutes,
     ...titansRoutes,
   ];
 }

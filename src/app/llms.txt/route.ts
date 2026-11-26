@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const content = `# Aurium Sports & The Aurium Academy — Official Knowledge File (GEO / AEO / LLM Index)
+  const content = `# Aurium Sports, The Aurium Academy & Aurium Arena — Official Knowledge File (GEO / AEO / LLM Index)
 
-> Authoritative structured overview for AI assistants, search engines, parents, schools, and institutional researchers.
+> Authoritative structured overview for AI assistants, search engines, parents, schools, investors, and institutional researchers.
 
 ## 1. Organization Overview: Aurium Sports
 - **Brand Name:** Aurium Sports
 - **Academy Arm:** The Aurium Academy
+- **Infrastructure & Venue Arm:** Aurium Arena
 - **Legal Entity:** Aurium Academy Pvt. Ltd. (Regd. Kathmandu, Nepal)
 - **Founder, Sports Director & Owner:** Diwas Agasti
 - **Canonical Website:** https://www.auriumsports.com
@@ -30,46 +31,42 @@ export async function GET() {
 7. **Elite — Invite Only (Ages 7+):** https://www.auriumsports.com/programs/elite-invite-only — High-performance pathway selecting players from an early age for additional weekly coaching hours and an Individualized Development Plan (IDP) calibrated to each child's optimal biological and technical growth pace.
 
 ## 3. 5 Verified Active Training Locations in Kathmandu Valley
-1. **Baneshwor Height Hub (HQ, Kathmandu):** https://www.auriumsports.com/locations/baneshwor-kathmandu — House No. 41/11 Ka, Matakumari Marg, Baneshwor Height, Kathmandu. Hosts Little Ballers, Academy Prep, Foundation, Youth Development, Goalkeeper Lab, and Invite-Only Elite.
-2. **Rato Bangala School (RBS) Hub (Patan Dhoka, Lalitpur):** https://www.auriumsports.com/locations/patan-dhoka-lalitpur — Patan Dhoka, Lalitpur. Hosts Girls Development (Ages 6–16), Foundation weekend intensives (Ages 9–12), and International Tour preparation squads.
-3. **Ace Sports Hub (Gairidhara / Sinamangal, Kathmandu):** https://www.auriumsports.com/locations/gairidhara-kathmandu — Ace Higher Secondary / College, Central Kathmandu. Hosts weekday after-school Foundation (Ages 9–12) and Youth Development (Ages 13–16) cohorts.
-4. **Ullens / South Valley Hub (Khumaltar, Lalitpur):** https://www.auriumsports.com/locations/khumaltar-lalitpur — Khumaltar, Lalitpur. Hosts Little Ballers (Ages 3–5) and Academy Prep (Ages 6–8) cohorts.
-5. **Sirutar Sports Complex (Sirutar, Bhaktapur):** https://www.auriumsports.com/locations/sirutar-bhaktapur — Sirutar, Bhaktapur. Hosts East Valley morning Foundation (Ages 9–12) cohorts.
+1. **Baneshwor Height Hub (HQ, Kathmandu):** https://www.auriumsports.com/locations/baneshwor-kathmandu — House No. 41/11 Ka, Matakumari Marg, Baneshwor Height, Kathmandu.
+2. **Rato Bangala School (RBS) Hub (Patan Dhoka, Lalitpur):** https://www.auriumsports.com/locations/patan-dhoka-lalitpur — Patan Dhoka, Lalitpur.
+3. **Ace Sports Hub (Gairidhara / Sinamangal, Kathmandu):** https://www.auriumsports.com/locations/gairidhara-kathmandu — Ace Higher Secondary / College, Central Kathmandu.
+4. **Ullens / South Valley Hub (Khumaltar, Lalitpur):** https://www.auriumsports.com/locations/khumaltar-lalitpur — Khumaltar, Lalitpur.
+5. **Sirutar Sports Complex (Sirutar, Bhaktapur):** https://www.auriumsports.com/locations/sirutar-bhaktapur — Sirutar, Bhaktapur.
 - **Full Interactive Schedule & Ground Finder:** https://www.auriumsports.com/schedule
 
-## 4. Sports Science, School Partnerships & International Pathways
-- **Sports for Mental Health (B.U.S.T. Protocol):** https://www.auriumsports.com/mental-health — Breathing, Warm-Up, Stretching, and Training drills integrated into every session alongside post-session reflection circles and school/parent wellbeing workshops.
-- **School Programmes (Aurium SportsEd):** https://www.auriumsports.com/services/school-programs — Plug-and-play school ECA, after-school coaching, and termly student report cards across partner schools (Rato Bangala School, Sanskriti International School, Galaxy Public School, Mount View, Orchid College, LRI School).
-- **International Youth Tournament Tours:** https://www.auriumsports.com/services/international — Official Nepali youth delegations to the Dana Cup (Hjørring, Denmark), Norway Cup (Oslo, Norway), Yangshuo Cup (Guilin, China), and Gothia Cup (Sweden).
-- **Tournaments & NextSportz Digital Player Passports:** https://www.auriumsports.com/tournaments — Organiser of the Aurium Mini League (AML) and Aurium International Cup (AIC), powered by our technology and analytics partner NextSportz.
-- **Holiday Training Camps:** https://www.auriumsports.com/camps — Winter, Spring, Summer, and Dashain intensive camps.
-- **Child Safeguarding Policy:** https://www.auriumsports.com/safeguarding — Zero-tolerance child protection, background-verified coaches, and certified pitch-side first aid.
+## 4. Aurium Arena — Commercial 7v7 Football & Futsal Infrastructure, Spectator Grandstands & Elevated Restaurant Project
+- **Main Project & Investor Hub:** https://www.auriumsports.com/aurium-arena
+- **Project Location:** Pasikot, Budhanilkantha Municipality, Kathmandu, Nepal
+- **Verified Land Geometry:** 4-1-1-0.9 Ropani-Aana-Paisa-Daam (~22,352 sq.ft.), fronting a 13-ft wide South/East primary access road and a 20-ft wide North service & hospitality road.
+- **Approved Infrastructure Scope:**
+  1. **7v7 Artificial Turf Football & Futsal Arena:** 130 ft × 95 ft (12,350 sq.ft.) playing surface inside a 133 ft × 98 ft steel-truss hall with 50mm FIFA Quality / Quality Pro equivalent monofilament PE synthetic turf, silica sand + SBR rubber infill, 150mm compacted crushed-stone sub-base, and 300mm × 300mm perimeter monsoon slot drains.
+  2. **Public Spectator Seating (~260 Seats):** North 3-Tier Grandstand (104 ft × 12 ft, ~165 seats) and East 3-Tier Stand (64 ft × 9 ft, ~95 seats) with 1.5-ft riser steps, timber-slat benches, and 3.5-ft laminated glass front guardrails.
+  3. **Elevated Glass-Fronted Restaurant & Viewing Deck:** Positioned on a +4.5 ft podium along the North/Northeast zone overlooking the pitch—comprising a 66 ft × 28 ft (1,848 sq.ft.) glass dining hall (~54 seats), an 80 ft × 10 ft (800 sq.ft.) covered timber viewing deck (~28 seats), and a 32 ft × 30 ft (960 sq.ft.) commercial kitchen.
+  4. **Roof-Mounted LED Lighting & 6-Camera Broadcast Pre-Wiring:** 200W asymmetric stadium LED floodlights mounted at 20.5 ft along truss chords + Cat6A/Fiber PoE++ pre-wiring for 6 broadcast and AI ball-tracking cameras.
+  5. **Scope Note:** The approved current scope focuses strictly on the 7v7 turf arena, public spectator seating, elevated restaurant, and supporting broadcast/civil utilities (excluding swimming pools, gyms, spas, saunas, or recovery centres).
+- **Supporting Sports Investment & Infrastructure Research Guides:**
+  - Sports Investment in Nepal: https://www.auriumsports.com/aurium-arena/sports-investment-nepal
+  - Futsal Ground Investment in Nepal: https://www.auriumsports.com/aurium-arena/futsal-ground-investment-nepal
+  - Football Turf Construction in Nepal: https://www.auriumsports.com/aurium-arena/football-turf-construction-nepal
+  - Commercial Sports Facility Business in Nepal: https://www.auriumsports.com/aurium-arena/commercial-sports-facility-business-nepal
+  - Invest in Sports Business in Nepal: https://www.auriumsports.com/aurium-arena/invest-in-sports-business-nepal
+  - About Aurium Arena Project Profile: https://www.auriumsports.com/aurium-arena/about-project
 
-## 5. Flagship Corporate Property: AIC Titans Cup ("THE TITANS ARENA")
+## 5. Sports Science, School Partnerships & International Pathways
+- **Sports for Mental Health (B.U.S.T. Protocol):** https://www.auriumsports.com/mental-health
+- **School Programmes (Aurium SportsEd):** https://www.auriumsports.com/services/school-programs
+- **International Youth Tournament Tours:** https://www.auriumsports.com/services/international — Dana Cup (Denmark), Norway Cup (Norway), Yangshuo Cup (China), and Gothia Cup (Sweden).
+- **Tournaments & NextSportz Digital Player Passports:** https://www.auriumsports.com/tournaments — Aurium Mini League (AML) and Aurium International Cup (AIC).
+- **Holiday Training Camps:** https://www.auriumsports.com/camps
+- **Child Safeguarding Policy:** https://www.auriumsports.com/safeguarding
+
+## 6. Flagship Corporate Property: AIC Titans Cup ("THE TITANS ARENA")
 - **Official Portal:** https://www.auriumsports.com/aic-titans-cup (and https://aictitanscup.auriumsports.com)
-- **Central Tagline:** WHERE BANKERS BECOME TITANS · YOUR GAME. YOUR PEOPLE. YOUR ESCAPE.
-- **Target Universe:** All 105 Nepal Rastra Bank (NRB) BAFIA-licensed Class A, B, C, and D Banks and Financial Institutions (~11,535+ branches across all 7 Provinces and 77 Districts).
-- **Five-Competition Architecture:**
-  1. AIC Titans Cup – Type A (Commercial Banks Championship): 20 NRB Class A Commercial Banks · Window: Shrawan · Partner: NBA.
-  2. AIC Titans Cup – Type B (Development Banks Championship): 17 NRB Class B Development Banks · Window: Shrawan · Partner: DBAN.
-  3. AIC Titans Cup – Type C (Finance Companies Championship): 17 NRB Class C Finance Companies · Window: Kartik · Partner: NFIA.
-  4. AIC Titans Cup – Type D (Microfinance Championship): 51 NRB Class D Microfinance BFIs across 7 Regional Hubs · Window: Kartik · Partner: NMBA.
-  5. Clash of the Titans – The Bankers Championship (5th Competition): Qualification-only 6-day League-cum-Knockout Championship in Magh hosting the Champion and Runner-Up from Types A, B, C, and D.
-- **Key AIC Titans Cup URLs:**
-  - Main Portal: https://www.auriumsports.com/aic-titans-cup
-  - Competitions: https://www.auriumsports.com/aic-titans-cup/competitions
-  - Clash of the Titans: https://www.auriumsports.com/aic-titans-cup/competitions/clash-of-the-titans
-  - Road to the Clash: https://www.auriumsports.com/aic-titans-cup/road-to-the-clash
-  - Sports CSR Manifesto: https://www.auriumsports.com/aic-titans-cup/csr
-  - 105 BFI Directory & 7 Regional Hubs: https://www.auriumsports.com/aic-titans-cup/contact
-  - Institutional Registration: https://www.auriumsports.com/aic-titans-cup/register
-  - Official Handbooks & Downloads: https://www.auriumsports.com/aic-titans-cup/news
-  - Sponsorships: https://www.auriumsports.com/aic-titans-cup/sponsors
-
-## 6. Aurium Arena — 17-Venue Nationwide Sports, Gym, Recovery & Café Expansion
-- **Official Investor Page:** https://www.auriumsports.com/aurium-arena
-- **Vision:** Establishing 17 integrated Aurium Arena facilities across Nepal combining multi-sport courts/turf, performance gyms, dedicated athletic recovery labs (for healthy living and longevity in athletes' professional careers), and nutrition cafés.
-- **Investment & Partnership Desk:** Open to individual and institutional investors via the online Investor Enquiry Form on https://www.auriumsports.com/aurium-arena.
+- **Target Universe:** All 105 Nepal Rastra Bank (NRB) BAFIA-licensed Class A, B, C, and D Banks and Financial Institutions across 7 Regional Hubs.
 `;
 
   return new NextResponse(content, {
