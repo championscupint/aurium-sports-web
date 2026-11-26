@@ -15,6 +15,7 @@ const ROUTE_LAST_MODIFIED: Record<string, string> = {
   '/schedule': '2026-11-21',
   '/safeguarding': '2026-11-09',
   '/tournaments': '2026-11-21',
+  '/aurium-arena': '2026-11-26',
   '/partners': '2026-11-09',
   '/announcements': '2026-11-09',
   '/become-a-trainer': '2026-11-09',

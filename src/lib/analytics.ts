@@ -93,6 +93,17 @@ export function trackTitansDownload(documentName: string, placement: string) {
   });
 }
 
+export function trackArenaInvestorEnquiry(
+  investorType: string,
+  investmentInterest: string
+) {
+  trackEvent('aurium_arena_investor_enquiry', {
+    event_category: 'investment_conversion',
+    investor_type: investorType,
+    investment_interest: investmentInterest,
+  });
+}
+
 export function trackTitansRegistration(competitionSlug: string, divisionsCount: number) {
   trackEvent('aic_titans_registration_submit', {
     event_category: 'conversion',

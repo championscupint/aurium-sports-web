@@ -130,6 +130,12 @@ export function Navigation() {
                     >
                       Child Safeguarding Policy →
                     </Link>
+                    <Link
+                      href="/aurium-arena"
+                      className="text-[11px] font-bold text-gold hover:underline flex items-center justify-between"
+                    >
+                      Aurium Arena (17 Venues · Invest) →
+                    </Link>
                   </div>
                 </div>
               )}
@@ -261,6 +267,12 @@ export function Navigation() {
                 className="display text-3xl uppercase text-chalk hover:text-gold transition-colors"
               >
                 Tournaments & Leagues
+              </Link>
+              <Link
+                href="/aurium-arena"
+                className="display text-3xl uppercase text-gold hover:text-chalk transition-colors"
+              >
+                Aurium Arena (Invest)
               </Link>
               <Link
                 href="/safeguarding"

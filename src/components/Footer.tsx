@@ -181,6 +181,11 @@ export function Footer() {
                   Aurium Mini League
                 </Link>
               </li>
+              <li>
+                <Link href="/aurium-arena" className="text-gold font-semibold hover:underline">
+                  Aurium Arena (17 Venues · Invest)
+                </Link>
+              </li>
             </ul>
           </div>
 

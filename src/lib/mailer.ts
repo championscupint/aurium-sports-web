@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { RegistrationApplication, SponsorEnquiry } from "@/types/ecosystem";
+import { ArenaInvestorEnquiry, RegistrationApplication, SponsorEnquiry } from "@/types/ecosystem";
 
 const GMAIL_USER = process.env.GMAIL_USER || "auriumsports@gmail.com";
 const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD || "";
@@ -155,6 +155,80 @@ export async function sendSponsorEnquiryAlertEmail(
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : "Email send failed";
     console.warn("Sponsor enquiry email notification error:", msg);
+    return { sent: false, error: msg };
+  }
+}
+
+export async function sendArenaInvestorEnquiryEmail(
+  enq: ArenaInvestorEnquiry
+): Promise<{ sent: boolean; error?: string }> {
+  const transporter = getTransporter();
+  if (!transporter) {
+    return { sent: false, error: "GMAIL_APP_PASSWORD not configured" };
+  }
+
+  const displayEntity =
+    enq.investorType === "Institution" && enq.organizationName
+      ? `${enq.organizationName} (${enq.fullName})`
+      : enq.fullName;
+
+  try {
+    await transporter.sendMail({
+      from: `"Aurium Arena Investor Desk" <${GMAIL_USER}>`,
+      to: ADMIN_NOTIFY_EMAIL,
+      replyTo: enq.email,
+      subject: `[NEW AURIUM ARENA INVESTOR ENQUIRY] ${displayEntity} — ${enq.investmentInterest}`,
+      text: [
+        "NEW AURIUM ARENA INVESTMENT ENQUIRY SUBMITTED",
+        "==============================================",
+        `Enquiry ID: ${enq.id}`,
+        `Submitted At: ${enq.createdAt}`,
+        `Investor Type: ${enq.investorType}`,
+        `Full Name: ${enq.fullName}`,
+        enq.organizationName ? `Organization / Institution: ${enq.organizationName}` : "",
+        enq.designation ? `Designation: ${enq.designation}` : "",
+        `Email: ${enq.email}`,
+        `Phone / WhatsApp: ${enq.phone}`,
+        `City / Country: ${enq.cityOrCountry}`,
+        `Investment Interest: ${enq.investmentInterest}`,
+        `Preferred Region: ${enq.preferredRegion}`,
+        `Estimated Investment Range: ${enq.estimatedTicketSize}`,
+        `Message / Notes: ${enq.message || "(None)"}`,
+        "",
+        "Review in Admin Control Center: https://www.auriumsports.com/aic-titans-cup/admin",
+      ]
+        .filter(Boolean)
+        .join("\n"),
+    });
+
+    if (enq.email && enq.email.includes("@")) {
+      await transporter.sendMail({
+        from: `"Aurium Sports — Aurium Arena Investor Desk" <${GMAIL_USER}>`,
+        to: enq.email,
+        subject: `Investment Enquiry Received: Aurium Arena (${enq.id})`,
+        text: [
+          `Dear ${enq.fullName},`,
+          "",
+          `Thank you for registering your investment interest in Aurium Arena — our nationwide plan to establish 17 integrated sports, gym, athletic recovery, and café facilities across Nepal.`,
+          "",
+          `Reference ID: ${enq.id}`,
+          `Investor Profile: ${enq.investorType}${enq.organizationName ? ` — ${enq.organizationName}` : ""}`,
+          `Focus: ${enq.investmentInterest} (${enq.preferredRegion})`,
+          "",
+          "Our leadership team will review your submission and contact you directly to share the Aurium Arena expansion deck and discuss next steps.",
+          "",
+          "Warm regards,",
+          "Aurium Sports (The Aurium Academy Pvt. Ltd.)",
+          "Website: https://www.auriumsports.com/aurium-arena",
+          "Phone / WhatsApp: +977-9828978044",
+        ].join("\n"),
+      });
+    }
+
+    return { sent: true };
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : "Email send failed";
+    console.warn("Arena investor enquiry email notification error:", msg);
     return { sent: false, error: msg };
   }
 }

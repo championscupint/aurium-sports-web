@@ -7,8 +7,12 @@ import {
   getBfiCensus,
 } from "@/lib/store";
 import { INITIAL_ECOSYSTEM_STORE } from "@/data/initial-store";
-import { RegistrationApplication, SponsorEnquiry } from "@/types/ecosystem";
-import { sendRegistrationAlertEmail, sendSponsorEnquiryAlertEmail } from "@/lib/mailer";
+import { ArenaInvestorEnquiry, RegistrationApplication, SponsorEnquiry } from "@/types/ecosystem";
+import {
+  sendArenaInvestorEnquiryEmail,
+  sendRegistrationAlertEmail,
+  sendSponsorEnquiryAlertEmail,
+} from "@/lib/mailer";
 
 const ALLOWED_ADMIN_EMAIL = "auriumsports@gmail.com";
 const DEFAULT_ADMIN_KEY = process.env.AIC_ADMIN_PASSPHRASE || "TitansAdmin@2026!";
@@ -139,6 +143,48 @@ export async function POST(req: NextRequest) {
       });
       writeEcosystemStore(store);
       const emailStatus = await sendSponsorEnquiryAlertEmail(enq);
+      return NextResponse.json({ ok: true, enquiry: enq, emailNotified: emailStatus.sent, store });
+    }
+
+    if (action === "SUBMIT_ARENA_INVESTOR_ENQUIRY") {
+      if (!payload?.fullName || !payload?.email || !payload?.phone) {
+        return NextResponse.json(
+          { error: "Full name, email, and phone number are required." },
+          { status: 400 }
+        );
+      }
+
+      const enq: ArenaInvestorEnquiry = {
+        id: `ARENA-${Date.now().toString().slice(-6)}`,
+        createdAt: new Date().toISOString(),
+        investorType: payload.investorType === "Institution" ? "Institution" : "Individual",
+        fullName: String(payload.fullName).trim(),
+        organizationName: payload.organizationName ? String(payload.organizationName).trim() : "",
+        designation: payload.designation ? String(payload.designation).trim() : "",
+        email: String(payload.email).trim(),
+        phone: String(payload.phone).trim(),
+        cityOrCountry: payload.cityOrCountry ? String(payload.cityOrCountry).trim() : "Nepal",
+        investmentInterest: payload.investmentInterest || "Strategic Equity / Seed",
+        preferredRegion: payload.preferredRegion || "Pan-Nepal (All 17 Venues)",
+        estimatedTicketSize: payload.estimatedTicketSize || "To Be Discussed",
+        message: payload.message ? String(payload.message).trim() : "",
+        status: "NEW",
+      };
+
+      if (!store.arenaInvestorEnquiries) {
+        store.arenaInvestorEnquiries = [];
+      }
+      store.arenaInvestorEnquiries.unshift(enq);
+      store.auditLogs.unshift({
+        id: `log-${Date.now()}`,
+        timestamp: new Date().toISOString(),
+        actor: `${enq.fullName}${enq.organizationName ? ` (${enq.organizationName})` : ""}`,
+        action: "AURIUM_ARENA_INVESTOR_ENQUIRY_RECEIVED",
+        details: `${enq.investorType} investor enquiry for ${enq.investmentInterest} · Region: ${enq.preferredRegion} · Range: ${enq.estimatedTicketSize}`,
+      });
+
+      writeEcosystemStore(store);
+      const emailStatus = await sendArenaInvestorEnquiryEmail(enq);
       return NextResponse.json({ ok: true, enquiry: enq, emailNotified: emailStatus.sent, store });
     }
 

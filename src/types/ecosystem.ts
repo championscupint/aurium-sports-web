@@ -287,6 +287,23 @@ export interface SponsorEnquiry {
   status: "NEW" | "IN_DISCUSSION" | "APPROVED";
 }
 
+export interface ArenaInvestorEnquiry {
+  id: string;
+  createdAt: string;
+  investorType: "Individual" | "Institution";
+  fullName: string;
+  organizationName?: string;
+  designation?: string;
+  email: string;
+  phone: string;
+  cityOrCountry: string;
+  investmentInterest: string;
+  preferredRegion: string;
+  estimatedTicketSize: string;
+  message: string;
+  status: "NEW" | "IN_DISCUSSION" | "APPROVED";
+}
+
 export interface CSRImpactMetrics {
   childrenReached: number | null;
   girlsParticipating: number | null;
@@ -368,6 +385,7 @@ export interface EcosystemStore {
   sponsorshipPackages: SponsorshipPackage[];
   sponsors: SponsorProfile[];
   sponsorEnquiries: SponsorEnquiry[];
+  arenaInvestorEnquiries?: ArenaInvestorEnquiry[];
   csrMetrics: CSRImpactMetrics;
   csrProjects: CSRProject[];
   news: NewsArticle[];

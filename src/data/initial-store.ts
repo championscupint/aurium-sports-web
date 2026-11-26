@@ -1096,6 +1096,7 @@ export const INITIAL_ECOSYSTEM_STORE: EcosystemStore = {
 
   sponsors: [],
   sponsorEnquiries: [],
+  arenaInvestorEnquiries: [],
 
   csrMetrics: {
     childrenReached: null,

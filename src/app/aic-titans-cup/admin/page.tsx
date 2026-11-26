@@ -35,6 +35,7 @@ export default function AdminDashboardPage() {
     | "COMPETITIONS"
     | "REGISTRATIONS"
     | "SPONSOR_ENQUIRIES"
+    | "ARENA_INVESTORS"
     | "CSR_ADMIN"
     | "AUDIT_LOG"
   >("QUALIFICATION");
@@ -396,8 +397,9 @@ export default function AdminDashboardPage() {
             { id: "COMPETITIONS", label: "3. 5-Competition Status" },
             { id: "REGISTRATIONS", label: `4. BFI Registrations (${store.registrations.length})` },
             { id: "SPONSOR_ENQUIRIES", label: `5. Sponsor Enquiries (${store.sponsorEnquiries.length})` },
-            { id: "CSR_ADMIN", label: "6. Verified CSR Ledger" },
-            { id: "AUDIT_LOG", label: `7. Audit Log (${store.auditLogs.length})` },
+            { id: "ARENA_INVESTORS", label: `6. Arena Investors (${(store.arenaInvestorEnquiries || []).length})` },
+            { id: "CSR_ADMIN", label: "7. Verified CSR Ledger" },
+            { id: "AUDIT_LOG", label: `8. Audit Log (${store.auditLogs.length})` },
           ].map((t) => (
             <button
               key={t.id}
@@ -678,6 +680,47 @@ export default function AdminDashboardPage() {
                       Contact: {enq.contactName} ({enq.designation}) · Email: {enq.email} · Phone: {enq.phone}
                     </div>
                     {enq.message && <div className="text-white/90 pt-1">Message: {enq.message}</div>}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* TAB 5B: AURIUM ARENA INVESTOR ENQUIRIES */}
+        {activeTab === "ARENA_INVESTORS" && (
+          <div className="rounded-3xl bg-[#091220] border border-white/15 p-6 md:p-8 space-y-5">
+            <h2 className="font-titan-display font-bold text-2xl text-white">
+              Aurium Arena Investor Enquiries ({(store.arenaInvestorEnquiries || []).length})
+            </h2>
+            {(store.arenaInvestorEnquiries || []).length === 0 ? (
+              <p className="text-xs text-[#BFC8D3]">
+                No Aurium Arena investor enquiries submitted yet.
+              </p>
+            ) : (
+              <div className="space-y-3">
+                {(store.arenaInvestorEnquiries || []).map((enq) => (
+                  <div
+                    key={enq.id}
+                    className="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-1.5 text-xs"
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div className="font-titan-display font-bold text-base text-white">
+                        [{enq.id}] {enq.fullName}
+                        {enq.organizationName ? ` · ${enq.organizationName}` : ""} ({enq.investorType})
+                      </div>
+                      <span className="px-2.5 py-1 rounded-full bg-[#C7F464]/15 text-[#C7F464] font-titan-mono text-[10px] font-bold">
+                        {enq.status} · {enq.createdAt}
+                      </span>
+                    </div>
+                    <div className="text-[#FF783D] font-bold">
+                      Model: {enq.investmentInterest} · Region: {enq.preferredRegion} · Range: {enq.estimatedTicketSize}
+                    </div>
+                    <div className="text-[#BFC8D3]">
+                      Email: {enq.email} · Phone: {enq.phone} · Location: {enq.cityOrCountry}
+                      {enq.designation ? ` · Role: ${enq.designation}` : ""}
+                    </div>
+                    {enq.message && <div className="text-white/90 pt-1">Notes: {enq.message}</div>}
                   </div>
                 ))}
               </div>

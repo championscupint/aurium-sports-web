@@ -65,6 +65,11 @@ export async function GET() {
   - Institutional Registration: https://www.auriumsports.com/aic-titans-cup/register
   - Official Handbooks & Downloads: https://www.auriumsports.com/aic-titans-cup/news
   - Sponsorships: https://www.auriumsports.com/aic-titans-cup/sponsors
+
+## 6. Aurium Arena — 17-Venue Nationwide Sports, Gym, Recovery & Café Expansion
+- **Official Investor Page:** https://www.auriumsports.com/aurium-arena
+- **Vision:** Establishing 17 integrated Aurium Arena facilities across Nepal combining multi-sport courts/turf, performance gyms, dedicated athletic recovery labs (for healthy living and longevity in athletes' professional careers), and nutrition cafés.
+- **Investment & Partnership Desk:** Open to individual and institutional investors via the online Investor Enquiry Form on https://www.auriumsports.com/aurium-arena.
 `;
 
   return new NextResponse(content, {

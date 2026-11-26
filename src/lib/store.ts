@@ -16,6 +16,9 @@ export function readEcosystemStore(): EcosystemStore {
     if (fs.existsSync(STORE_FILE)) {
       const raw = fs.readFileSync(STORE_FILE, "utf-8");
       const parsed = JSON.parse(raw) as EcosystemStore;
+      if (!parsed.arenaInvestorEnquiries) {
+        parsed.arenaInvestorEnquiries = [];
+      }
       return parsed;
     }
   } catch (e) {
