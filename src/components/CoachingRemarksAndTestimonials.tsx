@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { coachRemarks, parentPlayerTestimonials } from '@/data/programmes';
 import { site } from '@/data/site';
 import { useEnquiry } from './EnquiryContext';
@@ -28,6 +28,7 @@ export function CoachingRemarksAndTestimonials() {
   const { openEnquiry } = useEnquiry();
   const [activeFilter, setActiveFilter] =
     useState<(typeof AFFILIATION_FILTERS)[number]>('All');
+  const [isPaused, setIsPaused] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const filteredTestimonials =
@@ -36,6 +37,34 @@ export function CoachingRemarksAndTestimonials() {
       : parentPlayerTestimonials.filter(
           (t) => t.affiliationType === activeFilter
         );
+
+  // Smooth continuous right-to-left auto-scroll that pauses on hover/touch
+  useEffect(() => {
+    const el = scrollContainerRef.current;
+    if (!el || isPaused) return;
+
+    let animationFrameId: number;
+    let accumulated = 0;
+
+    const step = () => {
+      if (el && !isPaused) {
+        accumulated += 0.55;
+        if (accumulated >= 1) {
+          const pixels = Math.floor(accumulated);
+          accumulated -= pixels;
+          if (el.scrollLeft + el.clientWidth >= el.scrollWidth - 2) {
+            el.scrollLeft = 0;
+          } else {
+            el.scrollLeft += pixels;
+          }
+        }
+      }
+      animationFrameId = window.requestAnimationFrame(step);
+    };
+
+    animationFrameId = window.requestAnimationFrame(step);
+    return () => window.cancelAnimationFrame(animationFrameId);
+  }, [isPaused, activeFilter]);
 
   const handleFilterChange = (filter: (typeof AFFILIATION_FILTERS)[number]) => {
     setActiveFilter(filter);
@@ -195,15 +224,19 @@ export function CoachingRemarksAndTestimonials() {
             </div>
           </div>
 
-          {/* Horizontal Left-to-Right Scroll Track */}
+          {/* Horizontal Left-to-Right Scroll Track (Auto-Glides Right-to-Left, Pauses on Hover/Touch) */}
           <div
             ref={scrollContainerRef}
-            className="flex items-stretch gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 pt-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            onTouchStart={() => setIsPaused(true)}
+            onTouchEnd={() => setIsPaused(false)}
+            className="flex items-stretch gap-6 overflow-x-auto pb-4 pt-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           >
             {filteredTestimonials.map((t, idx) => (
               <div
                 key={`${t.childName}-${idx}`}
-                className="w-[85vw] sm:w-[370px] lg:w-[400px] shrink-0 snap-start p-7 sm:p-8 rounded-3xl bg-white text-ink border border-ink/10 hover:border-gold-deep/50 transition-all flex flex-col justify-between space-y-6 shadow-sm hover:shadow-md"
+                className="w-[85vw] sm:w-[370px] lg:w-[400px] shrink-0 p-7 sm:p-8 rounded-3xl bg-white text-ink border border-ink/10 hover:border-gold-deep/50 sporty-card flex flex-col justify-between space-y-6 shadow-sm"
               >
                 <div className="space-y-4">
                   {/* Top Badges: Affiliation Type + Quote Icon */}

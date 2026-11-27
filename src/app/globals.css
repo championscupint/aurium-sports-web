@@ -137,6 +137,65 @@ body {
   }
 }
 
+/* Seamless Right-to-Left Infinite Ticker (.animate-marquee) */
+@keyframes marquee-rtl {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-rtl 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Sporty Micro-Interactions & Card Dynamics */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes gold-pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(251, 193, 8, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(251, 193, 8, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(251, 193, 8, 0);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 5s ease-in-out infinite;
+}
+
+.animate-gold-pulse {
+  animation: gold-pulse-ring 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.sporty-card {
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
+}
+.sporty-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 45px -15px rgba(14, 13, 11, 0.16), 0 0 0 1px rgba(251, 193, 8, 0.5);
+}
+
 /* ---------- Offering cards: action reveals on hover, always visible on touch ---------- */
 .offer-card .offer-action {
   opacity: 0;

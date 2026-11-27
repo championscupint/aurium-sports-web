@@ -105,7 +105,7 @@ export function PlayerProgrammesShowcase({
                 className={`group rounded-3xl overflow-hidden flex flex-col justify-between transition-all duration-300 ${
                   isElite
                     ? 'md:col-span-2 lg:col-span-3 bg-ink text-chalk border-2 border-gold shadow-2xl'
-                    : 'bg-white text-ink border border-ink/10 hover:border-gold hover:shadow-xl'
+                    : 'bg-white text-ink border border-ink/10 sporty-card'
                 }`}
               >
                 {isElite ? (

@@ -67,15 +67,16 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
             <div className="flex flex-wrap items-center gap-4">
               <button
                 onClick={() => openEnquiry('register', 'academy')}
-                className={buttonClass('gold', '!py-4 !px-8 text-xs font-bold uppercase tracking-wider shadow-lg shadow-gold/25')}
+                className={buttonClass('gold', '!py-4 !px-8 text-xs font-bold uppercase tracking-wider shadow-lg shadow-gold/25 animate-gold-pulse')}
               >
                 Book a Spot
               </button>
               <Link
                 href="/programs"
-                className={buttonClass('outline-chalk', '!py-4 !px-8 text-xs')}
+                className={buttonClass('outline-chalk', '!py-4 !px-8 text-xs group')}
               >
-                View Our Programmes →
+                <span>View Our Programmes</span>
+                <span className="inline-block ml-1.5 transition-transform duration-300 group-hover:translate-x-1">→</span>
               </Link>
             </div>
           </div>
@@ -94,24 +95,39 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
         </div>
       </section>
 
-      {/* Marquee Ticker */}
-      <section className="bg-gold text-ink py-3 border-y border-ink overflow-hidden select-none">
-        <div className="flex items-center gap-8 whitespace-nowrap animate-marquee font-display uppercase tracking-wider text-sm sm:text-base">
-          <span>★ THE AURIUM ACADEMY (AGES 3–16)</span>
-          <span>•</span>
-          <span>LITTLE BALLERS (3–5) • ACADEMY PREP (6–8) • ELITE INVITE-ONLY</span>
-          <span>•</span>
-          <span>DANA CUP DENMARK • NORWAY CUP • YANGSHUO CUP</span>
-          <span>•</span>
-          <span>SPORTS FOR MENTAL HEALTH (B.U.S.T.)</span>
-          <span>•</span>
-          <span>KATHMANDU • JORPATI • LALITPUR • BHAKTAPUR</span>
-          <span>•</span>
-          <span>★ THE AURIUM ACADEMY (AGES 3–16)</span>
-          <span>•</span>
-          <span>LITTLE BALLERS (3–5) • ACADEMY PREP (6–8) • ELITE INVITE-ONLY</span>
-          <span>•</span>
-          <span>DANA CUP DENMARK • NORWAY CUP • YANGSHUO CUP</span>
+      {/* Marquee Ticker — Continuous Right-to-Left Programmes & Pathways Strip */}
+      <section className="bg-gold text-ink py-3.5 border-y border-ink overflow-hidden select-none relative">
+        <div className="animate-marquee flex items-center whitespace-nowrap font-display uppercase tracking-wider text-sm sm:text-base">
+          {[0, 1].map((copyIdx) => (
+            <div
+              key={copyIdx}
+              aria-hidden={copyIdx === 1}
+              className="flex items-center gap-8 pr-8 shrink-0"
+            >
+              <span>★ THE AURIUM ACADEMY (AGES 3–16)</span>
+              <span>•</span>
+              <span>LITTLE BALLERS (AGES 3–5)</span>
+              <span>•</span>
+              <span>ACADEMY PREP (AGES 6–8)</span>
+              <span>•</span>
+              <span>FOUNDATION (AGES 9–12)</span>
+              <span>•</span>
+              <span>YOUTH DEVELOPMENT (AGES 13–16)</span>
+              <span>•</span>
+              <span>GOALKEEPER LAB (AGES 7–16)</span>
+              <span>•</span>
+              <span>GIRLS DEVELOPMENT (AGES 6–16)</span>
+              <span>•</span>
+              <span>ELITE INVITE-ONLY (IDP)</span>
+              <span>•</span>
+              <span>DANA CUP DENMARK • NORWAY CUP • YANGSHUO CUP</span>
+              <span>•</span>
+              <span>SPORTS FOR MENTAL HEALTH (B.U.S.T.)</span>
+              <span>•</span>
+              <span>KATHMANDU • LALITPUR • BHAKTAPUR</span>
+              <span>•</span>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -440,10 +456,14 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
             {journey.map((j, idx) => (
               <div
                 key={j.step}
-                className="p-6 bg-white rounded-2xl border border-ink/10 shadow-sm flex flex-col justify-between h-48 hover:-translate-y-1 transition-transform"
+                className="group p-6 bg-white rounded-2xl border border-ink/10 shadow-sm flex flex-col justify-between h-48 sporty-card relative overflow-hidden"
               >
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-gold to-gold-deep scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
                 <div className="space-y-2">
-                  <span className="display text-3xl text-gold-deep">0{idx + 1}</span>
+                  <div className="flex items-center justify-between">
+                    <span className="display text-3xl text-gold-deep group-hover:scale-110 transition-transform origin-left">0{idx + 1}</span>
+                    <span className="text-[10px] font-mono text-muted opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-2 transition-all">STAGE →</span>
+                  </div>
                   <h4 className="display text-lg uppercase tracking-tight text-ink">{j.step}</h4>
                 </div>
                 <p className="text-[11px] text-muted font-sans leading-snug">
