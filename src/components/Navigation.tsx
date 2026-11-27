@@ -39,14 +39,13 @@ export function Navigation() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? 'bg-ink/95 backdrop-blur-md py-3 shadow-xl border-b border-white/10'
-            : 'bg-ink/95 backdrop-blur-md py-4 border-b border-white/10'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+          ? 'bg-ink/95 backdrop-blur-md py-3 shadow-xl border-b border-white/10'
+          : 'bg-ink/95 backdrop-blur-md py-4 border-b border-white/10'
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          
+
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-lg p-1">
             <div className="relative w-11 h-11 shrink-0 drop-shadow-[0_2px_8px_rgba(251,193,8,0.3)] transition-transform duration-300 group-hover:scale-105">
@@ -79,9 +78,8 @@ export function Navigation() {
             >
               <button
                 type="button"
-                className={`flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest transition-colors py-2 ${
-                  pathname.startsWith('/services') ? 'text-gold' : 'text-chalk/90 hover:text-gold'
-                }`}
+                className={`flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest transition-colors py-2 ${pathname.startsWith('/services') ? 'text-gold' : 'text-chalk/90 hover:text-gold'
+                  }`}
                 aria-expanded={servicesDropdown}
               >
                 Services & Programs
@@ -143,45 +141,40 @@ export function Navigation() {
 
             <Link
               href="/camps"
-              className={`text-xs font-bold uppercase tracking-widest transition-colors ${
-                pathname === '/camps' ? 'text-gold' : 'text-chalk/90 hover:text-gold'
-              }`}
+              className={`text-xs font-bold uppercase tracking-widest transition-colors ${pathname === '/camps' ? 'text-gold' : 'text-chalk/90 hover:text-gold'
+                }`}
             >
               Camps
             </Link>
 
             <Link
               href="/tournaments"
-              className={`text-xs font-bold uppercase tracking-widest transition-colors ${
-                pathname === '/tournaments' ? 'text-gold' : 'text-chalk/90 hover:text-gold'
-              }`}
+              className={`text-xs font-bold uppercase tracking-widest transition-colors ${pathname === '/tournaments' ? 'text-gold' : 'text-chalk/90 hover:text-gold'
+                }`}
             >
               Tournaments
             </Link>
 
             <Link
               href="/mental-health"
-              className={`text-xs font-bold uppercase tracking-widest transition-colors ${
-                pathname === '/mental-health' ? 'text-gold' : 'text-chalk/90 hover:text-gold'
-              }`}
+              className={`text-xs font-bold uppercase tracking-widest transition-colors ${pathname === '/mental-health' ? 'text-gold' : 'text-chalk/90 hover:text-gold'
+                }`}
             >
               Mental Health
             </Link>
 
             <Link
               href="/about"
-              className={`text-xs font-bold uppercase tracking-widest transition-colors ${
-                pathname === '/about' ? 'text-gold' : 'text-chalk/90 hover:text-gold'
-              }`}
+              className={`text-xs font-bold uppercase tracking-widest transition-colors ${pathname === '/about' ? 'text-gold' : 'text-chalk/90 hover:text-gold'
+                }`}
             >
               About
             </Link>
 
             <Link
               href="/contact"
-              className={`text-xs font-bold uppercase tracking-widest transition-colors ${
-                pathname === '/contact' ? 'text-gold' : 'text-chalk/90 hover:text-gold'
-              }`}
+              className={`text-xs font-bold uppercase tracking-widest transition-colors ${pathname === '/contact' ? 'text-gold' : 'text-chalk/90 hover:text-gold'
+                }`}
             >
               Contact
             </Link>
