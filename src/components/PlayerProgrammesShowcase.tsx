@@ -52,14 +52,14 @@ export function PlayerProgrammesShowcase({
               <span className="eyebrow text-gold-deep">
                 The Aurium Academy • Player Pathways
               </span>
-              <h2 className="display text-4xl sm:text-6xl uppercase tracking-tight text-ink leading-none">
+              <h2 className="display text-4xl sm:text-5xl lg:text-6xl uppercase text-ink">
                 Find Your Child’s{' '}
                 <span className="accent font-serif italic normal-case text-gold-deep">
                   Training Programme.
                 </span>
               </h2>
               <p className="text-muted font-sans text-sm sm:text-base leading-relaxed">
-                Designed around international youth development standards and our signature B.U.S.T. sports-science framework. From first touches in <strong>Little Ballers (Ages 3–5)</strong> and <strong>Academy Prep (Ages 6–8)</strong> to our <strong>Invite-Only Elite Squad</strong>, every child develops at the pace best suited for them.
+                Designed around international youth development standards and our signature B.U.S.T. sports-science framework. From first touches in <strong className="text-ink">Little Ballers (Ages 3–5)</strong> and <strong className="text-ink">Academy Prep (Ages 6–8)</strong> to our <strong className="text-ink">Invite-Only Elite Squad</strong>, every child develops at the pace best suited for them.
               </p>
             </div>
 
@@ -245,34 +245,34 @@ export function PlayerProgrammesShowcase({
                       </div>
 
                       {/* Card Body */}
-                      <div className="p-6 space-y-4">
+                      <div className="p-6 sm:p-7 space-y-4">
                         <div>
-                          <h3 className="display text-3xl uppercase tracking-tight text-ink group-hover:text-gold-deep transition-colors">
+                          <h3 className="display text-3xl uppercase text-ink group-hover:text-gold-deep transition-colors">
                             <Link href={`/programs/${prog.id}`}>
                               {prog.name}
                             </Link>
                           </h3>
-                          <p className="text-xs font-serif italic text-gold-deep mt-0.5">
+                          <p className="text-sm font-serif italic text-gold-deep mt-1">
                             {prog.tagline}
                           </p>
                         </div>
 
-                        <p className="text-xs text-muted font-sans leading-relaxed">
+                        <p className="text-sm text-muted font-sans leading-relaxed">
                           {prog.overview}
                         </p>
 
                         {/* 3 Outcomes */}
-                        <div className="pt-3 border-t border-ink/10 space-y-2">
-                          <div className="text-[10px] font-mono uppercase tracking-widest text-ink/60 font-bold">
+                        <div className="pt-3.5 border-t border-ink/10 space-y-2.5">
+                          <div className="text-[11px] font-mono uppercase tracking-widest text-ink/70 font-bold">
                             Key Learning Outcomes:
                           </div>
                           {prog.outcomes.map((outcome) => (
                             <div
                               key={outcome}
-                              className="flex items-start gap-2 text-xs text-ink/85 font-sans"
+                              className="flex items-start gap-2.5 text-xs sm:text-[13px] text-ink/90 font-sans leading-snug"
                             >
                               <CheckCircle2
-                                size={14}
+                                size={15}
                                 className="text-gold-deep shrink-0 mt-0.5"
                               />
                               <span>{outcome}</span>

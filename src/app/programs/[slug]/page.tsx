@@ -164,7 +164,7 @@ export default async function ProgrammeDetailPage({
                 </span>
               </div>
 
-              <h1 className="display text-4xl sm:text-6xl lg:text-7xl uppercase tracking-tight text-white leading-none">
+              <h1 className="display text-4xl sm:text-5xl lg:text-6xl uppercase text-white">
                 {prog.h1}
               </h1>
 
@@ -172,16 +172,16 @@ export default async function ProgrammeDetailPage({
                 {prog.tagline}
               </p>
 
-              <p className="text-chalk/85 font-sans text-base leading-relaxed max-w-2xl">
+              <p className="text-chalk/90 font-sans text-base leading-relaxed max-w-2xl">
                 {prog.overview}
               </p>
 
               {/* Bilingual Nepali Summary for Local Search & Parent Accessibility */}
               <p
                 lang="ne"
-                className="text-xs sm:text-sm text-chalk/75 font-sans bg-white/5 border border-white/10 rounded-2xl p-4 max-w-2xl"
+                className="text-sm text-chalk/85 font-sans leading-relaxed bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 max-w-2xl"
               >
-                <strong className="text-gold font-mono uppercase text-[10px] tracking-wider block mb-1">
+                <strong className="text-gold font-mono uppercase text-[11px] tracking-wider block mb-1.5">
                   नेपाली सारांश (Nepali Overview):
                 </strong>
                 {prog.nepaliSummary}

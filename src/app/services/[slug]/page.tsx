@@ -156,7 +156,7 @@ export default async function ServicePage({
                 {svc.brand || svc.group}
               </div>
 
-              <h1 className="display text-5xl sm:text-7xl uppercase tracking-tight text-white leading-none">
+              <h1 className="display text-4xl sm:text-6xl uppercase text-white">
                 {svc.name}
               </h1>
 
@@ -164,7 +164,7 @@ export default async function ServicePage({
                 {svc.tagline}
               </p>
 
-              <p className="text-chalk/80 font-sans text-base leading-relaxed max-w-2xl">
+              <p className="text-chalk/85 font-sans text-base leading-relaxed max-w-2xl">
                 {svc.summary}
               </p>
 
@@ -230,16 +230,16 @@ export default async function ServicePage({
             {svc.highlights.map((h, i) => (
               <div
                 key={h.title}
-                className="bg-white p-6 rounded-2xl border border-ink/10 flex flex-col justify-between hover:border-gold hover:shadow-md transition-all duration-300"
+                className="bg-white p-6 sm:p-7 rounded-2xl border border-ink/10 flex flex-col justify-between hover:border-gold hover:shadow-md transition-all duration-300"
               >
                 <div>
                   <span className="font-mono text-xs font-bold text-gold-deep mb-2 block">
                     0{i + 1}
                   </span>
-                  <h3 className="display text-xl uppercase tracking-tight text-ink mb-2">
+                  <h3 className="display text-xl uppercase text-ink mb-2.5">
                     {h.title}
                   </h3>
-                  <p className="text-xs text-muted font-sans leading-relaxed">
+                  <p className="text-sm text-muted font-sans leading-relaxed">
                     {h.text}
                   </p>
                 </div>

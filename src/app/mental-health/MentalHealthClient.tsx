@@ -144,10 +144,10 @@ export function MentalHealthClient({ faqs = [] }: { faqs?: FAQItem[] }) {
                   <div className="w-14 h-14 rounded-2xl bg-ink text-gold flex items-center justify-center display text-2xl mb-6 font-mono">
                     {b.letter}
                   </div>
-                  <h3 className="display text-2xl uppercase tracking-tight text-ink mb-2">
+                  <h3 className="display text-2xl uppercase text-ink mb-2.5">
                     {b.word}
                   </h3>
-                  <p className="text-xs text-muted font-sans leading-relaxed">
+                  <p className="text-sm text-muted font-sans leading-relaxed">
                     {b.letter === 'B' && 'Diaphragmatic breathing and box-breathing to calm the sympathetic nervous system and reset focus before entering high-intensity drills.'}
                     {b.letter === 'U' && 'Dynamic movement, agility ladders, and joint activation routines designed to gradually elevate heart rate and protect developing bodies.'}
                     {b.letter === 'S' && 'Targeted hamstring, groin, hip flexor, and calf mobility routines preventing early growth-plate strains and building bodily durability.'}

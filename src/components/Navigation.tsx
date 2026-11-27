@@ -60,10 +60,10 @@ export function Navigation() {
               />
             </div>
             <div className="flex flex-col">
-              <span className="font-display tracking-tight text-xl md:text-2xl text-chalk leading-none group-hover:text-gold transition-colors">
+              <span className="font-display tracking-tight text-lg sm:text-xl md:text-2xl text-chalk leading-none whitespace-nowrap group-hover:text-gold transition-colors">
                 AURIUM SPORTS
               </span>
-              <span className="text-[10px] uppercase tracking-[0.25em] text-gold font-bold font-sans mt-0.5 leading-none">
+              <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.16em] sm:tracking-[0.25em] text-gold font-bold font-sans mt-1 leading-none whitespace-nowrap">
                 Kathmandu • Nepal
               </span>
             </div>
@@ -209,10 +209,10 @@ export function Navigation() {
           </div>
 
           {/* Mobile menu trigger */}
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden shrink-0">
             <button
               onClick={() => openEnquiry('register')}
-              className="sm:hidden px-3 py-1.5 bg-gold text-ink text-[11px] font-bold uppercase tracking-wider rounded-full"
+              className="sm:hidden px-3 py-1.5 bg-gold text-ink text-[10px] font-bold uppercase tracking-wider rounded-full whitespace-nowrap shadow-sm"
             >
               Book a Spot
             </button>

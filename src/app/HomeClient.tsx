@@ -44,36 +44,39 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 flex flex-col justify-end w-full min-h-[85vh]">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 flex flex-col justify-end w-full min-h-[82vh]">
           <div className="max-w-3xl">
             {/* Tagline Badge */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-gold/20 border border-gold/40 backdrop-blur-md mb-6">
-              <span className="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
-              <span className="text-[11px] font-bold uppercase tracking-widest text-gold font-sans">
+            <div className="inline-flex flex-wrap items-center gap-2.5 px-4 py-1.5 rounded-full bg-gold/20 border border-gold/40 backdrop-blur-md mb-6 max-w-full">
+              <span className="w-2 h-2 rounded-full bg-gold animate-pulse shrink-0"></span>
+              <span className="text-[11px] font-bold uppercase tracking-widest text-gold font-sans leading-snug">
                 Kathmandu Valley Grassroots Ecosystem
               </span>
             </div>
 
             {/* Massive Display Title */}
-            <h1 className="display text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white mb-6 uppercase">
-              Building More Than <span className="accent text-gold font-serif italic normal-case block sm:inline">Footballers.</span>
+            <h1 className="display text-4xl sm:text-6xl lg:text-7xl text-white mb-6 uppercase">
+              <span className="block">Building More Than</span>
+              <span className="accent text-gold font-serif italic normal-case block mt-1.5">
+                Footballers.
+              </span>
             </h1>
 
-            <p className="text-base sm:text-xl text-chalk/85 max-w-2xl font-sans leading-relaxed mb-8">
+            <p className="text-base sm:text-lg lg:text-xl text-chalk/90 max-w-2xl font-sans leading-relaxed mb-8">
               Nepal’s complete youth football &amp; sports ecosystem for <strong className="text-gold font-medium">Ages 3 to 16</strong>—from <strong className="text-white font-medium">Little Ballers (3–5)</strong> and <strong className="text-white font-medium">Academy Prep (6–8)</strong> to <strong className="text-gold font-medium">Invite-Only Elite Squads</strong>, international tournaments (<strong className="text-white font-medium">Dana Cup, Norway Cup, Yangshuo Cup</strong>), and our pioneering <strong className="text-gold font-medium">Sports for Mental Health</strong> model.
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3.5 sm:gap-4">
               <button
                 onClick={() => openEnquiry('register', 'academy')}
-                className={buttonClass('gold', '!py-4 !px-8 text-xs font-bold uppercase tracking-wider shadow-lg shadow-gold/25 animate-gold-pulse')}
+                className={buttonClass('gold', '!py-4 !px-7 sm:!px-8 text-xs font-bold uppercase tracking-wider shadow-lg shadow-gold/25 animate-gold-pulse')}
               >
                 Book a Spot
               </button>
               <Link
                 href="/programs"
-                className={buttonClass('outline-chalk', '!py-4 !px-8 text-xs group')}
+                className={buttonClass('outline-chalk', '!py-4 !px-7 sm:!px-8 text-xs group')}
               >
                 <span>View Our Programmes</span>
                 <span className="inline-block ml-1.5 transition-transform duration-300 group-hover:translate-x-1">→</span>
@@ -158,9 +161,11 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
             
             <div className="lg:col-span-6 space-y-6">
               <span className="eyebrow text-gold-deep">Pioneering Sports Science</span>
-              <h2 className="display text-4xl sm:text-6xl uppercase tracking-tight text-ink leading-tight">
-                Not Just Better Athletes. <br />
-                <span className="accent font-serif italic text-gold-deep normal-case">Healthier Minds.</span>
+              <h2 className="display text-4xl sm:text-5xl lg:text-6xl uppercase text-ink">
+                Not Just Better Athletes.{' '}
+                <span className="accent font-serif italic text-gold-deep normal-case block sm:inline">
+                  Healthier Minds.
+                </span>
               </h2>
               
               <p className="text-base text-muted font-sans leading-relaxed">
@@ -168,24 +173,24 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
               </p>
 
               {/* BUST Breakdown Cards */}
-              <div className="grid grid-cols-2 gap-3 pt-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
                 {bust.map((b) => (
-                  <div key={b.letter} className="p-4 bg-white rounded-2xl border border-ink/10 shadow-sm flex items-center gap-3">
-                    <span className="w-10 h-10 rounded-xl bg-ink text-gold flex items-center justify-center display text-xl shrink-0 font-mono">
+                  <div key={b.letter} className="p-4 bg-white rounded-2xl border border-ink/10 shadow-sm flex items-center gap-3.5">
+                    <span className="w-11 h-11 rounded-xl bg-ink text-gold flex items-center justify-center display text-xl shrink-0 font-mono">
                       {b.letter}
                     </span>
                     <div>
-                      <div className="font-bold text-xs uppercase tracking-wider text-ink">{b.word}</div>
-                      <div className="text-[11px] text-muted font-sans">Every Session</div>
+                      <div className="font-bold text-xs sm:text-sm uppercase tracking-wider text-ink">{b.word}</div>
+                      <div className="text-xs text-muted font-sans">Every Session</div>
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="pt-4 flex items-center gap-4">
+              <div className="pt-4 flex flex-wrap items-center gap-3.5">
                 <Link
                   href="/mental-health"
-                  className={buttonClass('ink', '!py-3.5 !px-8 text-xs')}
+                  className={buttonClass('ink', '!py-3.5 !px-7 text-xs')}
                 >
                   Explore Mental Health Model →
                 </Link>
@@ -246,27 +251,27 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
       <section className="py-24 bg-white text-ink border-b border-ink/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
             <div>
               <span className="eyebrow text-gold-deep">Our Complete Ecosystem</span>
-              <h2 className="display text-4xl sm:text-6xl uppercase tracking-tight text-ink mt-2">
+              <h2 className="display text-4xl sm:text-5xl lg:text-6xl uppercase text-ink mt-2.5">
                 Nine Pathways to Excellence.
               </h2>
             </div>
-            <p className="text-muted text-sm max-w-md font-sans">
+            <p className="text-muted text-sm sm:text-base max-w-md font-sans leading-relaxed">
               From foundational school classes to international tournament competition, turf infrastructure, and career coaching pathways.
             </p>
           </div>
 
           {/* Bento Grid: 9 Services */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
             {services.map((svc) => (
               <div
                 key={svc.slug}
                 className="group relative bg-chalk rounded-3xl border border-ink/10 overflow-hidden flex flex-col justify-between hover:border-ink/40 hover:shadow-xl transition-all duration-300"
               >
                 {/* Card Top: Image / Motif */}
-                <div className="relative h-48 w-full overflow-hidden bg-ink">
+                <div className="relative h-52 w-full overflow-hidden bg-ink">
                   {svc.image ? (
                     <Image
                       src={svc.image}
@@ -301,23 +306,23 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
                 </div>
 
                 {/* Card Body */}
-                <div className="p-6 flex-grow flex flex-col justify-between space-y-4">
+                <div className="p-6 sm:p-7 flex-grow flex flex-col justify-between space-y-5">
                   <div>
                     <span className="text-[11px] font-mono text-gold-deep font-bold uppercase tracking-wider">
                       {svc.kicker}
                     </span>
-                    <h3 className="display text-2xl uppercase tracking-tight text-ink mt-1">
+                    <h3 className="display text-2xl uppercase text-ink mt-1.5">
                       {svc.name}
                     </h3>
-                    <p className="text-xs text-muted font-sans leading-relaxed mt-2 line-clamp-3">
+                    <p className="text-sm text-muted font-sans leading-relaxed mt-2.5 line-clamp-3">
                       {svc.summary}
                     </p>
                   </div>
 
                   {/* Audience Pills */}
-                  <div className="flex flex-wrap gap-1.5 pt-2">
+                  <div className="flex flex-wrap gap-1.5 pt-1">
                     {svc.audience.map((a) => (
-                      <span key={a} className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-white border border-ink/10 text-muted">
+                      <span key={a} className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-white border border-ink/10 text-muted">
                         {a}
                       </span>
                     ))}
@@ -334,7 +339,7 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
 
                     <button
                       onClick={() => openEnquiry(svc.offerings[0]?.intent || 'register', svc.slug)}
-                      className="px-4 py-2 bg-ink text-gold hover:bg-gold hover:text-ink font-mono text-[10px] font-bold uppercase rounded-full tracking-wider transition-all"
+                      className="px-4 py-2 bg-ink text-gold hover:bg-gold hover:text-ink font-mono text-[11px] font-bold uppercase rounded-full tracking-wider transition-all"
                     >
                       Enquire Now
                     </button>
@@ -371,12 +376,14 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
                   🇩🇰 Dana Cup • 🇳🇴 Norway Cup • 🇨🇳 Yangshuo Cup
                 </span>
               </div>
-              <h2 className="display text-4xl sm:text-6xl uppercase tracking-tight text-white leading-tight">
-                Putting Nepal On The <br />
-                <span className="accent font-serif italic text-gold normal-case">World Football Map.</span>
+              <h2 className="display text-4xl sm:text-5xl lg:text-6xl uppercase text-white">
+                Putting Nepal On The{' '}
+                <span className="accent font-serif italic text-gold normal-case block sm:inline">
+                  World Football Map.
+                </span>
               </h2>
 
-              <p className="text-base text-chalk/80 font-sans leading-relaxed">
+              <p className="text-base text-chalk/85 font-sans leading-relaxed">
                 Aurium Sports connects dedicated young players in Nepal directly to the world&apos;s premier international youth tournaments—including the <strong className="text-white">Dana Cup (Denmark)</strong>, <strong className="text-white">Norway Cup (Oslo, Norway)</strong>, <strong className="text-white">Yangshuo Cup (Guilin, China)</strong>, <strong className="text-white">Gothia Cup (Sweden)</strong>, and elite European &amp; Asian youth invitations.
               </p>
 
@@ -384,11 +391,11 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
                 <div className="text-gold font-display text-xl uppercase tracking-wide">
                   Dana Cup European Quarter-Finalists &amp; Multi-Nation Tours
                 </div>
-                <p className="text-xs text-chalk/70 font-sans leading-relaxed">
+                <p className="text-sm text-chalk/80 font-sans leading-relaxed">
                   At the July 2025 <strong className="text-white">Dana Cup in Denmark</strong>, the <strong className="text-white">Aurium x Rato Bangala U14 Girls</strong> squad made history by advancing to the European Quarter-Finals. Building on this landmark achievement, our 2026–2027 international calendar expands across Scandinavia and Asia with official delegations to the <strong className="text-gold">Dana Cup</strong>, <strong className="text-gold">Norway Cup</strong>, and <strong className="text-gold">Yangshuo Cup</strong>.
                 </p>
-                <div className="pt-2 text-[11px] font-mono text-gold flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                <div className="pt-2 text-xs font-mono text-gold flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
                   <span>Selection Trials Active: U10 • U12 • U14 • U16 Boys &amp; Girls Squads</span>
                 </div>
               </div>
@@ -442,21 +449,21 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
       <section className="py-24 bg-chalk text-ink border-b border-ink/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+          <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
             <span className="eyebrow text-gold-deep justify-center">Long-Term Athletic Development</span>
-            <h2 className="display text-3xl sm:text-5xl uppercase tracking-tight text-ink">
+            <h2 className="display text-3xl sm:text-5xl uppercase text-ink">
               The 6-Stage Aurium Pathway.
             </h2>
-            <p className="text-xs text-muted font-sans">
+            <p className="text-sm sm:text-base text-muted font-sans leading-relaxed">
               We guide children from their first discovery of the sport through school competition, elite academy leagues, and life leadership.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {journey.map((j, idx) => (
               <div
                 key={j.step}
-                className="group p-6 bg-white rounded-2xl border border-ink/10 shadow-sm flex flex-col justify-between h-48 sporty-card relative overflow-hidden"
+                className="group p-6 bg-white rounded-2xl border border-ink/10 shadow-sm flex flex-col justify-between min-h-[12.5rem] gap-4 sporty-card relative overflow-hidden"
               >
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-gold to-gold-deep scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
                 <div className="space-y-2">
@@ -464,9 +471,9 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
                     <span className="display text-3xl text-gold-deep group-hover:scale-110 transition-transform origin-left">0{idx + 1}</span>
                     <span className="text-[10px] font-mono text-muted opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-2 transition-all">STAGE →</span>
                   </div>
-                  <h4 className="display text-lg uppercase tracking-tight text-ink">{j.step}</h4>
+                  <h4 className="display text-lg uppercase text-ink">{j.step}</h4>
                 </div>
-                <p className="text-[11px] text-muted font-sans leading-snug">
+                <p className="text-xs sm:text-[13px] text-muted font-sans leading-relaxed">
                   {j.line}
                 </p>
               </div>

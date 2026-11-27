@@ -186,15 +186,15 @@ export function CampsClient() {
                     </span>
                   </div>
 
-                  <h3 className="display text-2xl uppercase tracking-tight text-ink mb-2">
+                  <h3 className="display text-2xl uppercase text-ink mb-2.5">
                     {camp.name}
                   </h3>
 
-                  <p className="text-xs text-muted font-sans leading-relaxed mb-6">
+                  <p className="text-sm text-muted font-sans leading-relaxed mb-6">
                     {camp.desc}
                   </p>
 
-                  <div className="p-3 bg-white rounded-2xl border border-ink/10 text-[11px] font-sans text-ink/80 flex items-center gap-2">
+                  <div className="p-3.5 bg-white rounded-2xl border border-ink/10 text-xs font-sans text-ink/85 flex items-center gap-2.5">
                     <Award size={16} className="text-gold-deep shrink-0" />
                     <span>{camp.highlight}</span>
                   </div>

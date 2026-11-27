@@ -148,16 +148,16 @@ export default function AuriumArenaClient() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(251,193,8,0.14),transparent_50%),radial-gradient(circle_at_bottom_left,rgba(16,185,129,0.07),transparent_45%)] pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-wrap items-center gap-2.5 mb-6">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold/15 border border-gold/30 text-gold text-xs font-bold uppercase tracking-widest font-mono">
-              <Sparkles size={13} />
-              Commercial Sports Infrastructure • Pasikot, Budhanilkantha, Kathmandu
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-2xl sm:rounded-full bg-gold/15 border border-gold/30 text-gold text-[11px] sm:text-xs font-bold uppercase tracking-wider sm:tracking-widest font-mono max-w-full leading-snug">
+              <Sparkles size={13} className="shrink-0" />
+              <span>Commercial Sports Infrastructure • Pasikot, Budhanilkantha, Kathmandu</span>
             </span>
-            <span className="px-3 py-1 rounded-full bg-white/10 border border-white/15 text-chalk/85 font-mono text-[11px] uppercase tracking-wider">
+            <span className="px-3 py-1.5 rounded-2xl sm:rounded-full bg-white/10 border border-white/15 text-chalk/85 font-mono text-[11px] uppercase tracking-wider max-w-full leading-snug">
               7v7 Turf • ~260 Spectator Seats • Elevated Restaurant
             </span>
           </div>
 
-          <h1 className="display text-4xl sm:text-5xl md:text-7xl uppercase tracking-tight text-white max-w-5xl leading-[0.98] mb-6">
+          <h1 className="display text-3xl sm:text-5xl lg:text-6xl uppercase text-white max-w-5xl mb-6">
             Aurium Arena —{' '}
             <span className="text-gold">
               Building the Future of Commercial Football and Futsal Infrastructure

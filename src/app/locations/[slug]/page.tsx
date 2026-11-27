@@ -153,7 +153,7 @@ export default async function LocationDetailPage({
                 )}
               </div>
 
-              <h1 className="display text-4xl sm:text-6xl lg:text-7xl uppercase tracking-tight text-white leading-none">
+              <h1 className="display text-4xl sm:text-5xl lg:text-6xl uppercase text-white">
                 {loc.h1}
               </h1>
 
@@ -161,7 +161,7 @@ export default async function LocationDetailPage({
                 {loc.intro}
               </p>
 
-              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1.5 text-xs font-sans text-chalk/80">
+              <div className="p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10 space-y-2 text-xs sm:text-sm font-sans text-chalk/85">
                 <div>
                   <strong className="text-gold font-mono uppercase">
                     Verified Address:

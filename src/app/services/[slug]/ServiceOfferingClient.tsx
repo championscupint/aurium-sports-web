@@ -42,11 +42,11 @@ export function ServiceOfferingClient({ service }: { service: Service }) {
                 )}
               </div>
 
-              <h3 className="display text-2xl uppercase tracking-tight text-ink mb-3 group-hover:text-gold-deep transition-colors">
+              <h3 className="display text-2xl uppercase text-ink mb-3 group-hover:text-gold-deep transition-colors">
                 {offering.name}
               </h3>
 
-              <p className="text-xs text-muted font-sans leading-relaxed">
+              <p className="text-sm text-muted font-sans leading-relaxed">
                 {offering.description}
               </p>
             </div>

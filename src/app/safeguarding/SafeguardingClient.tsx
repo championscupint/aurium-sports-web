@@ -77,9 +77,9 @@ export function SafeguardingClient() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/15 text-gold border border-gold/30 text-xs font-mono font-bold uppercase tracking-wider mb-3">
             <ShieldCheck size={14} /> FIFA Guardians™ Aligned Standard
           </div>
-          <h1 className="display text-5xl sm:text-7xl uppercase tracking-tight text-white mt-2">
-            Child Safeguarding & <br />
-            <span className="accent font-serif italic text-gold normal-case">
+          <h1 className="display text-4xl sm:text-6xl lg:text-7xl uppercase text-white mt-2">
+            Child Safeguarding &amp;{' '}
+            <span className="accent font-serif italic text-gold normal-case block sm:inline">
               Player Welfare Policy.
             </span>
           </h1>
@@ -159,18 +159,17 @@ export function SafeguardingClient() {
             
             <div className="lg:col-span-7 space-y-6">
               <span className="eyebrow text-gold-deep">On-Pitch Safety</span>
-              <h2 className="display text-3xl sm:text-5xl uppercase tracking-tight text-ink leading-tight">
-                Safety In Every Drill, <br />
-                Every Session, Every Venue.
+              <h2 className="display text-3xl sm:text-5xl uppercase text-ink">
+                Safety In Every Drill, Every Session, Every Venue.
               </h2>
-              <p className="text-sm text-muted font-sans leading-relaxed">
+              <p className="text-sm sm:text-base text-muted font-sans leading-relaxed">
                 Whether training at our central Baneshwor Height headquarters or running after-school programs at partner institutions like Rato Bangala School, Ullens, and Ace, every venue conforms to strict hazard inspections before play commences.
               </p>
 
               <div className="space-y-3 pt-2">
                 {standards.map((std) => (
-                  <div key={std} className="flex items-start gap-3 text-xs text-ink/80 font-sans">
-                    <CheckCircle2 size={16} className="text-gold-deep shrink-0 mt-0.5" />
+                  <div key={std} className="flex items-start gap-3 text-xs sm:text-sm text-ink/85 font-sans">
+                    <CheckCircle2 size={17} className="text-gold-deep shrink-0 mt-0.5" />
                     <span>{std}</span>
                   </div>
                 ))}

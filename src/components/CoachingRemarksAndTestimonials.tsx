@@ -94,7 +94,7 @@ export function CoachingRemarksAndTestimonials() {
               <span className="eyebrow text-gold-deep">
                 Coaching Directorate & Technical Philosophy
               </span>
-              <h2 className="display text-4xl sm:text-6xl uppercase tracking-tight text-ink leading-none">
+              <h2 className="display text-4xl sm:text-5xl lg:text-6xl uppercase text-ink">
                 Guided By Certified{' '}
                 <span className="accent font-serif italic normal-case text-gold-deep">
                   Specialists.
@@ -127,11 +127,11 @@ export function CoachingRemarksAndTestimonials() {
                     </span>
                   </div>
 
-                  <h3 className="display text-2xl sm:text-3xl uppercase tracking-tight text-ink leading-snug">
+                  <h3 className="display text-2xl sm:text-3xl uppercase text-ink">
                     {item.headline}
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-muted font-sans leading-relaxed">
+                  <p className="text-sm text-muted font-sans leading-relaxed">
                     {item.remark}
                   </p>
                 </div>
@@ -166,13 +166,13 @@ export function CoachingRemarksAndTestimonials() {
               <div className="inline-flex items-center gap-2 text-gold-deep font-mono text-xs uppercase font-bold tracking-widest">
                 <Sparkles size={15} /> Trusted By 5,000+ Academy & Partner School Parents
               </div>
-              <h2 className="display text-4xl sm:text-6xl uppercase tracking-tight text-ink leading-none">
+              <h2 className="display text-4xl sm:text-5xl lg:text-6xl uppercase text-ink">
                 What Our Parents{' '}
                 <span className="accent font-serif italic normal-case text-gold-deep">
                   Say.
                 </span>
               </h2>
-              <p className="text-muted text-sm sm:text-base font-sans">
+              <p className="text-muted text-sm sm:text-base font-sans leading-relaxed">
                 Swipe or scroll left to right to explore tactical feedback from Academy Parents across our 5 Training Venues and Partner Schools in Kathmandu, Lalitpur, and Bhaktapur.
               </p>
             </div>
@@ -236,7 +236,7 @@ export function CoachingRemarksAndTestimonials() {
             {filteredTestimonials.map((t, idx) => (
               <div
                 key={`${t.childName}-${idx}`}
-                className="w-[85vw] sm:w-[370px] lg:w-[400px] shrink-0 p-7 sm:p-8 rounded-3xl bg-white text-ink border border-ink/10 hover:border-gold-deep/50 sporty-card flex flex-col justify-between space-y-6 shadow-sm"
+                className="w-[calc(100vw-2.5rem)] max-w-[350px] sm:max-w-none sm:w-[370px] lg:w-[400px] shrink-0 p-6 sm:p-8 rounded-3xl bg-white text-ink border border-ink/10 hover:border-gold-deep/50 sporty-card flex flex-col justify-between space-y-6 shadow-sm"
               >
                 <div className="space-y-4">
                   {/* Top Badges: Affiliation Type + Quote Icon */}
@@ -260,7 +260,7 @@ export function CoachingRemarksAndTestimonials() {
                   </div>
 
                   {/* Tactical Parent Quote */}
-                  <p className="text-xs sm:text-sm font-sans leading-relaxed italic text-ink/85">
+                  <p className="text-sm font-sans leading-relaxed italic text-ink/90">
                     “{t.quote}”
                   </p>
                 </div>

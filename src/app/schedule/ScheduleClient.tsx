@@ -14,9 +14,9 @@ export function ScheduleClient() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/15 text-gold border border-gold/30 text-xs font-mono font-bold uppercase tracking-wider mb-3">
             <Calendar size={14} /> Weekly Cohort Timings
           </div>
-          <h1 className="display text-5xl sm:text-7xl uppercase tracking-tight text-white mt-2">
-            Training Schedule & <br />
-            <span className="accent font-serif italic text-gold normal-case">
+          <h1 className="display text-4xl sm:text-6xl lg:text-7xl uppercase text-white mt-2">
+            Training Schedule &amp;{' '}
+            <span className="accent font-serif italic text-gold normal-case block sm:inline">
               Ground Locations.
             </span>
           </h1>

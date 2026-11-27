@@ -98,11 +98,11 @@ export function AnnouncementsClient() {
                   </span>
                 </div>
 
-                <h3 className="display text-2xl uppercase tracking-tight text-ink mt-2">
+                <h3 className="display text-2xl uppercase text-ink mt-2">
                   {n.title}
                 </h3>
 
-                <p className="text-xs text-muted font-sans leading-relaxed">
+                <p className="text-sm text-muted font-sans leading-relaxed">
                   {n.summary}
                 </p>
 

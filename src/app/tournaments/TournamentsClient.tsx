@@ -375,7 +375,7 @@ export function TournamentsClient() {
                         WHERE BANKERS BECOME TITANS
                       </div>
                       <h3
-                        className={`${titanSpace.className} text-3xl sm:text-4xl font-bold tracking-tight text-white leading-none`}
+                        className={`${titanSpace.className} text-2xl sm:text-4xl font-bold tracking-tight text-white leading-tight`}
                       >
                         {aicData.tournamentName}
                       </h3>
@@ -700,18 +700,18 @@ export function TournamentsClient() {
                     </span>
                   </div>
 
-                  <h3 className="display text-2xl uppercase tracking-tight text-ink mb-3">
+                  <h3 className="display text-2xl uppercase text-ink mb-3">
                     {comp.title}
                   </h3>
 
-                  <p className="text-xs text-muted font-sans leading-relaxed mb-6">
+                  <p className="text-sm text-muted font-sans leading-relaxed mb-6">
                     {comp.desc}
                   </p>
 
-                  <div className="space-y-2 pt-2 border-t border-ink/10">
+                  <div className="space-y-2.5 pt-3 border-t border-ink/10">
                     {comp.highlights.map((h) => (
-                      <div key={h} className="flex items-center gap-2 text-xs text-ink/80 font-sans">
-                        <CheckCircle2 size={14} className="text-gold-deep shrink-0" />
+                      <div key={h} className="flex items-center gap-2.5 text-xs sm:text-[13px] text-ink/85 font-sans">
+                        <CheckCircle2 size={15} className="text-gold-deep shrink-0" />
                         <span>{h}</span>
                       </div>
                     ))}

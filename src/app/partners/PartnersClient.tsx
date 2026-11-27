@@ -73,10 +73,10 @@ export function PartnersClient() {
                   <div className="w-12 h-12 rounded-2xl bg-chalk flex items-center justify-center text-ink mb-4">
                     <Building2 size={22} className="text-gold-deep" />
                   </div>
-                  <h3 className="display text-2xl uppercase tracking-tight text-ink mb-2">
+                  <h3 className="display text-2xl uppercase text-ink mb-2">
                     {school.name}
                   </h3>
-                  <p className="text-xs text-muted font-sans leading-relaxed">
+                  <p className="text-sm text-muted font-sans leading-relaxed">
                     {school.desc}
                   </p>
                 </div>
@@ -126,10 +126,10 @@ export function PartnersClient() {
                       {aff.location}
                     </span>
                   </div>
-                  <h3 className="display text-2xl uppercase tracking-tight text-ink mb-2">
+                  <h3 className="display text-2xl uppercase text-ink mb-2">
                     {aff.name}
                   </h3>
-                  <p className="text-xs text-muted font-sans leading-relaxed">
+                  <p className="text-sm text-muted font-sans leading-relaxed">
                     {aff.note}
                   </p>
                 </div>

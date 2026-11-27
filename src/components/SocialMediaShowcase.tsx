@@ -77,13 +77,13 @@ export function SocialMediaShowcase() {
             <span className="eyebrow text-gold">
               Follow Us On Socials • {site.socialHandle}
             </span>
-            <h2 className="display text-4xl sm:text-6xl uppercase tracking-tight text-white leading-none">
+            <h2 className="display text-4xl sm:text-5xl lg:text-6xl uppercase text-white">
               Live From The Pitch{' '}
               <span className="accent font-serif italic normal-case text-gold">
                 @auriumsports
               </span>
             </h2>
-            <p className="text-chalk/75 font-sans text-sm sm:text-base leading-relaxed">
+            <p className="text-chalk/80 font-sans text-sm sm:text-base leading-relaxed">
               Join thousands of parents, players, and schools following our daily training drills, Dana Cup international tours, goalkeeper clinics, and Aurium Mini League highlights across Instagram, TikTok, and Facebook.
             </p>
           </div>

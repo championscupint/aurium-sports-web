@@ -163,7 +163,7 @@ export default function AboutPage() {
                 <h3 className="display text-2xl sm:text-3xl uppercase tracking-tight text-ink">
                   “Sport Must Shape Character First.”
                 </h3>
-                <div className="text-xs sm:text-sm text-muted font-sans leading-relaxed space-y-3">
+                <div className="text-sm text-muted font-sans leading-relaxed space-y-3.5">
                   <p>
                     When we laid the foundations of Aurium Sports, we asked ourselves a fundamental question: What happens to the thousands of talented children who kick a ball in Nepal but never receive structured guidance, emotional backing, or a credible pathway forward?
                   </p>
@@ -297,13 +297,13 @@ export default function AboutPage() {
                       )}
                     </div>
 
-                    <h3 className="display text-2xl uppercase tracking-tight text-ink">
+                    <h3 className="display text-2xl uppercase text-ink">
                       {member.name}
                     </h3>
                     <div className="text-xs font-mono font-bold uppercase tracking-wider text-gold-deep mt-1 mb-4">
                       {member.role}
                     </div>
-                    <p className="text-xs text-muted font-sans leading-relaxed">
+                    <p className="text-sm text-muted font-sans leading-relaxed">
                       {member.bio}
                     </p>
                   </div>
