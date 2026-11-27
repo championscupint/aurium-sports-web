@@ -23,7 +23,7 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
 
   return (
     <div className="flex flex-col w-full">
-      
+
       {/* =========================================================================
           1. HERO SECTION (Cinematic Editorial, Himalayan Golden Hour)
           ========================================================================= */}
@@ -156,9 +156,9 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
           ========================================================================= */}
       <section className="py-24 bg-chalk text-ink border-b border-ink/10 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
+
             <div className="lg:col-span-6 space-y-6">
               <span className="eyebrow text-gold-deep">Pioneering Sports Science</span>
               <h2 className="display text-4xl sm:text-5xl lg:text-6xl uppercase text-ink">
@@ -167,7 +167,7 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
                   Healthier Minds.
                 </span>
               </h2>
-              
+
               <p className="text-base text-muted font-sans leading-relaxed">
                 In Nepal, youth sports is frequently reduced to unstructured recreational kicking. Aurium Sports introduces an evidence-backed framework rooted in clinical sports psychology, injury prevention, and emotional resilience.
               </p>
@@ -250,7 +250,7 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
           ========================================================================= */}
       <section className="py-24 bg-white text-ink border-b border-ink/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
             <div>
               <span className="eyebrow text-gold-deep">Our Complete Ecosystem</span>
@@ -287,7 +287,7 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
                       </span>
                     </div>
                   )}
-                  
+
                   {/* Category Pill */}
                   <div className="absolute top-4 left-4 z-10">
                     <span className="px-3 py-1 bg-ink/90 backdrop-blur-md text-gold text-[10px] font-mono uppercase tracking-wider font-bold rounded-full border border-gold/30">
@@ -366,9 +366,9 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
           ========================================================================= */}
       <section className="py-24 bg-ink text-chalk grain relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
+
             <div className="lg:col-span-7 space-y-6">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="eyebrow text-gold">Global Tournament Pathways</span>
@@ -448,7 +448,7 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
           ========================================================================= */}
       <section className="py-24 bg-chalk text-ink border-b border-ink/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
             <span className="eyebrow text-gold-deep justify-center">Long-Term Athletic Development</span>
             <h2 className="display text-3xl sm:text-5xl uppercase text-ink">
@@ -489,7 +489,7 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
       <section className="py-20 bg-ink text-chalk grain relative border-b border-white/10 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="rounded-3xl bg-gradient-to-r from-white/[0.07] via-white/[0.04] to-transparent p-8 sm:p-12 border border-white/15 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-10">
-            
+
             <div className="space-y-4 max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/15 text-gold border border-gold/30 text-xs font-mono font-bold uppercase tracking-wider">
                 <Sparkles size={14} /> Technology & Analytics Partner
@@ -535,7 +535,7 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
           ========================================================================= */}
       <section className="py-24 bg-white text-ink border-b border-ink/10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          
+
           <div className="text-center space-y-3">
             <div className="inline-flex items-center gap-2 text-gold-deep font-mono text-xs uppercase font-bold tracking-widest">
               <HelpCircle size={16} /> FAQ & Academy Guide
@@ -563,9 +563,8 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
                     <span>{faq.question}</span>
                     <ChevronDown
                       size={18}
-                      className={`shrink-0 text-gold-deep transition-transform duration-200 ${
-                        isOpen ? 'rotate-180' : ''
-                      }`}
+                      className={`shrink-0 text-gold-deep transition-transform duration-200 ${isOpen ? 'rotate-180' : ''
+                        }`}
                     />
                   </button>
                   {isOpen && (
@@ -587,7 +586,7 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
       <section className="py-24 bg-chalk text-ink border-b border-ink/10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
           <span className="eyebrow text-gold-deep justify-center">Leadership Philosophy</span>
-          
+
           <blockquote className="display text-3xl sm:text-5xl md:text-6xl uppercase tracking-tight text-ink max-w-4xl mx-auto leading-tight">
             “People don’t choose Aurium Sports simply because we teach football. They choose us because we <span className="accent font-serif italic normal-case text-gold-deep">develop people.</span>”
           </blockquote>

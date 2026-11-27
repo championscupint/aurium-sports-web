@@ -9,9 +9,8 @@ export function MainWrapper({ children }: { children: React.ReactNode }) {
 
   return (
     <main
-      className={`flex-grow w-full max-w-full min-w-0 overflow-x-clip ${
-        isTitansCup ? 'pt-0 bg-[#101D32]' : 'pt-[76px]'
-      }`}
+      className={`flex-grow w-full max-w-full min-w-0 overflow-x-clip ${isTitansCup ? 'pt-0 bg-[#101D32]' : 'pt-[76px]'
+        }`}
     >
       {children}
     </main>

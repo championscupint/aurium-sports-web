@@ -14,8 +14,10 @@
   --chalk: #f5f2e9;
   --chalk-2: #ebe6d8;
   --gold: #fbc108;
-  --gold-deep: #9a6f00; /* Upgraded from #c99400 for WCAG AA contrast on light surfaces */
-  --muted: #575249;     /* Upgraded from #6f6a60 for 6.7:1+ contrast on chalk & white */
+  --gold-deep: #9a6f00;
+  /* Upgraded from #c99400 for WCAG AA contrast on light surfaces */
+  --muted: #575249;
+  /* Upgraded from #6f6a60 for 6.7:1+ contrast on chalk & white */
   --line: rgb(14 13 11 / 0.12);
   --line-dark: rgb(245 242 233 / 0.14);
 
@@ -189,6 +191,7 @@ p {
   align-items: center;
   gap: 0.65rem;
 }
+
 .eyebrow::before {
   content: "";
   width: 1.75rem;
@@ -208,6 +211,7 @@ p {
   position: relative;
   isolation: isolate;
 }
+
 .grain::after {
   content: "";
   position: absolute;
@@ -234,6 +238,7 @@ p {
   overflow: hidden;
   mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
+
 .marquee__track {
   display: flex;
   flex-shrink: 0;
@@ -241,9 +246,11 @@ p {
   padding-right: 3rem;
   animation: marquee 38s linear infinite;
 }
+
 .marquee:hover .marquee__track {
   animation-play-state: paused;
 }
+
 @keyframes marquee {
   to {
     translate: -100% 0;
@@ -255,6 +262,7 @@ p {
   0% {
     transform: translate3d(0, 0, 0);
   }
+
   100% {
     transform: translate3d(-50%, 0, 0);
   }
@@ -273,9 +281,12 @@ p {
 
 /* Sporty Micro-Interactions & Card Dynamics */
 @keyframes float-slow {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-6px);
   }
@@ -285,9 +296,11 @@ p {
   0% {
     box-shadow: 0 0 0 0 rgba(251, 193, 8, 0.45);
   }
+
   70% {
     box-shadow: 0 0 0 12px rgba(251, 193, 8, 0);
   }
+
   100% {
     box-shadow: 0 0 0 0 rgba(251, 193, 8, 0);
   }
@@ -304,6 +317,7 @@ p {
 .sporty-card {
   transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
 }
+
 .sporty-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 22px 45px -15px rgba(14, 13, 11, 0.16), 0 0 0 1px rgba(251, 193, 8, 0.55);
@@ -315,11 +329,13 @@ p {
   translate: 0 0.5rem;
   transition: opacity 0.35s var(--ease-out), translate 0.35s var(--ease-out);
 }
+
 .offer-card:hover .offer-action,
 .offer-card:focus-within .offer-action {
   opacity: 1;
   translate: 0 0;
 }
+
 @media (hover: none) {
   .offer-card .offer-action {
     opacity: 1;
@@ -342,25 +358,30 @@ dialog.enquiry {
   translate: 0 1.5rem;
   transition: opacity 0.3s var(--ease-out), translate 0.3s var(--ease-out), display 0.3s allow-discrete, overlay 0.3s allow-discrete;
 }
+
 dialog.enquiry[open] {
   opacity: 1;
   translate: 0 0;
 }
+
 @starting-style {
   dialog.enquiry[open] {
     opacity: 0;
     translate: 0 1.5rem;
   }
 }
+
 dialog.enquiry::backdrop {
   background: rgb(14 13 11 / 0);
   backdrop-filter: blur(0);
   transition: background 0.3s, backdrop-filter 0.3s, display 0.3s allow-discrete, overlay 0.3s allow-discrete;
 }
+
 dialog.enquiry[open]::backdrop {
   background: rgb(14 13 11 / 0.6);
   backdrop-filter: blur(6px);
 }
+
 @starting-style {
   dialog.enquiry[open]::backdrop {
     background: rgb(14 13 11 / 0);
@@ -373,6 +394,7 @@ dialog.enquiry[open]::backdrop {
   display: grid;
   gap: 0.45rem;
 }
+
 .field label {
   font-size: 0.72rem;
   font-weight: 700;
@@ -380,6 +402,7 @@ dialog.enquiry[open]::backdrop {
   text-transform: uppercase;
   color: var(--muted);
 }
+
 .field input,
 .field select,
 .field textarea {
@@ -393,6 +416,7 @@ dialog.enquiry[open]::backdrop {
   color: var(--ink);
   transition: border-color 0.2s, box-shadow 0.2s;
 }
+
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
@@ -400,6 +424,7 @@ dialog.enquiry[open]::backdrop {
   border-color: var(--ink);
   box-shadow: 0 0 0 4px rgb(251 193 8 / 0.35);
 }
+
 .field input:user-invalid,
 .field select:user-invalid,
 .field textarea:user-invalid {
@@ -411,15 +436,18 @@ dialog.enquiry[open]::backdrop {
   html {
     scroll-behavior: auto;
   }
+
   .marquee__track,
   .animate-marquee,
   .animate-float-slow,
   .animate-gold-pulse {
     animation: none !important;
   }
+
   .sporty-card:hover {
     transform: none;
   }
+
   dialog.enquiry,
   dialog.enquiry::backdrop {
     transition: none;
