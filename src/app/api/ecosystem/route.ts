@@ -111,9 +111,8 @@ export async function POST(req: NextRequest) {
         action: "INSTITUTIONAL_REGISTRATION_SUBMITTED",
         details: `Submitted ${newReg.competitionSlug.toUpperCase()} registration for [${divisions.join(
           " & "
-        )}] in ${newReg.preferredRegionalHub}. Calculated Fee: NPR ${fee.toLocaleString()} + Deposit NPR ${deposit.toLocaleString()}. Local CSR District: ${
-          newReg.csrPreferredDistrict
-        }.`,
+        )}] in ${newReg.preferredRegionalHub}. Calculated Fee: NPR ${fee.toLocaleString()} + Deposit NPR ${deposit.toLocaleString()}. Local CSR District: ${newReg.csrPreferredDistrict
+          }.`,
       });
 
       writeEcosystemStore(store);
@@ -143,9 +142,8 @@ export async function POST(req: NextRequest) {
         timestamp: new Date().toISOString(),
         actor: `${enq.organizationName} (${enq.contactName})`,
         action: "COMMERCIAL_OR_CSR_ENQUIRY_RECEIVED",
-        details: `Enquiry for ${enq.interestedLevel} (${enq.interestedCompetition}) | CSR Co-Sponsor: ${
-          enq.csrInterest ? "Yes" : "No"
-        }`,
+        details: `Enquiry for ${enq.interestedLevel} (${enq.interestedCompetition}) | CSR Co-Sponsor: ${enq.csrInterest ? "Yes" : "No"
+          }`,
       });
       writeEcosystemStore(store);
       void sendSponsorEnquiryAlertEmail(enq);
@@ -235,9 +233,8 @@ export async function POST(req: NextRequest) {
         timestamp: new Date().toISOString(),
         actor: primaryContactName,
         action: "WEBSITE_LEAD_RECEIVED",
-        details: `${lead.formName} [${lead.formId}] (${lead.leadCategory})${
-          lead.optionName ? ` · Option: ${lead.optionName}` : ""
-        }`,
+        details: `${lead.formName} [${lead.formId}] (${lead.leadCategory})${lead.optionName ? ` · Option: ${lead.optionName}` : ""
+          }`,
       });
 
       writeEcosystemStore(store);
@@ -377,9 +374,8 @@ export async function POST(req: NextRequest) {
         timestamp: new Date().toISOString(),
         actor: "Match Control Admin",
         action: "FIXTURE_RESULT_UPDATED",
-        details: `Updated Match #${fix.matchNumber} (${fix.homeTeamName} vs ${fix.awayTeamName}): ${
-          fix.homeScore ?? "-"
-        } : ${fix.awayScore ?? "-"} [${fix.status}] Verified=${fix.isVerifiedByAdmin}`,
+        details: `Updated Match #${fix.matchNumber} (${fix.homeTeamName} vs ${fix.awayTeamName}): ${fix.homeScore ?? "-"
+          } : ${fix.awayScore ?? "-"} [${fix.status}] Verified=${fix.isVerifiedByAdmin}`,
       });
 
       writeEcosystemStore(store);
@@ -447,9 +443,8 @@ export async function POST(req: NextRequest) {
         timestamp: new Date().toISOString(),
         actor: "Aurium CSR Directorate Admin",
         action: "VERIFIED_CSR_IMPACT_UPDATED",
-        details: `Updated verified CSR ledger: Children=${store.csrMetrics.childrenReached ?? "Pending"}, Girls=${
-          store.csrMetrics.girlsParticipating ?? "Pending"
-        }, Local Coaches Employed=${store.csrMetrics.localLicensedCoachesEmployed ?? "Pending"}`,
+        details: `Updated verified CSR ledger: Children=${store.csrMetrics.childrenReached ?? "Pending"}, Girls=${store.csrMetrics.girlsParticipating ?? "Pending"
+          }, Local Coaches Employed=${store.csrMetrics.localLicensedCoachesEmployed ?? "Pending"}`,
       });
       writeEcosystemStore(store);
       return NextResponse.json({ ok: true, store });
