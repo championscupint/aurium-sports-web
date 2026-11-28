@@ -5,6 +5,7 @@ type GtagEventParams = Record<string, string | number | boolean | undefined>;
 
 declare global {
   interface Window {
+    dataLayer?: Record<string, unknown>[];
     gtag?: (
       command: 'event' | 'config' | 'js',
       targetOrEventName: string | Date,
@@ -14,7 +15,16 @@ declare global {
 }
 
 export function trackEvent(eventName: string, params?: GtagEventParams) {
-  if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+  if (typeof window === 'undefined') return;
+
+  if (Array.isArray(window.dataLayer)) {
+    window.dataLayer.push({
+      event: eventName,
+      ...params,
+    });
+  }
+
+  if (typeof window.gtag === 'function') {
     window.gtag('event', eventName, params);
   }
 }

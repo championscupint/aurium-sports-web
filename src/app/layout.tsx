@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 import { MainWrapper } from "@/components/MainWrapper";
 import { EnquiryProvider } from "@/components/EnquiryContext";
 import { EnquiryModal } from "@/components/EnquiryModal";
-import GoogleAnalytics from "@/components/GoogleAnalytics";
+import GoogleAnalytics, { GTM_ID } from "@/components/GoogleAnalytics";
 import { site } from "@/data/site";
 import {
   getOrganizationSchema,
@@ -121,6 +121,18 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col font-sans bg-chalk text-ink selection:bg-gold selection:text-ink">
+        {/* Google Tag Manager (noscript) */}
+        {GTM_ID && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+              title="Google Tag Manager"
+            />
+          </noscript>
+        )}
         <GoogleAnalytics />
         <EnquiryProvider>
           <Navigation />
