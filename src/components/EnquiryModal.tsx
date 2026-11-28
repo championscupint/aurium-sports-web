@@ -196,7 +196,10 @@ export function EnquiryModal() {
         return;
       }
 
-      const leadId = data.leadId || `LEAD-${Date.now().toString().slice(-6)}`;
+      const leadId =
+        typeof data.leadId === 'string' && data.leadId.trim()
+          ? data.leadId
+          : 'LEAD-CONFIRMED';
       // Fire primary GA4 Key Event `generate_lead` ONLY after verified backend acceptance
       trackLead({
         ...currentMeta,
