@@ -1,17 +1,34 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useEcosystem } from "@/components/aic/EcosystemProvider";
 import { DivisionType } from "@/types/ecosystem";
-import { trackTitansRegistration } from "@/lib/analytics";
+import {
+  FormMeta,
+  trackTitansRegistration,
+  trackFormView,
+  trackFormStart,
+  trackFormStepComplete,
+  trackFormSubmitAttempt,
+  trackFormValidationError,
+  resetFormStartSession,
+} from "@/lib/analytics";
 import {
   Lock,
   CheckCircle2,
 } from "lucide-react";
 
+const TITANS_REG_META: FormMeta = {
+  formId: "aic_titans_registration_form",
+  formName: "AIC Titans Cup Institutional Registration",
+  formType: "tournament_registration",
+  leadCategory: "tournament",
+};
+
 export default function RegistrationPage() {
   const { store, bfis, regionalHubs, mutateStore } = useEcosystem();
+  const formRef = useRef<HTMLFormElement>(null);
   const [selectedSlug, setSelectedSlug] = useState<"type-a" | "type-b" | "type-c" | "type-d">("type-a");
   const [selectedBfiId, setSelectedBfiId] = useState<string>("A-01");
   const [divisions, setDivisions] = useState<DivisionType[]>(["Gentlemen", "Ladies"]);
@@ -27,8 +44,30 @@ export default function RegistrationPage() {
     "8 Players + 2 Team Officials (All verified 90+ days on active bank payroll)"
   );
   const [payrollConfirmed, setPayrollConfirmed] = useState<boolean>(true);
+  const [submitting, setSubmitting] = useState<boolean>(false);
   const [submittedRecordId, setSubmittedRecordId] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  useEffect(() => {
+    const el = formRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          trackFormView(TITANS_REG_META);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  const markStarted = () => {
+    trackFormStart(TITANS_REG_META);
+    if (errorMsg) setErrorMsg(null);
+  };
 
   const comp = store.competitions.find((c) => c.slug === selectedSlug)!;
   const classBfis = useMemo(
@@ -75,31 +114,91 @@ export default function RegistrationPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submitting || submittedRecordId) return;
+
+    trackFormSubmitAttempt(TITANS_REG_META);
     setErrorMsg(null);
-    const res = await mutateStore("SUBMIT_REGISTRATION", {
-      competitionSlug: selectedSlug,
-      institutionId: currentBfi?.id,
-      institutionName: currentBfi?.name,
-      nrbClass: currentBfi?.nrbClass,
-      headOfficeCity: currentBfi?.headOffice,
-      preferredRegionalHub: preferredHub,
-      divisionsEntered: divisions,
-      csrPledgeRangeNpr: comp.expectedCsrRangeNpr,
-      csrPreferredDistrict: csrDistrict,
-      authorizedHrRepName: hrName,
-      authorizedHrRepTitle: hrTitle,
-      teamManagerName: managerName,
-      teamManagerPhone: managerPhone,
-      officialEmail,
-      coachName,
-      payrollComplianceConfirmed: payrollConfirmed,
-      rosterSummary,
-    });
-    if (res.ok) {
-      trackTitansRegistration(selectedSlug, divisions.length);
-      setSubmittedRecordId(`Submitted for ${currentBfi?.name}`);
-    } else {
-      setErrorMsg(res.error || "Submission failed");
+
+    if (!hrName.trim()) {
+      setErrorMsg("Please enter the Authorized HR Representative name.");
+      trackFormValidationError({
+        ...TITANS_REG_META,
+        errorField: "authorizedHrRepName",
+        errorType: "missing_required_field",
+      });
+      return;
+    }
+
+    if (!managerName.trim()) {
+      setErrorMsg("Please enter the Team Manager name.");
+      trackFormValidationError({
+        ...TITANS_REG_META,
+        errorField: "teamManagerName",
+        errorType: "missing_required_field",
+      });
+      return;
+    }
+
+    if (!managerPhone.trim() || managerPhone.replace(/\D/g, "").length < 7) {
+      setErrorMsg("Please enter a valid Team Manager mobile number.");
+      trackFormValidationError({
+        ...TITANS_REG_META,
+        errorField: "teamManagerPhone",
+        errorType: "invalid_phone_format",
+      });
+      return;
+    }
+
+    if (!officialEmail.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(officialEmail.trim())) {
+      setErrorMsg("Please enter a valid official institution email address.");
+      trackFormValidationError({
+        ...TITANS_REG_META,
+        errorField: "officialEmail",
+        errorType: "invalid_email_format",
+      });
+      return;
+    }
+
+    if (!payrollConfirmed) {
+      setErrorMsg("Please confirm the 90-day active bank payroll compliance declaration.");
+      trackFormValidationError({
+        ...TITANS_REG_META,
+        errorField: "payrollComplianceConfirmed",
+        errorType: "compliance_unchecked",
+      });
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const res = await mutateStore("SUBMIT_REGISTRATION", {
+        competitionSlug: selectedSlug,
+        institutionId: currentBfi?.id,
+        institutionName: currentBfi?.name,
+        nrbClass: currentBfi?.nrbClass,
+        headOfficeCity: currentBfi?.headOffice,
+        preferredRegionalHub: preferredHub,
+        divisionsEntered: divisions,
+        csrPledgeRangeNpr: comp.expectedCsrRangeNpr,
+        csrPreferredDistrict: csrDistrict,
+        authorizedHrRepName: hrName.trim(),
+        authorizedHrRepTitle: hrTitle.trim(),
+        teamManagerName: managerName.trim(),
+        teamManagerPhone: managerPhone.trim(),
+        officialEmail: officialEmail.trim(),
+        coachName: coachName.trim(),
+        payrollComplianceConfirmed: payrollConfirmed,
+        rosterSummary,
+      });
+      if (res.ok) {
+        const regId = `REG-${selectedSlug}-${Date.now().toString().slice(-6)}`;
+        trackTitansRegistration(selectedSlug, divisions.length, regId);
+        setSubmittedRecordId(`Submitted for ${currentBfi?.name} (${regId})`);
+      } else {
+        setErrorMsg(res.error || "Submission failed");
+      }
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -171,7 +270,10 @@ export default function RegistrationPage() {
                 </p>
                 <div className="flex flex-wrap gap-3 pt-2">
                   <button
-                    onClick={() => setSubmittedRecordId(null)}
+                    onClick={() => {
+                      resetFormStartSession(TITANS_REG_META.formId);
+                      setSubmittedRecordId(null);
+                    }}
                     className="bg-[#FF783D] text-white font-extrabold text-xs uppercase tracking-wider px-5 py-3 rounded-xl"
                   >
                     Register Another Squad
@@ -179,7 +281,15 @@ export default function RegistrationPage() {
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6 text-xs">
+              <form
+                ref={formRef}
+                id="aic_titans_registration_form"
+                data-form-id="aic_titans_registration_form"
+                onSubmit={handleSubmit}
+                noValidate
+                onChange={() => markStarted()}
+                className="space-y-6 text-xs"
+              >
                 {errorMsg && (
                   <div className="p-4 rounded-xl bg-red-500/20 border border-red-400 text-red-200">
                     {errorMsg}

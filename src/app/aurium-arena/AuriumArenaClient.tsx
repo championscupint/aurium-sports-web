@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -24,13 +24,27 @@ import {
 } from 'lucide-react';
 import { auriumArenaData } from '@/data/aurium-arena';
 import {
+  FormMeta,
   trackArenaInvestorEnquiry,
-  trackFormSubmission,
+  trackFormView,
+  trackFormStart,
+  trackFormSubmitAttempt,
+  trackFormValidationError,
+  trackCtaClick,
+  trackFaqExpand,
+  trackFilterInteraction,
   trackWhatsAppClick,
-  trackContactClick,
-  trackEvent,
+  trackEmailClick,
+  resetFormStartSession,
 } from '@/lib/analytics';
 import { site } from '@/data/site';
+
+const ARENA_FORM_META: FormMeta = {
+  formId: 'arena_investment_form',
+  formName: 'Aurium Arena Investment Enquiry',
+  formType: 'investment_enquiry',
+  leadCategory: 'investment',
+};
 
 const INVESTMENT_MODELS = [
   'Capital / Equity Investment Enquiry',
@@ -57,6 +71,7 @@ const ENQUIRY_SCOPES = [
 ];
 
 export default function AuriumArenaClient() {
+  const formRef = useRef<HTMLFormElement>(null);
   const [investorType, setInvestorType] = useState<'Individual' | 'Institution'>(
     'Individual'
   );
@@ -81,6 +96,27 @@ export default function AuriumArenaClient() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [faqFilter, setFaqFilter] = useState<string>('All');
 
+  useEffect(() => {
+    const el = formRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          trackFormView(ARENA_FORM_META);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  const markFormStarted = () => {
+    trackFormStart(ARENA_FORM_META);
+    if (error) setError('');
+  };
+
   const filteredFaqs =
     faqFilter === 'All'
       ? auriumArenaData.investorFaqs
@@ -88,13 +124,48 @@ export default function AuriumArenaClient() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (submitting || submittedId) return;
+
+    trackFormSubmitAttempt(ARENA_FORM_META);
     setError('');
-    if (!fullName.trim() || !email.trim() || !phone.trim()) {
-      setError('Please provide your full name, email address, and phone number.');
+
+    if (!fullName.trim()) {
+      setError('Please provide your full name.');
+      trackFormValidationError({
+        ...ARENA_FORM_META,
+        errorField: 'fullName',
+        errorType: 'missing_required_field',
+      });
       return;
     }
+
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      setError('Please provide a valid email address.');
+      trackFormValidationError({
+        ...ARENA_FORM_META,
+        errorField: 'email',
+        errorType: 'invalid_email_format',
+      });
+      return;
+    }
+
+    if (!phone.trim() || phone.replace(/\D/g, '').length < 7) {
+      setError('Please provide a valid phone or WhatsApp number.');
+      trackFormValidationError({
+        ...ARENA_FORM_META,
+        errorField: 'phone',
+        errorType: 'invalid_phone_format',
+      });
+      return;
+    }
+
     if (investorType === 'Institution' && !organizationName.trim()) {
       setError('Please enter your institution or organization name.');
+      trackFormValidationError({
+        ...ARENA_FORM_META,
+        errorField: 'organizationName',
+        errorType: 'missing_required_field',
+      });
       return;
     }
 
@@ -123,14 +194,15 @@ export default function AuriumArenaClient() {
         }),
       });
       const data = await res.json();
-      if (!res.ok) {
+      if (!res.ok || !data.ok) {
         setError(
           data.error || 'Unable to submit your enquiry. Please try again.'
         );
       } else {
-        trackArenaInvestorEnquiry(investorType, investmentInterest);
-        trackFormSubmission('aurium_arena_investor');
-        setSubmittedId(data.enquiry?.id || 'ARENA-RECEIVED');
+        const refId =
+          data.enquiry?.id || `ARENA-${Date.now().toString().slice(-6)}`;
+        trackArenaInvestorEnquiry(investorType, investmentInterest, refId);
+        setSubmittedId(refId);
       }
     } catch {
       setError('Network error while submitting your enquiry. Please try again.');
@@ -197,8 +269,11 @@ export default function AuriumArenaClient() {
             <a
               href="#invest-form"
               onClick={() =>
-                trackEvent('arena_investor_cta_click', {
-                  placement: 'hero_investment_enquiry',
+                trackCtaClick({
+                  ctaText: 'Investment Enquiry',
+                  ctaType: 'arena_investment_cta',
+                  ctaLocation: 'aurium_arena_hero',
+                  destinationUrl: '#invest-form',
                 })
               }
               className="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-gold text-ink font-bold text-xs uppercase tracking-widest hover:bg-chalk transition-all shadow-lg"
@@ -208,8 +283,11 @@ export default function AuriumArenaClient() {
             <a
               href="#partnership-tracks"
               onClick={() =>
-                trackEvent('arena_investor_cta_click', {
-                  placement: 'hero_partnership_enquiry',
+                trackCtaClick({
+                  ctaText: 'Strategic Partnership Enquiry',
+                  ctaType: 'arena_partnership_cta',
+                  ctaLocation: 'aurium_arena_hero',
+                  destinationUrl: '#partnership-tracks',
                 })
               }
               className="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-white/10 border border-white/25 text-white font-bold text-xs uppercase tracking-widest hover:border-gold hover:text-gold transition-all"
@@ -647,8 +725,11 @@ export default function AuriumArenaClient() {
                   href="#invest-form"
                   onClick={() => {
                     setInvestmentInterest(cat.title);
-                    trackEvent('arena_investor_cta_click', {
-                      placement: `track_${cat.title}`,
+                    trackCtaClick({
+                      ctaText: `Enquire About This Track (${cat.title})`,
+                      ctaType: 'arena_track_cta',
+                      ctaLocation: 'aurium_arena_partnership_tracks',
+                      destinationUrl: '#invest-form',
                     });
                   }}
                   className="text-xs font-mono font-bold uppercase tracking-wider text-ink hover:text-gold-deep inline-flex items-center gap-1.5 pt-3 border-t border-ink/10"
@@ -846,7 +927,10 @@ export default function AuriumArenaClient() {
               <button
                 key={cat}
                 type="button"
-                onClick={() => setFaqFilter(cat)}
+                onClick={() => {
+                  setFaqFilter(cat);
+                  trackFilterInteraction('faq_category', cat, 'aurium_arena_faqs');
+                }}
                 className={`px-4 py-2 rounded-full font-mono text-[11px] font-bold uppercase tracking-wider transition-all ${
                   faqFilter === cat
                     ? 'bg-ink text-gold'
@@ -868,7 +952,10 @@ export default function AuriumArenaClient() {
                 >
                   <button
                     type="button"
-                    onClick={() => setOpenFaq(isOpen ? null : idx)}
+                    onClick={() => {
+                      if (!isOpen) trackFaqExpand('aurium_arena_investor_faq', idx);
+                      setOpenFaq(isOpen ? null : idx);
+                    }}
                     className="w-full p-6 text-left flex items-center justify-between gap-4 font-display uppercase tracking-tight text-base sm:text-lg text-ink hover:text-gold-deep transition-colors"
                   >
                     <span>{faq.question}</span>
@@ -931,6 +1018,7 @@ export default function AuriumArenaClient() {
                 <button
                   type="button"
                   onClick={() => {
+                    resetFormStartSession(ARENA_FORM_META.formId);
                     setSubmittedId(null);
                     setMessage('');
                   }}
@@ -948,7 +1036,11 @@ export default function AuriumArenaClient() {
             </div>
           ) : (
             <form
+              ref={formRef}
+              id="arena_investment_form"
+              data-form-id="arena_investment_form"
               onSubmit={handleSubmit}
+              noValidate
               className="p-6 sm:p-10 rounded-3xl bg-white/[0.04] border border-white/15 space-y-6"
             >
               {/* Investor Type Toggle */}
@@ -959,7 +1051,10 @@ export default function AuriumArenaClient() {
                 <div className="grid grid-cols-2 gap-3">
                   <button
                     type="button"
-                    onClick={() => setInvestorType('Individual')}
+                    onClick={() => {
+                      markFormStarted();
+                      setInvestorType('Individual');
+                    }}
                     className={`flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl border text-xs font-bold uppercase tracking-wider transition-all ${
                       investorType === 'Individual'
                         ? 'bg-gold text-ink border-gold'
@@ -970,7 +1065,10 @@ export default function AuriumArenaClient() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => setInvestorType('Institution')}
+                    onClick={() => {
+                      markFormStarted();
+                      setInvestorType('Institution');
+                    }}
                     className={`flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl border text-xs font-bold uppercase tracking-wider transition-all ${
                       investorType === 'Institution'
                         ? 'bg-gold text-ink border-gold'
@@ -989,9 +1087,13 @@ export default function AuriumArenaClient() {
                   </label>
                   <input
                     type="text"
+                    name="fullName"
                     required
                     value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
+                    onChange={(e) => {
+                      markFormStarted();
+                      setFullName(e.target.value);
+                    }}
                     placeholder="Your full name"
                     className="w-full px-4 py-3 rounded-xl bg-ink border border-white/15 text-sm text-white placeholder:text-chalk/40 focus:outline-none focus:border-gold"
                   />
@@ -1003,9 +1105,13 @@ export default function AuriumArenaClient() {
                   </label>
                   <input
                     type="email"
+                    name="email"
                     required
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      markFormStarted();
+                      setEmail(e.target.value);
+                    }}
                     placeholder="name@example.com"
                     className="w-full px-4 py-3 rounded-xl bg-ink border border-white/15 text-sm text-white placeholder:text-chalk/40 focus:outline-none focus:border-gold"
                   />
@@ -1019,9 +1125,13 @@ export default function AuriumArenaClient() {
                       </label>
                       <input
                         type="text"
+                        name="organizationName"
                         required
                         value={organizationName}
-                        onChange={(e) => setOrganizationName(e.target.value)}
+                        onChange={(e) => {
+                          markFormStarted();
+                          setOrganizationName(e.target.value);
+                        }}
                         placeholder="Company, hospitality brand, or group name"
                         className="w-full px-4 py-3 rounded-xl bg-ink border border-white/15 text-sm text-white placeholder:text-chalk/40 focus:outline-none focus:border-gold"
                       />
@@ -1032,8 +1142,12 @@ export default function AuriumArenaClient() {
                       </label>
                       <input
                         type="text"
+                        name="designation"
                         value={designation}
-                        onChange={(e) => setDesignation(e.target.value)}
+                        onChange={(e) => {
+                          markFormStarted();
+                          setDesignation(e.target.value);
+                        }}
                         placeholder="e.g., Managing Partner, Director"
                         className="w-full px-4 py-3 rounded-xl bg-ink border border-white/15 text-sm text-white placeholder:text-chalk/40 focus:outline-none focus:border-gold"
                       />
@@ -1047,9 +1161,13 @@ export default function AuriumArenaClient() {
                   </label>
                   <input
                     type="tel"
+                    name="phone"
                     required
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={(e) => {
+                      markFormStarted();
+                      setPhone(e.target.value);
+                    }}
                     placeholder="+977 98..."
                     className="w-full px-4 py-3 rounded-xl bg-ink border border-white/15 text-sm text-white placeholder:text-chalk/40 focus:outline-none focus:border-gold"
                   />
@@ -1066,8 +1184,12 @@ export default function AuriumArenaClient() {
                     />
                     <input
                       type="text"
+                      name="cityOrCountry"
                       value={cityOrCountry}
-                      onChange={(e) => setCityOrCountry(e.target.value)}
+                      onChange={(e) => {
+                        markFormStarted();
+                        setCityOrCountry(e.target.value);
+                      }}
                       placeholder="Kathmandu, Nepal"
                       className="w-full pl-10 pr-4 py-3 rounded-xl bg-ink border border-white/15 text-sm text-white placeholder:text-chalk/40 focus:outline-none focus:border-gold"
                     />
@@ -1079,8 +1201,12 @@ export default function AuriumArenaClient() {
                     Type of Enquiry / Partnership Interest
                   </label>
                   <select
+                    name="investmentInterest"
                     value={investmentInterest}
-                    onChange={(e) => setInvestmentInterest(e.target.value)}
+                    onChange={(e) => {
+                      markFormStarted();
+                      setInvestmentInterest(e.target.value);
+                    }}
                     className="w-full px-4 py-3 rounded-xl bg-ink border border-white/15 text-sm text-white focus:outline-none focus:border-gold"
                   >
                     {INVESTMENT_MODELS.map((m) => (
@@ -1096,8 +1222,12 @@ export default function AuriumArenaClient() {
                     Project Focus / Location
                   </label>
                   <select
+                    name="preferredRegion"
                     value={preferredRegion}
-                    onChange={(e) => setPreferredRegion(e.target.value)}
+                    onChange={(e) => {
+                      markFormStarted();
+                      setPreferredRegion(e.target.value);
+                    }}
                     className="w-full px-4 py-3 rounded-xl bg-ink border border-white/15 text-sm text-white focus:outline-none focus:border-gold"
                   >
                     {REGIONS.map((r) => (
@@ -1113,8 +1243,12 @@ export default function AuriumArenaClient() {
                     Preferred Next Step
                   </label>
                   <select
+                    name="estimatedTicketSize"
                     value={estimatedTicketSize}
-                    onChange={(e) => setEstimatedTicketSize(e.target.value)}
+                    onChange={(e) => {
+                      markFormStarted();
+                      setEstimatedTicketSize(e.target.value);
+                    }}
                     className="w-full px-4 py-3 rounded-xl bg-ink border border-white/15 text-sm text-white focus:outline-none focus:border-gold"
                   >
                     {ENQUIRY_SCOPES.map((t) => (
@@ -1130,9 +1264,13 @@ export default function AuriumArenaClient() {
                     Message / Specific Questions
                   </label>
                   <textarea
+                    name="message"
                     rows={4}
                     value={message}
-                    onChange={(e) => setMessage(e.target.value)}
+                    onChange={(e) => {
+                      markFormStarted();
+                      setMessage(e.target.value);
+                    }}
                     placeholder="Share your background, interest in the 7v7 turf, spectator venue, or elevated restaurant, and any questions for our project team..."
                     className="w-full px-4 py-3 rounded-xl bg-ink border border-white/15 text-sm text-white placeholder:text-chalk/40 focus:outline-none focus:border-gold"
                   />
@@ -1151,7 +1289,11 @@ export default function AuriumArenaClient() {
               </div>
 
               {error && (
-                <div className="p-3.5 rounded-xl bg-red-500/15 border border-red-500/30 text-xs text-red-200">
+                <div
+                  role="alert"
+                  data-testid="arena-form-error"
+                  className="p-3.5 rounded-xl bg-red-500/15 border border-red-500/30 text-xs text-red-200"
+                >
                   {error}
                 </div>
               )}
@@ -1170,7 +1312,7 @@ export default function AuriumArenaClient() {
                   <span>•</span>
                   <a
                     href={`mailto:${site.email}?subject=${encodeURIComponent('Aurium Arena Investment & Partnership Enquiry')}`}
-                    onClick={() => trackContactClick('email')}
+                    onClick={() => trackEmailClick('aurium_arena_form')}
                     className="text-gold hover:underline font-bold inline-flex items-center gap-1.5"
                   >
                     <Mail size={15} /> {site.email}
@@ -1179,6 +1321,7 @@ export default function AuriumArenaClient() {
                 <button
                   type="submit"
                   disabled={submitting}
+                  data-testid="arena-form-submit"
                   className="px-8 py-4 rounded-full bg-gold text-ink font-bold text-xs uppercase tracking-widest hover:bg-chalk transition-all disabled:opacity-60 shadow-lg"
                 >
                   {submitting

@@ -1,13 +1,30 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useEcosystem } from "@/components/aic/EcosystemProvider";
-import { trackTitansSponsorEnquiry } from "@/lib/analytics";
+import {
+  FormMeta,
+  trackTitansSponsorEnquiry,
+  trackFormView,
+  trackFormStart,
+  trackFormSubmitAttempt,
+  trackFormValidationError,
+} from "@/lib/analytics";
 import { ShieldCheck, CheckCircle2, Sparkles, Send } from "lucide-react";
+
+const TITANS_SPONSOR_META: FormMeta = {
+  formId: "aic_titans_sponsorship_form",
+  formName: "AIC Titans Cup Sponsorship & CSR Enquiry",
+  formType: "sponsorship_enquiry",
+  leadCategory: "sponsorship",
+};
 
 export default function SponsorsPage() {
   const { store, mutateStore } = useEcosystem();
+  const formRef = useRef<HTMLFormElement>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [form, setForm] = useState({
     organizationName: "",
     industryCategory: "FinTech / Payment Network",
@@ -21,16 +38,95 @@ export default function SponsorsPage() {
     message: "",
   });
 
+  useEffect(() => {
+    const el = formRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          trackFormView(TITANS_SPONSOR_META);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
   const umbrellaPackages = store.sponsorshipPackages.filter((p) => p.level === "LEVEL_2_UMBRELLA");
   const individualPackages = store.sponsorshipPackages.filter((p) => p.level === "LEVEL_1_INDIVIDUAL");
   const csrPackage = store.sponsorshipPackages.find((p) => p.level === "LOCAL_BFI_CSR");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await mutateStore("SUBMIT_SPONSOR_ENQUIRY", form);
-    if (res.ok) {
-      trackTitansSponsorEnquiry(form.interestedLevel, form.interestedCompetition);
-      setSubmitted(true);
+    if (submitting || submitted) return;
+
+    trackFormSubmitAttempt(TITANS_SPONSOR_META);
+    setErrorMsg(null);
+
+    if (!form.organizationName.trim()) {
+      setErrorMsg("Please enter your organization or brand name.");
+      trackFormValidationError({
+        ...TITANS_SPONSOR_META,
+        errorField: "organizationName",
+        errorType: "missing_required_field",
+      });
+      return;
+    }
+
+    if (!form.contactName.trim()) {
+      setErrorMsg("Please enter the contact person's name.");
+      trackFormValidationError({
+        ...TITANS_SPONSOR_META,
+        errorField: "contactName",
+        errorType: "missing_required_field",
+      });
+      return;
+    }
+
+    if (!form.designation.trim()) {
+      setErrorMsg("Please enter the contact person's designation.");
+      trackFormValidationError({
+        ...TITANS_SPONSOR_META,
+        errorField: "designation",
+        errorType: "missing_required_field",
+      });
+      return;
+    }
+
+    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+      setErrorMsg("Please enter a valid official email address.");
+      trackFormValidationError({
+        ...TITANS_SPONSOR_META,
+        errorField: "email",
+        errorType: "invalid_email_format",
+      });
+      return;
+    }
+
+    if (!form.phone.trim() || form.phone.replace(/\D/g, "").length < 7) {
+      setErrorMsg("Please enter a valid direct mobile number.");
+      trackFormValidationError({
+        ...TITANS_SPONSOR_META,
+        errorField: "phone",
+        errorType: "invalid_phone_format",
+      });
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const res = await mutateStore("SUBMIT_SPONSOR_ENQUIRY", form);
+      if (res.ok) {
+        const sponId = `SPON-${Date.now().toString().slice(-6)}`;
+        trackTitansSponsorEnquiry(form.interestedLevel, form.interestedCompetition, sponId);
+        setSubmitted(true);
+      } else {
+        setErrorMsg(res.error || "Unable to submit sponsorship enquiry.");
+      }
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -194,7 +290,27 @@ export default function SponsorsPage() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+              <form
+                ref={formRef}
+                id="aic_titans_sponsorship_form"
+                data-form-id="aic_titans_sponsorship_form"
+                onSubmit={handleSubmit}
+                noValidate
+                onChange={() => {
+                  trackFormStart(TITANS_SPONSOR_META);
+                  if (errorMsg) setErrorMsg(null);
+                }}
+                className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs"
+              >
+                {errorMsg && (
+                  <div
+                    role="alert"
+                    data-testid="sponsor-form-error"
+                    className="sm:col-span-2 p-3.5 rounded-xl bg-red-500/15 border border-red-500/40 text-red-800 font-bold"
+                  >
+                    {errorMsg}
+                  </div>
+                )}
                 <div>
                   <label className="block font-bold text-[#101D32] mb-1">Organization / Brand Name *</label>
                   <input

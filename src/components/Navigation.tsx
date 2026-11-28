@@ -9,6 +9,7 @@ import { site } from '@/data/site';
 import { services } from '@/data/services';
 import { Menu, X, ChevronDown, MessageCircle, ArrowRight } from 'lucide-react';
 import { buttonClass } from '@/lib/ui';
+import { trackWhatsAppClick, trackCtaClick } from '@/lib/analytics';
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
@@ -186,6 +187,7 @@ export function Navigation() {
               href={`https://wa.me/${site.whatsapp}`}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackWhatsAppClick('header_navbar')}
               className="p-2.5 rounded-full bg-white/10 hover:bg-[#25D366] text-chalk transition-colors"
               title="Chat on WhatsApp"
               aria-label="Chat on WhatsApp"
@@ -194,7 +196,15 @@ export function Navigation() {
             </a>
 
             <button
-              onClick={() => openEnquiry('register')}
+              onClick={() => {
+                trackCtaClick({
+                  ctaText: 'Book a Spot',
+                  ctaType: 'academy_enrollment_cta',
+                  ctaLocation: 'header_navbar',
+                  destinationUrl: '#enquiry-modal',
+                });
+                openEnquiry('register');
+              }}
               className={buttonClass('gold', '!py-2.5 !px-5 text-xs shadow-md')}
             >
               Book a Spot

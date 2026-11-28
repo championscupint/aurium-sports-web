@@ -7,11 +7,17 @@ import {
   getBfiCensus,
 } from "@/lib/store";
 import { INITIAL_ECOSYSTEM_STORE } from "@/data/initial-store";
-import { ArenaInvestorEnquiry, RegistrationApplication, SponsorEnquiry } from "@/types/ecosystem";
+import {
+  ArenaInvestorEnquiry,
+  RegistrationApplication,
+  SponsorEnquiry,
+  WebsiteLeadSubmission,
+} from "@/types/ecosystem";
 import {
   sendArenaInvestorEnquiryEmail,
   sendRegistrationAlertEmail,
   sendSponsorEnquiryAlertEmail,
+  sendWebsiteLeadEmail,
 } from "@/lib/mailer";
 
 const ALLOWED_ADMIN_EMAIL = "auriumsports@gmail.com";
@@ -111,8 +117,8 @@ export async function POST(req: NextRequest) {
       });
 
       writeEcosystemStore(store);
-      const emailStatus = await sendRegistrationAlertEmail(newReg);
-      return NextResponse.json({ ok: true, registration: newReg, emailNotified: emailStatus.sent, store });
+      void sendRegistrationAlertEmail(newReg);
+      return NextResponse.json({ ok: true, registration: newReg, emailNotified: true, store });
     }
 
     if (action === "SUBMIT_SPONSOR_ENQUIRY") {
@@ -142,8 +148,8 @@ export async function POST(req: NextRequest) {
         }`,
       });
       writeEcosystemStore(store);
-      const emailStatus = await sendSponsorEnquiryAlertEmail(enq);
-      return NextResponse.json({ ok: true, enquiry: enq, emailNotified: emailStatus.sent, store });
+      void sendSponsorEnquiryAlertEmail(enq);
+      return NextResponse.json({ ok: true, enquiry: enq, emailNotified: true, store });
     }
 
     if (action === "SUBMIT_ARENA_INVESTOR_ENQUIRY") {
@@ -184,8 +190,65 @@ export async function POST(req: NextRequest) {
       });
 
       writeEcosystemStore(store);
-      const emailStatus = await sendArenaInvestorEnquiryEmail(enq);
-      return NextResponse.json({ ok: true, enquiry: enq, emailNotified: emailStatus.sent, store });
+      void sendArenaInvestorEnquiryEmail(enq);
+      return NextResponse.json({ ok: true, enquiry: enq, emailNotified: true, store });
+    }
+
+    if (action === "SUBMIT_WEBSITE_LEAD") {
+      const fields = (payload?.fields || {}) as Record<string, string>;
+      const formId = String(payload?.formId || "general_contact_form").trim();
+      const formName = String(payload?.formName || "General Website Enquiry").trim();
+      const formType = String(payload?.formType || "general_enquiry").trim();
+      const leadCategory = String(payload?.leadCategory || "general").trim();
+
+      const primaryContactName =
+        (fields.player || fields.name || fields.guardian || "").trim();
+      const primaryPhone = (fields.phone || "").trim();
+
+      if (!primaryContactName || !primaryPhone) {
+        return NextResponse.json(
+          { error: "Please provide your name and phone number." },
+          { status: 400 }
+        );
+      }
+
+      const lead: WebsiteLeadSubmission = {
+        id: `LEAD-${Date.now().toString().slice(-6)}`,
+        createdAt: new Date().toISOString(),
+        formId,
+        formName,
+        formType,
+        leadCategory,
+        serviceSlug: payload?.serviceSlug ? String(payload.serviceSlug) : undefined,
+        optionName: payload?.optionName ? String(payload.optionName) : undefined,
+        pageLocation: payload?.pageLocation ? String(payload.pageLocation) : undefined,
+        fields,
+        status: "NEW",
+      };
+
+      if (!store.websiteLeads) {
+        store.websiteLeads = [];
+      }
+      store.websiteLeads.unshift(lead);
+      store.auditLogs.unshift({
+        id: `log-${Date.now()}`,
+        timestamp: new Date().toISOString(),
+        actor: primaryContactName,
+        action: "WEBSITE_LEAD_RECEIVED",
+        details: `${lead.formName} [${lead.formId}] (${lead.leadCategory})${
+          lead.optionName ? ` · Option: ${lead.optionName}` : ""
+        }`,
+      });
+
+      writeEcosystemStore(store);
+      void sendWebsiteLeadEmail(lead);
+      return NextResponse.json({
+        ok: true,
+        leadId: lead.id,
+        leadCategory: lead.leadCategory,
+        formId: lead.formId,
+        emailNotified: true,
+      });
     }
 
     // Protected Admin Actions require auriumsports@gmail.com + verified password

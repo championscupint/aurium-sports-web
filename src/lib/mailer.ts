@@ -1,5 +1,10 @@
 import nodemailer from "nodemailer";
-import { ArenaInvestorEnquiry, RegistrationApplication, SponsorEnquiry } from "@/types/ecosystem";
+import {
+  ArenaInvestorEnquiry,
+  RegistrationApplication,
+  SponsorEnquiry,
+  WebsiteLeadSubmission,
+} from "@/types/ecosystem";
 
 const GMAIL_USER = process.env.GMAIL_USER || "auriumsports@gmail.com";
 const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD || "";
@@ -13,6 +18,9 @@ function getTransporter() {
     host: "smtp.gmail.com",
     port: 465,
     secure: true,
+    connectionTimeout: 3500,
+    greetingTimeout: 3500,
+    socketTimeout: 4500,
     auth: {
       user: GMAIL_USER,
       pass: GMAIL_APP_PASSWORD,
@@ -229,6 +237,55 @@ export async function sendArenaInvestorEnquiryEmail(
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : "Email send failed";
     console.warn("Arena investor enquiry email notification error:", msg);
+    return { sent: false, error: msg };
+  }
+}
+
+export async function sendWebsiteLeadEmail(
+  lead: WebsiteLeadSubmission
+): Promise<{ sent: boolean; error?: string }> {
+  const transporter = getTransporter();
+  if (!transporter) {
+    return { sent: false, error: "GMAIL_APP_PASSWORD not configured" };
+  }
+
+  const fieldLines = Object.entries(lead.fields)
+    .filter(([, val]) => Boolean(val && String(val).trim()))
+    .map(([key, val]) => `- ${key}: ${String(val).trim()}`);
+
+  const replyToEmail = lead.fields.email && lead.fields.email.includes("@")
+    ? lead.fields.email.trim()
+    : undefined;
+
+  try {
+    await transporter.sendMail({
+      from: `"Aurium Sports Website Desk" <${GMAIL_USER}>`,
+      to: ADMIN_NOTIFY_EMAIL,
+      replyTo: replyToEmail,
+      subject: `[NEW WEBSITE LEAD · ${lead.leadCategory.toUpperCase()}] ${lead.formName} (${lead.id})`,
+      text: [
+        "NEW VERIFIED LEAD SUBMITTED ON AURIUMSPORTS.COM",
+        "===============================================",
+        `Lead Reference ID: ${lead.id}`,
+        `Submitted At: ${lead.createdAt}`,
+        `Form ID: ${lead.formId}`,
+        `Form Name: ${lead.formName}`,
+        `Form Type: ${lead.formType}`,
+        `Lead Category: ${lead.leadCategory}`,
+        lead.serviceSlug ? `Service: ${lead.serviceSlug}` : "",
+        lead.optionName ? `Selected Option: ${lead.optionName}` : "",
+        lead.pageLocation ? `Page URL: ${lead.pageLocation}` : "",
+        "",
+        "SUBMITTED DETAILS:",
+        ...fieldLines,
+      ]
+        .filter(Boolean)
+        .join("\n"),
+    });
+    return { sent: true };
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : "Email send failed";
+    console.warn("Website lead email notification error:", msg);
     return { sent: false, error: msg };
   }
 }

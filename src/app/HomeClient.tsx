@@ -10,6 +10,11 @@ import { SocialMediaShowcase } from '@/components/SocialMediaShowcase';
 import { PlayerProgrammesShowcase } from '@/components/PlayerProgrammesShowcase';
 import { CoachingRemarksAndTestimonials } from '@/components/CoachingRemarksAndTestimonials';
 import { buttonClass } from '@/lib/ui';
+import {
+  trackCtaClick,
+  trackWhatsAppClick,
+  trackFaqExpand,
+} from '@/lib/analytics';
 import { ArrowRight, MessageCircle, ChevronDown, HelpCircle, Sparkles, BarChart3, ShieldCheck } from 'lucide-react';
 import type { FAQItem } from '@/lib/schema';
 
@@ -18,6 +23,9 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const toggleFaq = (idx: number) => {
+    if (openFaq !== idx) {
+      trackFaqExpand('home_academy_faq', idx);
+    }
     setOpenFaq(openFaq === idx ? null : idx);
   };
 
@@ -631,7 +639,15 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
 
           <div className="flex flex-wrap items-center gap-4 shrink-0">
             <button
-              onClick={() => openEnquiry('register', 'academy')}
+              onClick={() => {
+                trackCtaClick({
+                  ctaText: 'Book a Spot Now',
+                  ctaType: 'academy_enrollment_cta',
+                  ctaLocation: 'home_bottom_banner',
+                  destinationUrl: '#enquiry-modal',
+                });
+                openEnquiry('register', 'academy');
+              }}
               className={buttonClass('gold', '!py-4 !px-8 text-xs')}
             >
               Book a Spot Now
@@ -640,6 +656,7 @@ export function HomeClient({ faqs }: { faqs: FAQItem[] }) {
               href={`https://wa.me/${site.whatsapp}`}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackWhatsAppClick('home_bottom_banner')}
               className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1EBE5D] text-white font-bold text-xs uppercase tracking-wider px-6 py-4 rounded-full transition-colors"
             >
               <MessageCircle size={16} /> WhatsApp ({site.phones[0]})

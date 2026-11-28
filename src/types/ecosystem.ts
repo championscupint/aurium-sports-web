@@ -304,6 +304,20 @@ export interface ArenaInvestorEnquiry {
   status: "NEW" | "IN_DISCUSSION" | "APPROVED";
 }
 
+export interface WebsiteLeadSubmission {
+  id: string;
+  createdAt: string;
+  formId: string;
+  formName: string;
+  formType: string;
+  leadCategory: string;
+  serviceSlug?: string;
+  optionName?: string;
+  pageLocation?: string;
+  fields: Record<string, string>;
+  status: "NEW" | "CONTACTED";
+}
+
 export interface CSRImpactMetrics {
   childrenReached: number | null;
   girlsParticipating: number | null;
@@ -386,6 +400,7 @@ export interface EcosystemStore {
   sponsors: SponsorProfile[];
   sponsorEnquiries: SponsorEnquiry[];
   arenaInvestorEnquiries?: ArenaInvestorEnquiry[];
+  websiteLeads?: WebsiteLeadSubmission[];
   csrMetrics: CSRImpactMetrics;
   csrProjects: CSRProject[];
   news: NewsArticle[];

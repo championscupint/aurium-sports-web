@@ -37,6 +37,7 @@ import {
 } from 'lucide-react';
 import { NextSportzCardShowcase } from '@/components/NextSportzCard';
 import { TournamentStatsCenter } from '@/components/TournamentStatsCenter';
+import { trackCtaClick, trackFilterInteraction } from '@/lib/analytics';
 
 type StatusFilter = 'ALL' | 'UPCOMING' | 'LIVE' | 'PAST';
 type CategoryFilter = 'ALL' | 'CORPORATE' | 'YOUTH' | 'INTERNATIONAL';
@@ -625,6 +626,14 @@ export function TournamentsClient() {
                       href="https://nepalyouthcup.com/"
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() =>
+                        trackCtaClick({
+                          ctaText: 'Explore Tournament (Nepal Youth Cup)',
+                          ctaType: 'external_registration_intent',
+                          ctaLocation: 'tournaments_nepal_youth_cup_card',
+                          destinationUrl: 'https://nepalyouthcup.com/',
+                        })
+                      }
                       className={buttonClass('gold', '!py-3.5 !px-7 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2')}
                     >
                       Explore Tournament <ArrowUpRight size={16} />

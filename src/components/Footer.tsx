@@ -7,7 +7,13 @@ import { usePathname } from 'next/navigation';
 import { site } from '@/data/site';
 import { services } from '@/data/services';
 import { useEnquiry } from './EnquiryContext';
-import { trackSocialClick, trackWhatsAppClick } from '@/lib/analytics';
+import {
+  trackSocialClick,
+  trackWhatsAppClick,
+  trackPhoneClick,
+  trackEmailClick,
+  trackCtaClick,
+} from '@/lib/analytics';
 import { Mail, MapPin, Phone, ArrowUpRight } from 'lucide-react';
 
 export function Footer() {
@@ -201,11 +207,23 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Phone size={15} className="text-gold shrink-0" />
-                <span>{site.phones[0]}</span>
+                <a
+                  href={`tel:${site.phones[0]}`}
+                  onClick={() => trackPhoneClick('footer_hq')}
+                  className="hover:text-gold transition-colors"
+                >
+                  {site.phones[0]}
+                </a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail size={15} className="text-gold shrink-0" />
-                <span>{site.email}</span>
+                <a
+                  href={`mailto:${site.email}`}
+                  onClick={() => trackEmailClick('footer_hq')}
+                  className="hover:text-gold transition-colors"
+                >
+                  {site.email}
+                </a>
               </li>
               <li className="pt-2">
                 <div className="flex flex-col gap-1.5 font-sans">
