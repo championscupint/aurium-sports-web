@@ -6,7 +6,10 @@ import { Footer } from "@/components/Footer";
 import { MainWrapper } from "@/components/MainWrapper";
 import { EnquiryProvider } from "@/components/EnquiryContext";
 import { EnquiryModal } from "@/components/EnquiryModal";
-import GoogleAnalytics, { GTM_ID } from "@/components/GoogleAnalytics";
+import GoogleAnalytics, {
+  GTM_ID,
+  GA_MEASUREMENT_ID,
+} from "@/components/GoogleAnalytics";
 import { site } from "@/data/site";
 import {
   getOrganizationSchema,
@@ -107,6 +110,41 @@ export default function RootLayout({
       className={`${inter.variable} ${anton.variable} ${fraunces.variable} h-full antialiased`}
     >
       <head>
+        {/* Google Tag Manager (GTM-WN2PGNJH) */}
+        {GTM_ID && (
+          <script
+            id="google-tag-manager"
+            dangerouslySetInnerHTML={{
+              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_ID}');`,
+            }}
+          />
+        )}
+        {/* Google Analytics 4 (G-P12F8T385S) */}
+        {GA_MEASUREMENT_ID && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+            />
+            <script
+              id="ga4-init"
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_MEASUREMENT_ID}', {
+  anonymize_ip: true,
+  allow_google_signals: false,
+  allow_ad_personalization_signals: false
+});`,
+              }}
+            />
+          </>
+        )}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
